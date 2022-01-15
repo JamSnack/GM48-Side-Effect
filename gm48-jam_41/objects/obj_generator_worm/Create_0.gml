@@ -5,3 +5,4 @@ speed = random(10);
 radius = irandom_range(3,6);
 tile_placing = ITEMID.item_dirt;
 life_span = irandom_range(50,100);
+is_ore = false;

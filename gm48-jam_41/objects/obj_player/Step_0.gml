@@ -9,18 +9,28 @@ key_down = keyboard_check(ord("S"));
 key_inventory = keyboard_check_released(ord("F"));
 
 var hmove = (key_right - key_left);
-hspd += hmove*( agility * 0.1);
+hspd += hmove*( agility * 0.1 * weight);
 
 var vmove = (key_down - key_up);
-vspd += vmove*( agility * 0.1);
+vspd += vmove*( agility * 0.1 * weight);
+
+//-- Apply friction
+var _f = 0.07;
+
+hspd = approach(hspd, 0, _f);
+vspd = approach(vspd, 0 ,_f);
+
+//-- Clamp itS
 
 hspd = clamp(hspd, -max_speed, max_speed);
 vspd = clamp(vspd, -max_speed, max_speed);
 
 //-- Horizontal Collision
-if ( place_meeting_fast(hspd, 0, OBSTA, false) )
+if (hspd != 0 && place_meeting_fast(hspd, 0, OBSTA, false))
 {
 	var _d = sign(hspd);
+	
+	if (hspd < 1 && hspd > -1) then _d = hspd;
 	
 	repeat(25) 
 	{
@@ -35,9 +45,11 @@ if ( place_meeting_fast(hspd, 0, OBSTA, false) )
 
 
 //-- Vertical Collision
-if ( place_meeting_fast(0, vspd, OBSTA, false) )
+if ( vspd != 0 && place_meeting_fast(0, vspd, OBSTA, false) )
 {
 	var _d = sign(vspd);
+	
+	if (vspd < 1 && vspd > -1) then _d = vspd;
 	
 	repeat(25) 
 	{
@@ -51,9 +63,16 @@ if ( place_meeting_fast(0, vspd, OBSTA, false) )
 }
 
 //-- Move the player
-//show_debug_message(string(hspd) + " : " + string(vspd) );
+show_debug_message(string(hspd) + " : " + string(vspd) );
 x += hspd;
 y += vspd;
+
+//-- DESTICK AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+if (collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, OBSTA, false, false))
+{
+	x -= hspd;
+	y -= vspd;
+}
 
 //-- Rotate sprite
 if (hspd != 0 || vspd != 0)
@@ -61,17 +80,13 @@ if (hspd != 0 || vspd != 0)
 	sprite_rotation = point_direction(x,y,x+hspd,y+vspd);
 }
 
-
-//-- Apply friction
-var _f = 0.07;
-
-hspd = approach(hspd, 0, _f);
-vspd = approach(vspd, 0 ,_f);
-
 //-- keyboard shenanigans
 if (key_inventory)
 {
 	inventory_open = !inventory_open;
+	
+	//Use expensive function to resynch items_held just in-case!
+	items_held = get_inventory_size();
 }
 
 //-- Inventory animation
@@ -105,7 +120,7 @@ if (mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_
 if mining_delay > 0 then mining_delay -= 1;
 
 //-- Handle tooltip
-if (inventory_open == true)
+if (inventory_open == true) && consume_delay <= 0
 {
 	var pos_x = 10;
 	var pos_y = 30;
@@ -113,8 +128,8 @@ if (inventory_open == true)
 	var item_scale = 3;
 	
 	var item_x_pos =  pos_x + 7;
-	var hbox_x = item_scale*32;
-	var hbox_y = item_scale*32;
+	var hbox_x = item_scale*16;
+	var hbox_y = item_scale*16;
 
 	for (i=0; i<ITEMID.last; i++)
 	{
@@ -127,8 +142,33 @@ if (inventory_open == true)
 			if (point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),item_x_pos,item_y_pos, item_x_pos + hbox_x, item_y_pos + hbox_y))
 			{
 				tooltip_data = get_item_data(i);
+				
+				if (mouse_check_button_released(mb_left))
+				{
+					global.inventory[i] -= 1;
+					consume_material(i);
+					consume_delay = 8;
+				}
+				
 				break;
 			} else tooltip_data = 0;
 		}
 	}
 }
+
+consume_delay -= 1;
+
+//Encumbered!
+if (items_held > weight_tolerance)
+{
+	if (encumber_prompt = false)
+	{
+		encumber_prompt = true;
+		obj_control.hud_text_buffer += "\nYou are encumbered!\n";	
+	}
+	
+	weight = weight_tolerance/items_held;
+	
+} 
+else
+{ encumber_prompt = false; weight = 1; }

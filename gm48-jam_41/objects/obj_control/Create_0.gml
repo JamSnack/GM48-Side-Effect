@@ -22,3 +22,9 @@ global.inventory = array_create(ITEMID.last,0);
 //World GEN :)
 game_state = "INIT";
 generate_world(game_state);
+
+//Text log
+hud_text_buffer = "";
+hud_text = "";
+hud_text_delay_set = 2;
+hud_text_delay = hud_text_delay_set;

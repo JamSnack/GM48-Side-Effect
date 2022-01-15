@@ -7,3 +7,5 @@ image_index = item_id - 1;
 drop_item = true;
 
 depth = 1;
+
+light = 0;

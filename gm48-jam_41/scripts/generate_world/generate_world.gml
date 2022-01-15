@@ -30,11 +30,13 @@ function generate_world(game_state)
 				dirt_worm.tile_placing = ITEMID.item_dirt;
 			}
 			
-			repeat(20)
+			repeat(15)
 			{
 				var ore_worm = instance_create_layer(irandom_range(0,room_width),irandom_range(0,room_height),"Instances",obj_generator_worm);
 				ore_worm.tile_placing = choose(ITEMID.item_coal,ITEMID.item_iron,ITEMID.item_copper);
-				ore_worm.life_span = irandom_range(15,20);
+				ore_worm.life_span = irandom_range(7,12);
+				ore_worm.radius = 1;
+				ore_worm.is_ore = true;
 			}
 		}
 		break;

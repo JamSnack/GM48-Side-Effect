@@ -5,9 +5,10 @@ hspd = 0;
 vspd = 0;
 
 //Player stats
-max_speed = 16;
-agility = 2;
-weight_tolerance = 5;
+max_speed = 4;
+agility = 1;
+weight_tolerance = 30; //How much weight you can carry before it starts to encumber you.
+weight = 1;
 attack_rate = room_speed*2; //How many frames to wait until the next projectile.
 attack_damage = 1;
 mining_rate = room_speed; //How many frames to wait until the next mining tick.
@@ -23,6 +24,9 @@ sprite_rotation = 0;
 //Inventory
 inventory_open = false;
 tooltip_data = 0;
+items_held = 0;
+encumber_prompt = false;
+consume_delay = 0;
 
 //Mining
 mining = false;
@@ -37,3 +41,9 @@ while collision_circle(x,y,global.tile_size*4,obj_tile,false,false) != noone
 		instance_destroy();
 	}
 }
+
+//X, y
+x = round(x);
+y = round(y);
+
+draw_set_font(fnt_terminal_grotesque);

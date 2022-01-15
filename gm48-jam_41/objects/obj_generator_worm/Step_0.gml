@@ -27,7 +27,12 @@ while (life_span > 0)
 	y += lengthdir_y(speed,direction);
 	
 	radius += choose(0,0,0,1,-1);
-	radius = clamp(radius,2,6);
+	
+	if (is_ore == true)
+	{
+		radius = 1;
+	}
+	else radius = clamp(radius,2,6);
 	
 	direction += irandom_range(-10,10);
 	speed += random_range(-1,1);

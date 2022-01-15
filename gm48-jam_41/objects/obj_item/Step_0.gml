@@ -13,6 +13,7 @@ if (instance_exists(obj_player))
 		if (distance_to_player < 2)
 		{
 			global.inventory[item_id] += 1;
+			obj_player.items_held += 1;
 			instance_destroy();
 		}
 	}
