@@ -1,7 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-//-SPIN
-image_angle -= 0.5;
+alarm[0] = room_speed*7;
 
-//Death
-if (hp <= 0) then instance_destroy();
+damage = 1;
+objective = noone;

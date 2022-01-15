@@ -43,25 +43,51 @@ if (instance_exists(objective))
 	//Shoot at objective
 	if (shoot_delay <= 0)
 	{
-		var _tile = !collision_line(x,y,objective.x,objective.y,obj_tile,false,false);
+		var obj_direction = point_direction(x,y,objective.x,objective.y);
 		
-		if ( _tile == noone && collision_line(x,y,x+lengthdir_x(global.tile_size*6,image_angle),y+lengthdir_y(global.tile_size*6,image_angle), objective, false, false) != noone)
+		if ( !collision_line(x,y,objective.x,objective.y,obj_tile,false,false) )
 		{
 			//FIRE
 			shoot_delay = shoot_delay_set;
 			
+			var b = instance_create_layer(x,y,"Instances",obj_bullet);
+			b.direction = obj_direction;
+			b.speed = 10;
+			b.damage = 1; //Replace with difficulty;
+			b.objective = objective;
 			
 		}
 		else
 		{
-			shoot_delay = mining_delay_set;
-			
-			with _tile
+			if instance_exists(obj_tile)
 			{
-				drop_item = false;
-				instance_destroy();
+				var _inst = instance_nearest(x+hAccel,y+vAccel,obj_tile);
+				
+				if distance_to_object(_inst) < global.tile_size*2
+				{
+					shoot_delay = mining_delay_set;
+					mining = true;
+					mining_point_x = _inst.x;
+					mining_point_y = _inst.y;
+					
+					with _inst
+					{
+						drop_item = false;
+						update_tile_light(x,y);
+						instance_destroy();
+					}
+				}
 			}
 		}
 		
-	} else shoot_delay -= 1;
+	} 
+	else 
+	{
+		shoot_delay -= 1;
+		mining = false;
+	}
 }
+
+
+//Death
+if (hp <= 0) then instance_destroy();

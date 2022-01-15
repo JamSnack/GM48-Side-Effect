@@ -21,9 +21,13 @@ hspd = approach(hspd, 0, _f);
 vspd = approach(vspd, 0 ,_f);
 
 //-- Clamp itS
+var _ms = max_speed;
 
-hspd = clamp(hspd, -max_speed, max_speed);
-vspd = clamp(vspd, -max_speed, max_speed);
+if (max_speed <= 0) then _ms = 0.1;
+
+
+hspd = clamp(hspd, -_ms, _ms);
+vspd = clamp(vspd, -_ms, _ms);
 
 //-- Horizontal Collision
 if (hspd != 0 && place_meeting_fast(hspd, 0, OBSTA, false))
@@ -67,7 +71,7 @@ if (key_inventory)
 
 //-- Inventory animation
 
-//-- Mining
+//-- Mining and attack
 if (mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_x,mouse_y) <= mining_range)
 {
 	var _mine = collision_circle(mouse_x,mouse_y,2,obj_tile,false,false);
@@ -93,7 +97,19 @@ if (mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_
 	
 } else mining = false;
 
+if (mining == false && attack_delay <= 0 && mouse_check_button(mb_right))
+{
+	var b = instance_create_layer(x,y,"Instances",obj_bullet);
+	b.direction = point_direction(x,y,mouse_x,mouse_y);
+	b.speed = 12;
+	b.damage = attack_damage;
+	b.image_angle = b.direction;
+	b.objective = ENEMY;
+	attack_delay = attack_rate;
+}
+
 if mining_delay > 0 then mining_delay -= 1;
+if attack_delay > 0 then attack_delay -= 1;
 
 //-- Handle tooltip
 if (inventory_open == true) && consume_delay <= 0

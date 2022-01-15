@@ -3,8 +3,8 @@
 
 image_speed = 0;
 
-maxHp = 100;
-hp = maxHp;
+maxHp = 25;
+hp = maxHp - 10;
 
 //Text
 interaction_text_alpha = 0;
@@ -22,3 +22,6 @@ core_turret_damage_xp_max = 25;
 
 core_turret_rate = room_speed*2;
 core_turret_damage = 1;
+
+//Healing
+alarm[0] = 1;

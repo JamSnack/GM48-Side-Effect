@@ -2,6 +2,11 @@
 // You can write your code in this editor
 draw_self();
 
+if (mining == true)
+{
+	draw_line(x,y,mining_point_x,mining_point_y);	
+}
+
 if (hp < maxHp)
 {
 	draw_set_color(c_white);

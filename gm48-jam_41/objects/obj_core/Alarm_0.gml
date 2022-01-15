@@ -1,7 +1,4 @@
 /// @description Insert description here
 // You can write your code in this editor
-//-SPIN
-image_angle -= 0.5;
-
-//Death
-if (hp <= 0) then instance_destroy();
+if hp < maxHp then hp += 1;
+alarm[0] = room_speed*2;

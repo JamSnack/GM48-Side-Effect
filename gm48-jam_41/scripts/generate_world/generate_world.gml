@@ -24,20 +24,32 @@ function generate_world(game_state)
 				_inst.hp = get_tile_hp(ITEMID.item_stone);
 			}
 	
-			repeat(4)
+	
+			//Place dirt and ore!
+			
+			function generate_worm(repeat_amt,tile_placing,life_span,radius,is_ore)
 			{
-				var dirt_worm = instance_create_layer(irandom_range(0,room_width),irandom_range(0,room_height),"Instances",obj_generator_worm);
-				dirt_worm.tile_placing = ITEMID.item_dirt;
+				repeat(repeat_amt)
+				{
+					var ore_worm = instance_create_layer(irandom_range(0,room_width),irandom_range(0,room_height),"Instances",obj_generator_worm);
+					ore_worm.tile_placing = tile_placing;
+					ore_worm.life_span = life_span;
+					ore_worm.radius = radius;
+					ore_worm.is_ore = is_ore;
+				}
 			}
 			
-			repeat(15)
+			generate_worm(7, ITEMID.item_dirt, irandom_range(15,20), 3, false);
+			generate_worm(20, ITEMID.item_coal, irandom_range(7,12), 2, true);
+			generate_worm(20, ITEMID.item_copper, irandom_range(7,12), 2, true);
+			generate_worm(20, ITEMID.item_iron, irandom_range(7,12), 2, true);
+			
+			//Place enemy camps
+			repeat(1)
 			{
-				var ore_worm = instance_create_layer(irandom_range(0,room_width),irandom_range(0,room_height),"Instances",obj_generator_worm);
-				ore_worm.tile_placing = choose(ITEMID.item_coal,ITEMID.item_iron,ITEMID.item_copper);
-				ore_worm.life_span = irandom_range(7,12);
-				ore_worm.radius = 1;
-				ore_worm.is_ore = true;
+				instance_create_layer( choose( irandom_range( 0, 1500 ), irandom_range( 3500, room_width-64 ) ), choose( irandom_range( 0, 1500 ), irandom_range( 3500, room_height-64 ) ), "Instances", obj_enemy_core);	
 			}
+
 		}
 		break;
 	}

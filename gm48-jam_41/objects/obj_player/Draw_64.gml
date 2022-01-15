@@ -6,6 +6,7 @@ var my = device_mouse_y_to_gui(0);
 //Draw the inventory
 if (inventory_open == true)
 {
+	draw_set_halign(fa_left);
 	draw_sprite_stretched(spr_ui_menu,0,0,2,145+270,500);
 	//draw_rectangle(0,2,145+300,500,false);
 	
@@ -52,6 +53,9 @@ if (inventory_open == true)
 	draw_text_transformed(150,_oy+90,"Mining Range: "+string(mining_range),stats_scale,stats_scale,0);
 	draw_text_transformed(150,_oy+110,"Attack Cooldown: "+string(attack_rate),stats_scale,stats_scale,0);
 	draw_text_transformed(150,_oy+130,"Attack Damage: "+string(attack_damage),stats_scale,stats_scale,0);
+	draw_text_transformed(150,_oy+150,"Max HP: "+string(maxHp),stats_scale,stats_scale,0);
+	draw_text_transformed(150,_oy+170,"HP Regen Rate: "+string(hp_regen_rate),stats_scale,stats_scale,0);
+	draw_text_transformed(150,_oy+190,"HP Regen Amt: "+string(hp_regen_amt),stats_scale,stats_scale,0);
 	
 	
 	//- Draw tooltip

@@ -9,13 +9,17 @@ max_speed = 4;
 agility = 1;
 weight_tolerance = 30; //How much weight you can carry before it starts to encumber you.
 weight = 1;
-attack_rate = room_speed*2; //How many frames to wait until the next projectile.
+attack_rate = room_speed; //How many frames to wait until the next projectile.
 attack_damage = 1;
-mining_rate = room_speed; //How many frames to wait until the next mining tick.
+mining_rate = 60; //How many frames to wait until the next mining tick.
 mining_damage = 1; //How much damage is dealt to a tile per mining tick.
 mining_range = global.tile_size*4;
 maxHp = 10;
 hp = maxHp;
+hp_regen_rate = room_speed*5;
+hp_regen_amt = 1;
+
+attack_delay = 0;
 
 //Other
 mask_index = hbox_player;
@@ -51,3 +55,9 @@ draw_set_font(fnt_terminal_grotesque);
 
 //Scuffed core spawn
 instance_create_layer(x,y-64,"Instances",obj_core);
+
+//Slow HP regen
+alarm[0] = room_speed*5;
+
+global.inventory[ITEMID.item_coal] = 10;
+global.inventory[ITEMID.item_iron] = 10;

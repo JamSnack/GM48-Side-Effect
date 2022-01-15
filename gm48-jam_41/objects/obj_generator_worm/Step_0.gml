@@ -23,8 +23,14 @@ while (life_span > 0)
 	
 	life_span -= 1;
 	
-	x += lengthdir_x(speed,direction);
-	y += lengthdir_y(speed,direction);
+	var h_step = lengthdir_x(speed,direction);
+	var v_step = lengthdir_y(speed,direction);
+	
+	if (x + h_step < 0 || x + h_step > room_width) then h_step = -h_step;
+	if (y + v_step < 0 || y + v_step > room_height) then v_step = -v_step;
+	
+	x += h_step;
+	y += v_step;
 	
 	radius += choose(0,0,0,1,-1);
 	

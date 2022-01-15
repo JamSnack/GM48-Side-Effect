@@ -66,7 +66,6 @@ if (interaction_open == true)
 				core_hp_xp = 0;
 				
 				maxHp += 25;
-				hp = maxHp;
 			}
 			else if (core_turret_rate_xp >= core_turret_rate_xp_max)
 			{
@@ -84,6 +83,8 @@ if (interaction_open == true)
 			}
 			
 		} else upgrade_hovering = noone; 
+		
+		obj_player.items_held = get_inventory_size();
 	}
 }
 

@@ -27,7 +27,7 @@ if (interaction_open == true)
 	draw_set_colour(c_purple);
 	draw_rectangle(_xx+90,_yy+80,_xx+90+(300*(core_hp_xp/core_hp_xp_max)),_yy+110,false);
 	draw_rectangle(_xx+90,_yy+170-15,_xx+90+(300*(core_turret_rate_xp/core_turret_rate_xp_max)),_yy+170+15,false);
-	draw_rectangle(_xx+90,_yy+245-15,_xx+90+(300*(core_turret_damage_xp/core_turret_damage_xp)),_yy+245+15,false);
+	draw_rectangle(_xx+90,_yy+245-15,_xx+90+(300*(core_turret_damage_xp/core_turret_damage_xp_max)),_yy+245+15,false);
 	
 	//Hitbox debugging
 	//draw_rectangle(_xx+25,_yy+145,_xx+25+64,_yy+145+64,false);

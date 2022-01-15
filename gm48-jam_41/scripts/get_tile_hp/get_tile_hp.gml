@@ -6,10 +6,10 @@ function get_tile_hp(item_id)
 	
 	switch item_id
 	{
-		case ITEMID.item_coal: { _hp = 5; } break;
-		case ITEMID.item_copper: { _hp = 5; } break;
-		case ITEMID.item_iron: { _hp = 5; } break;
-		case ITEMID.item_stone: { _hp = 2; } break;
+		case ITEMID.item_coal: { _hp = 2; } break;
+		case ITEMID.item_copper: { _hp = 2; } break;
+		case ITEMID.item_iron: { _hp = 2; } break;
+		case ITEMID.item_stone: { _hp = 1; } break;
 		case ITEMID.item_dirt: { _hp = 1; } break;
 	}
 	

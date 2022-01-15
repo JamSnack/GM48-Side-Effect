@@ -23,15 +23,15 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
-    {"name":"inst_5FF97E07","path":"rooms/Room1/Room1.yy",},
     {"name":"inst_76E39F58","path":"rooms/Room1/Room1.yy",},
+    {"name":"inst_5FF97E07","path":"rooms/Room1/Room1.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
   "roomSettings": {
     "inheritRoomSettings": false,
-    "Width": 5000,
-    "Height": 4500,
+    "Width": 3500,
+    "Height": 3500,
     "persistent": false,
   },
   "viewSettings": {
