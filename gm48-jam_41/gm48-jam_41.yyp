@@ -29,6 +29,7 @@
     {"id":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"order":4,},
     {"id":{"name":"generate_world","path":"scripts/generate_world/generate_world.yy",},"order":4,},
     {"id":{"name":"consume_material","path":"scripts/consume_material/consume_material.yy",},"order":2,},
+    {"id":{"name":"spr_bullet","path":"sprites/spr_bullet/spr_bullet.yy",},"order":12,},
     {"id":{"name":"bkg_starry_sky","path":"sprites/bkg_starry_sky/bkg_starry_sky.yy",},"order":7,},
     {"id":{"name":"obj_generator_worm","path":"objects/obj_generator_worm/obj_generator_worm.yy",},"order":6,},
     {"id":{"name":"get_item_data","path":"scripts/get_item_data/get_item_data.yy",},"order":3,},

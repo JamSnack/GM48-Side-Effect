@@ -7,7 +7,7 @@ maxHp = 25;
 hp = maxHp;
 
 alarm[0] = room_speed*120; //Level Up
-alarm[1] = room_speed*60; //Spawn Unit
+alarm[1] = room_speed; //Spawn Unit
 
 
 
