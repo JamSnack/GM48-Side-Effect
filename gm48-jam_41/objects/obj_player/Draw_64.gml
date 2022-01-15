@@ -6,12 +6,12 @@ var my = device_mouse_y_to_gui(0);
 //Draw the inventory
 if (inventory_open == true)
 {
-	draw_set_color(c_gray);
-	draw_rectangle(0,2,145+300,500,false);
+	draw_sprite_stretched(spr_ui_menu,0,0,2,145+270,500);
+	//draw_rectangle(0,2,145+300,500,false);
 	
 	draw_set_font(fnt_terminal_grotesque);
 	draw_set_color(c_white);
-	draw_text(5,5,"Inventory");
+	draw_text(15,10,"Inventory");
 	draw_text_transformed(2,530,"Weight: "+string(items_held)+"/"+string(weight_tolerance),0.7,0.7,0);
 	
 	
@@ -83,6 +83,7 @@ if (inventory_open == true)
 }
 else
 {
+	draw_set_color(c_white);
 	draw_text_transformed(2,2,"HP: "+string(hp)+"/"+string(maxHp),0.8,0.8,0);
 	draw_text_transformed(2,20,"Weight: "+string(items_held)+"/"+string(weight_tolerance),0.7,0.7,0);
 }

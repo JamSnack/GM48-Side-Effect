@@ -38,6 +38,7 @@ while collision_circle(x,y,global.tile_size*4,obj_tile,false,false) != noone
 	with collision_circle(x,y,global.tile_size*4,obj_tile,false,false)
 	{
 		drop_item = false;
+		update_tile_light(x,y);
 		instance_destroy();
 	}
 }
@@ -47,3 +48,6 @@ x = round(x);
 y = round(y);
 
 draw_set_font(fnt_terminal_grotesque);
+
+//Scuffed core spawn
+instance_create_layer(x,y-64,"Instances",obj_core);

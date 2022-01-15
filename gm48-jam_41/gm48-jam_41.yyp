@@ -5,6 +5,7 @@
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":0,},
     {"id":{"name":"spr_tile","path":"sprites/spr_tile/spr_tile.yy",},"order":6,},
+    {"id":{"name":"spr_ui_menu","path":"sprites/spr_ui_menu/spr_ui_menu.yy",},"order":9,},
     {"id":{"name":"get_tile_hp","path":"scripts/get_tile_hp/get_tile_hp.yy",},"order":5,},
     {"id":{"name":"approach","path":"scripts/approach/approach.yy",},"order":0,},
     {"id":{"name":"obj_core","path":"objects/obj_core/obj_core.yy",},"order":7,},
