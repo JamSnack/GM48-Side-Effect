@@ -12,3 +12,7 @@ if (hud_text != "")
 	draw_set_valign(fa_top);
 	show_debug_message(hud_text);
 }
+
+//Draw timer
+var _str = "AGgggH"//string(time_h)+":"+string(time_m)+":"+string(time_s)+"."+string(time_mil);
+draw_text(display_get_gui_width()-string_width(_str),display_get_gui_height()-3,_str);

@@ -10,3 +10,15 @@ hp = maxHp;
 interaction_text_alpha = 0;
 interaction_text = "Press 'E' to interact.";
 interaction_open = false;
+upgrade_hovering = noone;
+
+//Core stats
+core_hp_xp = 0;
+core_hp_xp_max = 25;
+core_turret_rate_xp = 0;
+core_turret_rate_xp_max = 25;
+core_turret_damage_xp = 0;
+core_turret_damage_xp_max = 25;
+
+core_turret_rate = room_speed*2;
+core_turret_damage = 1;

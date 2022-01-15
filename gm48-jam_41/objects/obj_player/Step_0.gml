@@ -28,38 +28,14 @@ vspd = clamp(vspd, -max_speed, max_speed);
 //-- Horizontal Collision
 if (hspd != 0 && place_meeting_fast(hspd, 0, OBSTA, false))
 {
-	var _d = sign(hspd);
-	
-	if (hspd < 1 && hspd > -1) then _d = hspd;
-	
-	repeat(25) 
-	{
-		if ( !place_meeting_fast(_d, 0, OBSTA, false) )
-		{
-			x += _d;
-		} else break;
-	}
-	
-	hspd = 0;
+	hspd = -hspd;
 }
 
 
 //-- Vertical Collision
 if ( vspd != 0 && place_meeting_fast(0, vspd, OBSTA, false) )
 {
-	var _d = sign(vspd);
-	
-	if (vspd < 1 && vspd > -1) then _d = vspd;
-	
-	repeat(25) 
-	{
-		if ( !place_meeting_fast(0, _d, OBSTA, false) )
-		{
-			y += _d;
-		} else break;
-	}
-	
-	vspd = 0;
+	vspd = -vspd;
 }
 
 //-- Move the player
@@ -68,11 +44,11 @@ x += hspd;
 y += vspd;
 
 //-- DESTICK AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-if (collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, OBSTA, false, false))
+/*if (collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, OBSTA, false, false))
 {
 	x -= hspd;
 	y -= vspd;
-}
+}*/
 
 //-- Rotate sprite
 if (hspd != 0 || vspd != 0)

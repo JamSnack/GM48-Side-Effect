@@ -24,3 +24,24 @@ if hud_text_delay <= 0 && (hud_text_buffer != "" && hud_text != hud_text_buffer)
 }
 
 hud_text_delay -= 1;
+
+//Timer
+time_mil += (1/60);
+
+if (time_mil >= 1)
+{
+	time_mil = 0;
+	time_s += 1;
+	
+	if (time_s > 60)
+	{
+		time_s = 0;
+		time_m += 1;
+	
+		if (time_m > 60)
+		{
+			time_m = 0;
+			time_h += 1;
+		}
+	}
+}
