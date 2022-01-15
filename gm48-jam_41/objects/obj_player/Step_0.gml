@@ -103,3 +103,32 @@ if (mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_
 } else mining = false;
 
 if mining_delay > 0 then mining_delay -= 1;
+
+//-- Handle tooltip
+if (inventory_open == true)
+{
+	var pos_x = 10;
+	var pos_y = 30;
+	var drawn = 0;
+	var item_scale = 3;
+	
+	var item_x_pos =  pos_x + 7;
+	var hbox_x = item_scale*32;
+	var hbox_y = item_scale*32;
+
+	for (i=0; i<ITEMID.last; i++)
+	{
+		var item_y_pos = pos_y + 10 + drawn*18*item_scale;
+		
+		if (global.inventory[i] > 0)
+		{
+			drawn += 1;
+			
+			if (point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),item_x_pos,item_y_pos, item_x_pos + hbox_x, item_y_pos + hbox_y))
+			{
+				tooltip_data = get_item_data(i);
+				break;
+			} else tooltip_data = 0;
+		}
+	}
+}

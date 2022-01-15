@@ -1,5 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
+randomize();
 global.tile_size = 32;
 
 //ITEMID
@@ -19,4 +20,5 @@ enum ITEMID
 global.inventory = array_create(ITEMID.last,0);
 
 //World GEN :)
-generate_world();
+game_state = "INIT";
+generate_world(game_state);
