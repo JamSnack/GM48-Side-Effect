@@ -21,3 +21,5 @@ if (instance_exists(follow_this))
 
 //Snap the view
 camera_set_view_pos(local_camera,x - view_wport[0]/2,y - view_hport[0]/2);
+
+//if instance_exists(obj_asteroid) then follow_this = instance_nearest(x,y,obj_asteroid) else follow_this = obj_player;

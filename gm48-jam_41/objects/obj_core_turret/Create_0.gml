@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
-maxHp = 5;
-hp = maxHp;
+maxHp = 2;
+hp = 1;
 attack_rate = obj_core.core_turret_rate;
 attack_range = global.tile_size*5;
 attack_angle = 0;
@@ -20,3 +20,5 @@ while collision_circle(x,y,global.tile_size*2,obj_tile,false,false) != noone
 		instance_destroy();
 	}
 }
+
+alarm[0] = room_speed*2;

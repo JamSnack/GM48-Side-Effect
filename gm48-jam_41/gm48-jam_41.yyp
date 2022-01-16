@@ -22,6 +22,7 @@
     {"id":{"name":"spr_obsta","path":"sprites/spr_obsta/spr_obsta.yy",},"order":2,},
     {"id":{"name":"update_tile_light","path":"scripts/update_tile_light/update_tile_light.yy",},"order":7,},
     {"id":{"name":"spr_core","path":"sprites/spr_core/spr_core.yy",},"order":8,},
+    {"id":{"name":"spr_asteroid","path":"sprites/spr_asteroid/spr_asteroid.yy",},"order":16,},
     {"id":{"name":"spr_ui_arrow","path":"sprites/spr_ui_arrow/spr_ui_arrow.yy",},"order":15,},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},"order":10,},
     {"id":{"name":"sh_outline","path":"shaders/sh_outline/sh_outline.yy",},"order":0,},
