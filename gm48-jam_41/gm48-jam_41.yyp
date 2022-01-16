@@ -24,6 +24,7 @@
     {"id":{"name":"spr_core","path":"sprites/spr_core/spr_core.yy",},"order":8,},
     {"id":{"name":"spr_asteroid","path":"sprites/spr_asteroid/spr_asteroid.yy",},"order":16,},
     {"id":{"name":"spr_ui_arrow","path":"sprites/spr_ui_arrow/spr_ui_arrow.yy",},"order":15,},
+    {"id":{"name":"update_inventory","path":"scripts/update_inventory/update_inventory.yy",},"order":9,},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},"order":10,},
     {"id":{"name":"sh_outline","path":"shaders/sh_outline/sh_outline.yy",},"order":0,},
     {"id":{"name":"spr_item_drops","path":"sprites/spr_item_drops/spr_item_drops.yy",},"order":3,},

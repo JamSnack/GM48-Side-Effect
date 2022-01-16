@@ -66,7 +66,7 @@ if (key_inventory)
 	inventory_open = !inventory_open;
 	
 	//Use expensive function to resynch items_held just in-case!
-	items_held = get_inventory_size();
+	update_inventory();
 }
 
 //-- Inventory animation
@@ -115,7 +115,7 @@ if attack_delay > 0 then attack_delay -= 1;
 if (inventory_open == true) && consume_delay <= 0
 {
 	var pos_x = 10;
-	var pos_y = 30;
+	var pos_y = 30+scroll+40; //scroll+surface
 	var drawn = 0;
 	var item_scale = 3;
 	
@@ -140,12 +140,15 @@ if (inventory_open == true) && consume_delay <= 0
 					global.inventory[i] -= 1;
 					consume_material(i);
 					consume_delay = 8;
+					surface_free(inventory_surface);
 				}
 				
 				break;
 			} else tooltip_data = 0;
 		}
 	}
+	
+	//surface_free(inventory_surface);
 }
 
 consume_delay -= 1;
@@ -164,3 +167,8 @@ if (items_held > weight_tolerance)
 } 
 else
 { encumber_prompt = false; weight = 1; }
+
+
+//World border
+x = clamp(x,0,room_width);
+y = clamp(y,0,room_height);

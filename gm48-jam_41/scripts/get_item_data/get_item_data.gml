@@ -19,7 +19,7 @@ function get_item_data(item_id)
 		case ITEMID.item_aluminum: { data[0] = "Aluminum"; data[1] = ""; data[2] = "Increases Mining Damage"; data[3] = "Decreases Attack Damage"; } break;
 		case ITEMID.item_obsidian: { data[0] = "Obsidian"; data[1] = ""; data[2] = "Increases Attack Damage"; data[3] = "Decreases Mining Damage"; } break;
 		case ITEMID.item_ruby: { data[0] = "Ruby"; data[1] = ""; data[2] = "Increases Max HP"; data[3] = "Decreases HP Regeneration Rate"; } break;
-		case ITEMID.item_gold: { data[0] = "Gold"; data[1] = ""; data[2] = "Increases HP Regeneration Rate"; data[3] = "Decreases Max HP"; } break;
+		case ITEMID.item_gold: { data[0] = "Gold"; data[1] = ""; data[2] = "Increases HP Regeneration Rate"; data[3] = "Deacreases Max HP"; } break;
 		case ITEMID.item_diamond: { data[0] = "Diamond"; data[1] = ""; data[2] = "Increases HP Regenerated"; data[3] = ""; } break;
 		case ITEMID.item_phynite: { data[0] = "Phynite"; data[1] = "There's only a finite amount!"; data[2] = "Greatly Increases Acceleration"; data[3] = ""; } break;
 	}

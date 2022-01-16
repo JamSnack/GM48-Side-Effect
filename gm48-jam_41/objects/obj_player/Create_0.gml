@@ -31,6 +31,8 @@ tooltip_data = 0;
 items_held = 0;
 encumber_prompt = false;
 consume_delay = 0;
+inventory_surface = surface_create(700,800);
+scroll = 0;
 
 //Mining
 mining = false;
@@ -60,6 +62,7 @@ instance_create_layer(x,y-64,"Instances",obj_core);
 alarm[0] = room_speed*5;
 
 
+/*
 global.inventory[ITEMID.item_stone] = 360;
 global.inventory[ITEMID.item_iron] = 100;
 global.inventory[ITEMID.item_copper] = 100;

@@ -48,6 +48,8 @@ if (currently_placing != false && mb_left_released)
 		var _my = floor(mouse_y/32)*32;
 	
 		instance_create_layer(_mx,_my,"Instances",currently_placing);
+		
+		update_inventory();
 	}
 	else
 	{
@@ -143,7 +145,7 @@ if (interaction_open == true) && currently_placing == false
 		} 
 		else upgrade_hovering = noone; 
 		
-		obj_player.items_held = get_inventory_size();
+		update_inventory();
 	}
 }
 

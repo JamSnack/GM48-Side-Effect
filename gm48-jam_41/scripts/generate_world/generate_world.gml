@@ -40,9 +40,22 @@ function generate_world(game_state)
 			}
 			
 			generate_worm(7, ITEMID.item_dirt, irandom_range(15,20), 3, false);
+			
+			//-- Uncommon
+			generate_worm(7, ITEMID.item_obsidian, irandom_range(6,11), 1, true);
+			generate_worm(7, ITEMID.item_aluminum, irandom_range(6,11), 1, true);
+			
+			//-- Common
 			generate_worm(20, ITEMID.item_coal, irandom_range(7,12), 2, true);
 			generate_worm(20, ITEMID.item_copper, irandom_range(7,12), 2, true);
 			generate_worm(20, ITEMID.item_iron, irandom_range(7,12), 2, true);
+			generate_worm(20, ITEMID.item_silver, irandom_range(7,12), 2, true);
+			
+			//-- Rare
+			generate_worm(2, ITEMID.item_diamond, irandom_range(1,2), 1, true);
+			
+			//-- Finite
+			generate_worm(1, ITEMID.item_phynite, 1, 1, true);
 			
 			//Place enemy camps
 			repeat(1)
