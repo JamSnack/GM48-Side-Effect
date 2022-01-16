@@ -7,3 +7,5 @@ image_speed = 0;
 friction = 0.5;
 
 pickup_delay = 5;
+
+image_angle = random(360);

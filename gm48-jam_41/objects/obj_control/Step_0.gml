@@ -6,6 +6,28 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	show_debug_message("##game_state INIT finished. game_state = PLAYER##");
 	game_state = "PLAYER";
 	instance_create_layer(irandom_range((room_width/4),room_width-(room_width/4)),irandom_range(room_height/4,room_height-(room_height/4)),"Instances",obj_player);
+	
+	//Place enemy camps
+	repeat(1)
+	{
+		var _xx = obj_player.x;
+		var _yy = obj_player.y;
+		
+		var _breaker = 0;
+		
+		while (point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) 
+		{	
+			_xx = choose( irandom_range( 0, (room_width/4)-64 ), irandom_range( room_width-(room_width/4)+64, room_width-64 ) );
+			_yy = choose( irandom_range( 64, (room_height/4)-64 ), irandom_range(-(room_height/4)+room_height+64, room_height-64) );
+			
+			_breaker += 1;
+			
+			if (_breaker > 75) then break;
+		}
+		
+				
+		instance_create_layer( _xx, _yy, "Instances", obj_enemy_core);	
+	}
 }
 
 //Hud Text
@@ -47,7 +69,7 @@ if global.game_over == false && global.game_paused == false
 	{
 		difficulty += 1;
 	
-		repeat(difficulty mod 2)
+		repeat((difficulty mod 5)+floor(difficulty/3))
 		{
 			instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
 		}
@@ -56,7 +78,7 @@ if global.game_over == false && global.game_paused == false
 	
 		if (difficulty >= 5)
 		{
-			repeat(difficulty+2)
+			repeat(difficulty+(floor(difficulty/2)))
 			{
 				var _top = choose(1,2);
 			
@@ -107,6 +129,7 @@ else if (global.game_paused == true)
 		{
 			//GO TO THE MENU.
 			room_goto(rm_menu);
+			audio_stop_all();
 		}
 		
 	}

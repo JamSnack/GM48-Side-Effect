@@ -74,6 +74,7 @@ if (shoot_delay <= 0)
 				mining = true;
 				mining_point_x = _inst.x;
 				mining_point_y = _inst.y;
+				play_sound_local(snd_zaply);
 					
 				with _inst
 				{

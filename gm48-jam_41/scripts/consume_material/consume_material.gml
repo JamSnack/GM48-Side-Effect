@@ -10,14 +10,14 @@ function consume_material(item_id)
 	{
 		case ITEMID.item_coal: { agility = lerp(agility, 2, 0.1); weight_tolerance = round(weight_tolerance - (45/weight_tolerance)); } break;
 		case ITEMID.item_iron: {  weight_tolerance = round(weight_tolerance + (45/weight_tolerance)); agility = lerp(agility, 0.71, 0.1); } break;
-		case ITEMID.item_silver: { mining_rate += (20/mining_rate); attack_rate -= (room_speed/attack_rate) } break;
-		case ITEMID.item_copper: { mining_rate -= (20/mining_rate); attack_rate += (room_speed/attack_rate) } break;
+		case ITEMID.item_silver: { mining_rate = lerp(mining_rate, 120, 0.1); attack_rate = lerp(attack_rate, 25, 0.1); } break;
+		case ITEMID.item_copper: { mining_rate = lerp(mining_rate, 25, 0.1); attack_rate = lerp(attack_rate, 120, 0.1); } break;
 		
 		case ITEMID.item_aluminum: { mining_damage = lerp(mining_damage, 3, 0.1); attack_damage = lerp(attack_damage, 0, 0.1);} break;
 		case ITEMID.item_obsidian: { mining_damage = lerp(mining_damage, 0, 0.1); attack_damage = lerp(attack_damage, 3, 0.1);} break;
 		
-		case ITEMID.item_ruby: { maxHp += 1; hp_regen_rate += 40; } break;
-		case ITEMID.item_gold: { maxHp -= 1; hp_regen_rate -= 40; } break;
+		case ITEMID.item_ruby: { maxHp = lerp(maxHp, 20, 0.1); hp_regen_rate = lerp(hp_regen_rate, 600, 0.1); } break;
+		case ITEMID.item_gold: { maxHp = lerp(maxHp, 0, 0.1); hp_regen_rate = lerp(hp_regen_rate, 100, 0.1); } break;
 		
 		case ITEMID.item_diamond: { hp_regen_amt = lerp(hp_regen_amt,5,0.25); } break;
 		

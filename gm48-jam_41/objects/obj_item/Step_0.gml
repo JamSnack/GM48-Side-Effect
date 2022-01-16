@@ -16,6 +16,8 @@ if (instance_exists(obj_player) && pickup_delay <= 0)
 			
 			update_inventory();
 			instance_destroy();
+			_sn = audio_play_sound(snd_true_blip,1,false);
+			audio_sound_pitch(_sn,choose(0.99,0.995,1,1.1));
 		}
 	}
 }

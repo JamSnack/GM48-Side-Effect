@@ -33,17 +33,18 @@ if dead == false && global.game_over == false
 	vspd = clamp(vspd, -_ms, _ms);
 
 	//-- Horizontal Collision
-	if (hspd != 0 && place_meeting_fast(hspd, 0, OBSTA, false))
+	if (abs(hspd) >= 1 && place_meeting_fast(hspd, 0, OBSTA, false))
 	{
 		hspd = -hspd;
-	}
+	} if (place_meeting_fast( sign(hspd), 0, OBSTA, false)) { hspd = 0; }
 
 
 	//-- Vertical Collision
-	if ( vspd != 0 && place_meeting_fast(0, vspd, OBSTA, false) )
+	if ( abs(vspd) >= 1 && place_meeting_fast(0, vspd, OBSTA, false) )
 	{
 		vspd = -vspd;
 	}
+	else if (place_meeting_fast(0, sign(vspd), OBSTA, false)) { vspd = 0; }
 
 	//-- Move the player
 	//show_debug_message(string(hspd) + " : " + string(vspd) );
@@ -103,6 +104,7 @@ if dead == false && global.game_over == false
 		
 			mining = true;
 			mining_delay = mining_rate;
+			audio_play_sound(snd_zaply,1,false);
 		
 		} else mining = false;
 	
@@ -230,7 +232,7 @@ if respawn_delay > 0 then respawn_delay -= 1;
 //Audio positioning!
 audio_listener_set_position(0,x,y,0);
 
-if (!audio_is_playing(burning_fuel))
+if (!audio_exists(burning_fuel) || !audio_is_playing(burning_fuel))
 {
 	snd_burning_fuel = audio_play_sound(burning_fuel,1,true);
 }

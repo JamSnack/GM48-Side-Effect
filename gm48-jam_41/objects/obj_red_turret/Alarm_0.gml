@@ -2,4 +2,4 @@
 // You can write your code in this editor
 if hp < maxHp then hp += 1;
 
-alarm[2] = room_speed*4;
+alarm[0] = room_speed*4;

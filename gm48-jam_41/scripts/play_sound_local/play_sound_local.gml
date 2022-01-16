@@ -2,5 +2,10 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function play_sound_local(sound_id)
 {
-	audio_play_sound_at(sound_id,x,y,0,400,900,0.6,false,2);
+	var _r = global.tile_size*26;
+	
+	if (point_distance(camera.x,camera.y,x,y) <= _r)
+	{
+		audio_play_sound_at(sound_id,x,y,0,global.tile_size*6,_r,1,false,2);
+	}
 }

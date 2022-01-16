@@ -3,7 +3,7 @@
 
 image_speed = 0;
 
-maxHp = 25;
+maxHp = 13;
 hp = maxHp;
 
 alarm[0] = room_speed*240; //Level Up

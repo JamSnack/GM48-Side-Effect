@@ -6,7 +6,7 @@ if (instance_exists(follow_this))
 	
 	if (_dist > 0.5)
 	{
-		var _spd = _dist * 0.1;
+		var _spd = _dist * 0.2;
 		//x = follow_this.x;
 		//y = follow_this.y;
 		x = approach(x, follow_this.x, _spd );
