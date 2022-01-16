@@ -40,6 +40,19 @@ if (currently_placing != false && mb_left_released)
 			}
 		}
 		break;
+		
+		case obj_red_turret:
+		{
+			if (global.inventory[ITEMID.item_aluminum] >= 4 && global.inventory[ITEMID.item_ruby] >= 3 && global.inventory[ITEMID.item_obsidian] >= 2)
+			{
+				global.inventory[ITEMID.item_aluminum] -= 4;	
+				global.inventory[ITEMID.item_ruby] -= 3;
+				global.inventory[ITEMID.item_obsidian] -= 2;
+				
+				_success = true;
+			}
+		}
+		break;
 	}
 	
 	if _success == true
@@ -90,11 +103,15 @@ if (interaction_open == true) && currently_placing == false
 			upgrade_hovering = ITEMID.item_silver;
 		}
 	}
-	else if (menu_panel == menu_panel_max)
+	else if (menu_panel == menu_panel_max && mb_left_released)
 	{
-		if (point_in_rectangle(dx,dy,_xx+25,_yy+70,_xx+25+64,_yy+70+64) && mb_left_released)
+		if (point_in_rectangle(dx,dy,_xx+25,_yy+70,_xx+25+64,_yy+70+64))
 		{
 			currently_placing = obj_core_turret;
+		}
+		else if (point_in_rectangle(dx,dy,_xx+25,_yy+145,_xx+25+64,_yy+145+64))
+		{
+			currently_placing = obj_red_turret;
 		}
 	}
 	

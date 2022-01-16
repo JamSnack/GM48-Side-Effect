@@ -11,7 +11,7 @@ function get_tile_hp(item_id)
 		case ITEMID.item_copper:
 		case ITEMID.item_iron: { _hp = 2; } break;
 		case ITEMID.item_stone: { _hp = 1; } break;
-		case ITEMID.item_dirt: { _hp = 1; } break;
+		case ITEMID.item_dirt: { _hp = 0.25; } break;
 		
 		case ITEMID.item_obsidian:
 		case ITEMID.item_aluminum: { _hp = 3; } break;

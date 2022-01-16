@@ -103,4 +103,3 @@ else
 	draw_text_transformed(2,2,"HP: "+string(hp)+"/"+string(maxHp),0.8,0.8,0);
 	draw_text_transformed(2,20,"Weight: "+string(items_held)+"/"+string(weight_tolerance),0.7,0.7,0);
 }
-	

@@ -18,3 +18,10 @@ with obj_core_turret
 	attack_rate = _rate;
 	attack_damage = _dam;
 }
+
+with obj_red_turret
+{
+	maxHp = _hp*2;
+	attack_rate = _rate*2;
+	attack_damage = _dam*2;
+}

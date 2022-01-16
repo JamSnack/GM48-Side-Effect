@@ -8,86 +8,87 @@ if (instance_exists(objective))
 	{
 		objective = obj_core;	
 	} else objective = near_play;
-	
-    //Direction
-    var dir = sign(objective.x-x);
-    var vdir = sign(objective.y-(y+16));
-        
-    //Horizontal Acceleration
-    if dir == -1 //Objective is to the right
-    { if hAccel > -maxAccel then hAccel -= accelRate; }
-    else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
-        
-    //Vertical Acceleration
-    if vdir == -1 //Objective is up
-    { if vAccel > -maxAccel then vAccel -= accelRate; }
-    else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
-	
-	//Collision and movement
-	if !place_meeting_fast(hAccel,0,OBSTA, false)
-	{ x += hAccel; }
-	else
-	{
-	    hAccel = -hAccel;
-	}
+}
+else objective = obj_core;
 
-	if !place_meeting_fast(0,vAccel,OBSTA, false)
-	{ y += vAccel; }
+//Direction
+var dir = sign(objective.x-x);
+var vdir = sign(objective.y-(y+16));
+        
+//Horizontal Acceleration
+if dir == -1 //Objective is to the right
+{ if hAccel > -maxAccel then hAccel -= accelRate; }
+else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
+        
+//Vertical Acceleration
+if vdir == -1 //Objective is up
+{ if vAccel > -maxAccel then vAccel -= accelRate; }
+else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
+	
+//Collision and movement
+if !place_meeting_fast(hAccel,0,OBSTA, false)
+{ x += hAccel; }
+else
+{
+	hAccel = -hAccel;
+}
+
+if !place_meeting_fast(0,vAccel,OBSTA, false)
+{ y += vAccel; }
+else
+{
+	vAccel = -vAccel;
+}
+	
+	
+	
+image_angle = point_direction(x,y,x+hAccel,y+vAccel);
+	
+//Shoot at objective
+if (shoot_delay <= 0)
+{
+	var obj_direction = point_direction(x,y,objective.x,objective.y);
+		
+	if ( !collision_line(x,y,objective.x,objective.y,obj_tile,false,false) )
+	{
+		//FIRE
+		shoot_delay = shoot_delay_set;
+			
+		var b = instance_create_layer(x,y,"Instances",obj_bullet);
+		b.direction = obj_direction;
+		b.speed = 10;
+		b.damage = 1; //Replace with difficulty;
+		b.objective = PLAYER;
+			
+	}
 	else
 	{
-	    vAccel = -vAccel;
-	}
-	
-	
-	
-	image_angle = point_direction(x,y,x+hAccel,y+vAccel);
-	
-	//Shoot at objective
-	if (shoot_delay <= 0)
-	{
-		var obj_direction = point_direction(x,y,objective.x,objective.y);
-		
-		if ( !collision_line(x,y,objective.x,objective.y,obj_tile,false,false) )
+		if instance_exists(obj_tile)
 		{
-			//FIRE
-			shoot_delay = shoot_delay_set;
-			
-			var b = instance_create_layer(x,y,"Instances",obj_bullet);
-			b.direction = obj_direction;
-			b.speed = 10;
-			b.damage = 1; //Replace with difficulty;
-			b.objective = PLAYER;
-			
-		}
-		else
-		{
-			if instance_exists(obj_tile)
-			{
-				var _inst = instance_nearest(x+hAccel,y+vAccel,obj_tile);
+			var _inst = instance_nearest(x+hAccel,y+vAccel,obj_tile);
 				
-				if distance_to_object(_inst) < global.tile_size*2
-				{
-					shoot_delay = mining_delay_set;
-					mining = true;
-					mining_point_x = _inst.x;
-					mining_point_y = _inst.y;
+			if distance_to_object(_inst) < global.tile_size*2
+			{
+				shoot_delay = mining_delay_set;
+				mining = true;
+				mining_point_x = _inst.x;
+				mining_point_y = _inst.y;
 					
-					with _inst
-					{
-						drop_item = false;
-						update_tile_light(x,y);
-						instance_destroy();
-					}
+				with _inst
+				{
+					drop_item = false;
+					update_tile_light(x,y);
+					instance_destroy();
 				}
 			}
 		}
-		
-	} 
-	else 
-	{
-		shoot_delay -= 1;
-		mining = false;
 	}
+		
+} 
+else 
+{
+	shoot_delay -= 1;
+	mining = false;
 }
 
 

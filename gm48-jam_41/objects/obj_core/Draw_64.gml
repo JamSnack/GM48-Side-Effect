@@ -17,13 +17,13 @@ if (interaction_open == true && currently_placing == false)
 			var text_scale = 0.5;
 			draw_text(_xx+33,_yy+30,"Deposit resources for upgrades.");
 			draw_sprite_ext(spr_item_drops,ITEMID.item_stone,_xx+25,_yy+70,item_scale,item_scale,0,c_white,1);
-			draw_text_transformed(_xx+90,_yy+120,"Core HP",text_scale,text_scale,0);
+			draw_text_transformed(_xx+90,_yy+120,"Core HP    " + string(core_hp_xp) + "/"+string(core_hp_xp_max),text_scale,text_scale,0);
 			draw_sprite_ext(spr_item_drops,ITEMID.item_coal,_xx+25,_yy+145,item_scale,item_scale,0,c_white,1);
-			draw_text_transformed(_xx+90,_yy+195,"Core Turret Fire-Rate",text_scale,text_scale,0);
+			draw_text_transformed(_xx+90,_yy+195,"Core Turret Fire-Rate    " + string(core_turret_rate_xp) + "/"+string(core_turret_rate_xp_max),text_scale,text_scale,0);
 			draw_sprite_ext(spr_item_drops,ITEMID.item_iron,_xx+25,_yy+220,item_scale,item_scale,0,c_white,1);
-			draw_text_transformed(_xx+90,_yy+270,"Core Turret Damage",text_scale,text_scale,0);
+			draw_text_transformed(_xx+90,_yy+270,"Core Turret Damage    " + string(core_turret_damage_xp) + "/"+string(core_turret_damage_xp_max),text_scale,text_scale,0);
 			draw_sprite_ext(spr_item_drops,ITEMID.item_silver,_xx+25,_yy+295,item_scale,item_scale,0,c_white,1);
-			draw_text_transformed(_xx+90,_yy+345,"Core Turret HP",text_scale,text_scale,0);
+			draw_text_transformed(_xx+90,_yy+345,"Core Turret HP    " + string(core_turret_hp_xp) + "/"+string(core_turret_hp_xp_max),text_scale,text_scale,0);
 	
 			//Draw XP bars
 			draw_set_colour(c_black);
@@ -49,6 +49,8 @@ if (interaction_open == true && currently_placing == false)
 			draw_text(_xx+33,_yy+30,"Deposit resources for defenses.");
 			draw_sprite_ext(spr_core_turret,0,_xx+25+(18*item_scale/2),_yy+70+(18*item_scale/2),item_scale,item_scale,0,c_white,1);
 			draw_text_transformed(_xx+95,_yy+120,"Turret: Iron x3; Copper x3; Stone x12;",text_scale,text_scale,0);
+			draw_sprite_ext(spr_core_turret_red,0,_xx+25+(18*item_scale/2),_yy+145+(18*item_scale/2),item_scale,item_scale,0,c_white,1);
+			draw_text_transformed(_xx+95,_yy+195,"Red Turret: Gallium x4; Ruby x3; Obsidian x2;",text_scale,text_scale,0);
 		}
 		break;
 	}

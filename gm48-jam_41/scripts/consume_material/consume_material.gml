@@ -19,7 +19,7 @@ function consume_material(item_id)
 		case ITEMID.item_ruby: { maxHp += 1; hp_regen_rate += 40; } break;
 		case ITEMID.item_gold: { maxHp -= 1; hp_regen_rate -= 40; } break;
 		
-		case ITEMID.item_diamond: { hp_regen_amt += 1; } break;
+		case ITEMID.item_diamond: { hp_regen_amt = lerp(hp_regen_amt,5,0.25); } break;
 		
 		case ITEMID.item_phynite: { agility += 1.5; } break;
 	}

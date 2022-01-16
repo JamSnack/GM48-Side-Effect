@@ -7,7 +7,7 @@ if (place_meeting_fast(hspeed,vspeed,obj_tile,false))
 	//EXPLODDDEEE
 	repeat(25)
 	{
-		if collision_circle(x,y,global.tile_size*(scale),obj_tile,false,false) != noone
+		if collision_circle(x,y,global.tile_size,obj_tile,false,false) != noone
 		{
 			with collision_circle(x,y,global.tile_size*(scale),obj_tile,false,false)
 			{

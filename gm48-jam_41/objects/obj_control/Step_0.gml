@@ -56,20 +56,17 @@ if global.game_over == false
 	
 		if (difficulty >= 5)
 		{
-			if (difficulty-1 mod 4 == 0)
+			repeat(difficulty+2)
 			{
-				repeat(difficulty+2)
-				{
-					var _top = choose(1,2);
+				var _top = choose(1,2);
 			
-					if _top == 1
-					{
-						instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
-					}
-					else
-					{
-						instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
-					}
+				if _top == 1
+				{
+					instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
+				}
+				else
+				{
+					instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
 				}
 			}
 		}

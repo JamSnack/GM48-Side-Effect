@@ -63,7 +63,11 @@ instance_create_layer(x,y-64,"Instances",obj_core);
 //Slow HP regen
 alarm[0] = room_speed*5;
 
-/*
-global.inventory[ITEMID.item_stone] = 36;
-global.inventory[ITEMID.item_iron] = 10;
-global.inventory[ITEMID.item_copper] = 10;
+//Anim
+flame_index = 0;
+flame_scale = 1;
+flame_xscale = 1;
+
+global.inventory[ITEMID.item_aluminum] = 24;
+global.inventory[ITEMID.item_ruby] = 10;
+global.inventory[ITEMID.item_obsidian] = 10;

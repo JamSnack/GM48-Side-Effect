@@ -185,7 +185,7 @@ x = clamp(x,0,room_width);
 y = clamp(y,0,room_height);
 
 //Death
-if (hp <= 0 && respawn_delay <= 0)
+if (hp <= 0 && respawn_delay <= 0 && dead == false)
 {
 	dead = true;
 	respawn_delay = 10*room_speed;
@@ -212,3 +212,8 @@ else
 {
 	audio_sound_gain(snd_burning_fuel,max((abs(hspd+vspd)/(max_speed*2)),0),50)
 }
+
+//Flame animate
+flame_scale = min(abs(hspd)+abs(vspd), 2.75);
+flame_index += (abs(hspd)+abs(vspd))*0.1;
+flame_xscale = choose(1,-1);
