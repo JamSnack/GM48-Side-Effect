@@ -4,7 +4,10 @@
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "PAUSE",
+    "path": "objects/PAUSE/PAUSE.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,

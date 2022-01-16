@@ -67,6 +67,8 @@ if dead == false && global.game_over == false
 	if (key_inventory)
 	{
 		inventory_open = !inventory_open;
+		
+		if (tutorial_inventory > 0) then tutorial_inventory -= 1;
 	
 		//Use expensive function to resynch items_held just in-case!
 		update_inventory();
@@ -78,7 +80,7 @@ if dead == false && global.game_over == false
 	//-- Inventory animation
 
 	//-- Mining and attack
-	if (mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_x,mouse_y) <= mining_range)
+	if (inventory_action_disable == false && mining_delay <= 0 && mouse_check_button(mb_left) && distance_to_point(mouse_x,mouse_y) <= mining_range)
 	{
 		var _mine = collision_circle(mouse_x,mouse_y,2,obj_tile,false,false);
 	
@@ -106,7 +108,7 @@ if dead == false && global.game_over == false
 	
 	} else mining = false;
 
-	if (mining == false && attack_delay <= 0 && mouse_check_button(mb_right))
+	if (inventory_action_disable == false && mining == false && attack_delay <= 0 && mouse_check_button(mb_right))
 	{
 		var b = instance_create_layer(x,y,"Instances",obj_bullet);
 		b.direction = point_direction(x,y,mouse_x,mouse_y);
@@ -151,15 +153,39 @@ if (inventory_open == true) && consume_delay <= 0
 					global.inventory[i] -= 1;
 					consume_material(i);
 					consume_delay = 8;
-					surface_free(inventory_surface);
+					update_inventory();
+					
+					if (tutorial_eat > 0) then tutorial_eat -= 1;
+				}
+				else if (mouse_check_button_released(mb_right))
+				{
+					global.inventory[i] -= 1;
+					var _z = instance_create_layer(x,y,"Instances",obj_item);
+					_z.pickup_delay = room_speed;
+					_z.speed = 8;
+					_z.friction = 0.2;
+					_z.direction = sprite_rotation;
+					_z.item_id = i;
+					_z.image_index = i;
+					consume_delay = 10;
+					update_inventory();
+					
+					if (tutorial_toss > 0) then tutorial_toss -= 1;
 				}
 				
+				inventory_action_disable = true;
+				inventory_action_delay = 30;
+				
 				break;
-			} else tooltip_data = 0;
+			} else { tooltip_data = 0; }
 		}
 	}
 	
 	//surface_free(inventory_surface);
+}
+else
+{
+	tooltip_data = 0;
 }
 
 consume_delay -= 1;
@@ -217,3 +243,16 @@ else
 flame_scale = min(abs(hspd)+abs(vspd), 2.75);
 flame_index += (abs(hspd)+abs(vspd))*0.1;
 flame_xscale = choose(1,-1);
+
+//Inventory action delay
+if (inventory_action_disable == false && inventory_action_delay <= 0)
+	inventory_action_delay = 30;
+else if (inventory_action_delay > 0)
+{
+	inventory_action_delay -= 1;
+		
+	if (inventory_action_delay <= 0)
+	{
+		inventory_action_disable = false;	
+	}
+}

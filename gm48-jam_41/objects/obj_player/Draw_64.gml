@@ -14,6 +14,11 @@ if (inventory_open == true)
 	draw_set_font(fnt_terminal_grotesque);
 	draw_set_color(c_white);
 	draw_text(15,10,"Inventory");
+	
+	if (tutorial_eat > 0) draw_text_transformed(450,2,"Left Click a material to consume it for its effects.",0.6,0.6,0);
+	if (tutorial_toss > 0) draw_text_transformed(450,2,"\nRight Click a material to throw it.",0.6,0.6,0);
+	if (tutorial_inventory > 0) draw_text_transformed(450,2,"\n\nPress 'F' to exit.",0.6,0.6,0);
+	
 	draw_text_transformed(2,530,"Weight: "+string(items_held)+"/"+string(weight_tolerance),0.7,0.7,0);
 	
 	
@@ -32,7 +37,7 @@ if (inventory_open == true)
 		{
 			if (global.inventory[i] > 0)
 			{
-				draw_sprite_ext(spr_item_drops, i, pos_x + 7, pos_y + 10 + drawn*18*item_scale, item_scale, item_scale, 0, c_white, 1);
+				draw_sprite_ext(spr_item_drops, i, pos_x + 7 + 24, pos_y + 10 + 24 + drawn*18*item_scale, item_scale, item_scale, 0, c_white, 1);
 				draw_text(pos_x + 44, pos_y + 44 + drawn*18*item_scale, string(global.inventory[i]));
 			
 				/*
@@ -102,4 +107,5 @@ else
 	draw_set_color(c_white);
 	draw_text_transformed(2,2,"HP: "+string(hp)+"/"+string(maxHp),0.8,0.8,0);
 	draw_text_transformed(2,20,"Weight: "+string(items_held)+"/"+string(weight_tolerance),0.7,0.7,0);
+	if (tutorial_inventory > 0) draw_text_transformed(2,2,"\n\nPress 'F' to open inventory.",0.6,0.6,0);
 }

@@ -59,6 +59,7 @@ if (shoot_delay <= 0)
 		b.speed = 10;
 		b.damage = 1; //Replace with difficulty;
 		b.objective = PLAYER;
+		b.image_angle = image_angle;
 			
 	}
 	else

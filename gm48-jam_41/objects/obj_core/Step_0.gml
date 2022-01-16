@@ -179,6 +179,8 @@ if (interaction_open == true) && currently_placing == false
 		else upgrade_hovering = noone; 
 		
 		update_inventory();
+		obj_player.inventory_action_disable = true;
+		obj_player.inventory_action_delay = 30;
 	}
 }
 

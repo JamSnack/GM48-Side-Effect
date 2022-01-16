@@ -19,14 +19,14 @@ if hud_text_delay <= 0 && (hud_text_buffer != "" && hud_text != hud_text_buffer)
 	
 	if (hud_text == hud_text_buffer)
 	{
-		alarm[0] = room_speed*2;	
+		alarm[0] = room_speed*4;	
 	}
 }
 
 hud_text_delay -= 1;
 
 //Timer
-if global.game_over == false
+if global.game_over == false && global.game_paused == false
 {
 	time_mil += (1/60);
 
@@ -69,10 +69,71 @@ if global.game_over == false
 					instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
 				}
 			}
+			
+			if (audio_sound_get_gain(music_enemy) != 1)
+			{
+				audio_sound_gain(music_enemy,1,1000*2);
+				music_delay = room_speed*28;
+			}
 		}
-	
+		
+		var ran_volume = choose(1,0);
+		
+		if (audio_sound_get_gain(music_drums) != ran_volume)
+		{
+			audio_sound_gain(music_drums,ran_volume,1000*2);
+		}
+		
 		show_debug_message("#Wave spawned#Difficulty: "+string(difficulty)+"#enemies: "+string(instance_number(obj_enemy_01))+"#asteroids: "+string(instance_number(obj_asteroid)));
 	}
 
 	wave_delay -= 1;
+}
+else if (global.game_paused == true)
+{
+	var _dx = device_mouse_x_to_gui(0);
+	var _dy = device_mouse_y_to_gui(0);
+	
+	if (point_in_rectangle(_dx,_dy,690-64*2,250,690-64*2+64*4,250+32*4))
+	{
+		exit_index = 1;	
+		
+		if (mouse_check_button_pressed(mb_left))
+		{
+			exit_index = 2;	
+		}
+		
+		if (mouse_check_button_released(mb_left))
+		{
+			//GO TO THE MENU.
+			room_goto(rm_menu);
+		}
+		
+	}
+	else
+	{
+		exit_index = 0;	
+	}
+}
+
+
+//Randomly scale in background music
+if (music_delay <= 0 && irandom(300) == 1)
+{
+	if (audio_sound_get_gain(music_bkg) != 1)
+	{
+		audio_sound_gain(music_bkg,1,1000*4);
+	}
+	else
+	{
+		audio_sound_gain(music_bkg,0,1000*4);
+	}
+	
+	audio_sound_gain(music_enemy,0,1000*8);
+	
+	music_delay = room_speed*32;
+}
+else if (music_delay > 0)
+{
+	music_delay -= 1;	
 }

@@ -24,3 +24,5 @@ while collision_circle(x,y,global.tile_size*2,obj_tile,false,false) != noone
 alarm[0] = room_speed*2;
 
 play_sound_local(snd_alien_charge);
+
+with (obj_core) event_user(0);
