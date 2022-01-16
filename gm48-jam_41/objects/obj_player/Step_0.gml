@@ -43,7 +43,7 @@ if ( vspd != 0 && place_meeting_fast(0, vspd, OBSTA, false) )
 }
 
 //-- Move the player
-show_debug_message(string(hspd) + " : " + string(vspd) );
+//show_debug_message(string(hspd) + " : " + string(vspd) );
 x += hspd;
 y += vspd;
 

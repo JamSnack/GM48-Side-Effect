@@ -39,3 +39,35 @@ if (time_mil >= 60)
 		time_h += 1;
 	}
 }
+
+//A wave a minute!
+if (wave_delay <= 0)
+{
+	difficulty += 1;
+	
+	repeat(difficulty mod 2)
+	{
+		instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
+	}
+	
+	wave_delay = clamp((room_speed*(120-difficulty)), room_speed*60, room_speed*120);
+	
+	if (difficulty > 3)
+	{
+		repeat(difficulty)
+		{
+			var _top = choose(1,2);
+			
+			if _top == 1
+			{
+				instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
+			}
+			else
+			{
+				instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
+			}
+		}
+	}
+}
+
+wave_delay -= 1;

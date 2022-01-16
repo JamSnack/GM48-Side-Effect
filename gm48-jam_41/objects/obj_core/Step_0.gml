@@ -1,5 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
+mb_left_released = mouse_check_button_released(mb_left);
+
 if (instance_exists(obj_player))
 {
 	//Enable interaction
@@ -19,11 +21,47 @@ if (instance_exists(obj_player))
 	}
 }
 
+//-- Tile placement
+if (currently_placing != false && mb_left_released)
+{
+	var _success = false;	
+	
+	switch currently_placing
+	{
+		case obj_core_turret:
+		{
+			if (global.inventory[ITEMID.item_stone] >= 12 && global.inventory[ITEMID.item_copper] >= 3 && global.inventory[ITEMID.item_iron] >= 3)
+			{
+				global.inventory[ITEMID.item_stone] -= 12;	
+				global.inventory[ITEMID.item_copper] -= 3;
+				global.inventory[ITEMID.item_iron] -= 3;
+				
+				_success = true;
+			}
+		}
+		break;
+	}
+	
+	if _success == true
+	{
+		var _mx = floor(mouse_x/32)*32;
+		var _my = floor(mouse_y/32)*32;
+	
+		instance_create_layer(_mx,_my,"Instances",currently_placing);
+	}
+	else
+	{
+		obj_control.hud_text_buffer += "Not enough resources."	
+	}
+	
+	currently_placing = false;
+}
+
 
 //- Interaction
 upgrade_hovering = noone;
 
-if (interaction_open == true)
+if (interaction_open == true) && currently_placing == false
 {
 	var dx = device_mouse_x_to_gui(0);
 	var dy = device_mouse_y_to_gui(0);
@@ -31,17 +69,37 @@ if (interaction_open == true)
 	var _yy = 6;
 	
 	//Hovering
-	if (point_in_rectangle(dx,dy,_xx+25,_yy+70,_xx+25+64,_yy+70+64))
+	if (menu_panel == 0)
 	{
-		upgrade_hovering = ITEMID.item_stone;
+		if (point_in_rectangle(dx,dy,_xx+25,_yy+70,_xx+25+64,_yy+70+64))
+		{
+			upgrade_hovering = ITEMID.item_stone;
+		}
+		else if (point_in_rectangle(dx,dy,_xx+25,_yy+145,_xx+25+64,_yy+145+64))
+		{
+			upgrade_hovering = ITEMID.item_coal;
+		}
+		else if (point_in_rectangle(dx,dy,_xx+25,_yy+220,_xx+25+64,_yy+220+64))
+		{
+			upgrade_hovering = ITEMID.item_iron;
+		}
 	}
-	else if (point_in_rectangle(dx,dy,_xx+25,_yy+145,_xx+25+64,_yy+145+64))
+	else if (menu_panel == menu_panel_max)
 	{
-		upgrade_hovering = ITEMID.item_coal;
+		if (point_in_rectangle(dx,dy,_xx+25,_yy+70,_xx+25+64,_yy+70+64) && mb_left_released)
+		{
+			currently_placing = obj_core_turret;
+		}
 	}
-	else if (point_in_rectangle(dx,dy,_xx+25,_yy+220,_xx+25+64,_yy+220+64))
+	
+	//Arrow shenanigans
+	if mb_left_released && (point_in_rectangle(dx,dy, _xx+530,_yy, _xx+530+24,_yy+24))
 	{
-		upgrade_hovering = ITEMID.item_iron;
+		if (menu_panel > 0) then menu_panel -= 1;	
+	}
+	else if mb_left_released && (point_in_rectangle(dx,dy, _xx+560,_yy, _xx+560+24,_yy+24))
+	{
+		if (menu_panel < menu_panel_max) then menu_panel += 1;	
 	}
 	
 	//Click interaction
@@ -82,7 +140,8 @@ if (interaction_open == true)
 				core_turret_damage += 1;
 			}
 			
-		} else upgrade_hovering = noone; 
+		} 
+		else upgrade_hovering = noone; 
 		
 		obj_player.items_held = get_inventory_size();
 	}

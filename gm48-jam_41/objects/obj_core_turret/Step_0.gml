@@ -12,7 +12,7 @@ if (attack_delay <= 0 && instance_exists(ENEMY))
 		_b.damage = attack_damage;
 		_b.direction = attack_angle;
 		_b.speed = 12;
-		_b.objective = _him;
+		_b.objective = ENEMY;
 		
 		attack_delay = attack_rate;
 	}

@@ -6,11 +6,14 @@ image_speed = 0;
 maxHp = 25;
 hp = maxHp - 10;
 
-//Text
+//Drawing
 interaction_text_alpha = 0;
 interaction_text = "Press 'E' to interact.";
 interaction_open = false;
 upgrade_hovering = noone;
+menu_panel = 0;
+menu_panel_max = 1;
+currently_placing = false;
 
 //Core stats
 core_hp_xp = 0;

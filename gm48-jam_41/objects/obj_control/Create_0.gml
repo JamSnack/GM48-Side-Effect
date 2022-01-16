@@ -29,8 +29,9 @@ hud_text = "";
 hud_text_delay_set = 2;
 hud_text_delay = hud_text_delay_set;
 
-//Timer
+//Timer and wave stuff
+difficulty = 0;
+wave_delay = room_speed*60*1;
 time_mil = 0; //Time in miliseconds
-time_s = 0; //Time in seconds;
 time_m = 0; //Time in minutes;
 time_h = 0; //Time in hours;
