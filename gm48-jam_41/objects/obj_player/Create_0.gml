@@ -20,6 +20,8 @@ hp_regen_rate = room_speed*5;
 hp_regen_amt = 1;
 
 attack_delay = 0;
+respawn_delay = 0;
+dead = false;
 
 //Other
 mask_index = hbox_player;
@@ -61,8 +63,7 @@ instance_create_layer(x,y-64,"Instances",obj_core);
 //Slow HP regen
 alarm[0] = room_speed*5;
 
-
 /*
-global.inventory[ITEMID.item_stone] = 360;
-global.inventory[ITEMID.item_iron] = 100;
-global.inventory[ITEMID.item_copper] = 100;
+global.inventory[ITEMID.item_stone] = 36;
+global.inventory[ITEMID.item_iron] = 10;
+global.inventory[ITEMID.item_copper] = 10;

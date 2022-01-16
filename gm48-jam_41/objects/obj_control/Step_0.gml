@@ -26,50 +26,56 @@ if hud_text_delay <= 0 && (hud_text_buffer != "" && hud_text != hud_text_buffer)
 hud_text_delay -= 1;
 
 //Timer
-time_mil += (1/60);
-
-if (time_mil >= 60)
+if global.game_over == false
 {
-	time_mil = 0;
-	time_m += 1;
-	
-	if (time_m >= 60)
-	{
-		time_m = 0;
-		time_h += 1;
-	}
-}
+	time_mil += (1/60);
 
-//A wave a minute!
-if (wave_delay <= 0)
-{
-	difficulty += 1;
-	
-	repeat(difficulty mod 2)
+	if (time_mil >= 60)
 	{
-		instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
-	}
+		time_mil = 0;
+		time_m += 1;
 	
-	wave_delay = clamp((room_speed*(90-difficulty)), room_speed*60, room_speed*90);
-	
-	if (difficulty > 3)
-	{
-		repeat(difficulty)
+		if (time_m >= 60)
 		{
-			var _top = choose(1,2);
-			
-			if _top == 1
-			{
-				instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
-			}
-			else
-			{
-				instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
-			}
+			time_m = 0;
+			time_h += 1;
 		}
 	}
-	
-	show_debug_message("#Wave spawned#Difficulty: "+string(difficulty)+"#enemies: "+string(instance_number(obj_enemy_01))+"#asteroids: "+string(instance_number(obj_asteroid)));
-}
 
-wave_delay -= 1;
+	//A wave a minute!
+	if (wave_delay <= 0)
+	{
+		difficulty += 1;
+	
+		repeat(difficulty mod 2)
+		{
+			instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
+		}
+	
+		wave_delay = clamp((room_speed*(90-difficulty)), room_speed*60, room_speed*90);
+	
+		if (difficulty >= 5)
+		{
+			if (difficulty-1 mod 4 == 0)
+			{
+				repeat(difficulty+2)
+				{
+					var _top = choose(1,2);
+			
+					if _top == 1
+					{
+						instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
+					}
+					else
+					{
+						instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
+					}
+				}
+			}
+		}
+	
+		show_debug_message("#Wave spawned#Difficulty: "+string(difficulty)+"#enemies: "+string(instance_number(obj_enemy_01))+"#asteroids: "+string(instance_number(obj_asteroid)));
+	}
+
+	wave_delay -= 1;
+}

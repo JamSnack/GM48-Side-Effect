@@ -51,3 +51,9 @@ wave_delay = room_speed*1;//room_speed*60*1;
 time_mil = 0; //Time in miliseconds
 time_m = 0; //Time in minutes;
 time_h = 0; //Time in hours;
+
+//Oh yeah
+global.game_over = false;
+
+//Audio flip
+audio_listener_set_orientation(0,0,0,-1,0,1,0);

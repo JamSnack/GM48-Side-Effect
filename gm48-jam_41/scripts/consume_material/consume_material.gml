@@ -25,4 +25,5 @@ function consume_material(item_id)
 	}
 	
 	update_inventory();
+	audio_play_sound(snd_eat,3,false);
 }

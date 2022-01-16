@@ -2,10 +2,12 @@
 // You can write your code in this editor
 if (instance_exists(objective))
 {
-	if (distance_to_object(obj_player) > global.tile_size*8)
+	var near_play = instance_nearest(x,y,PLAYER);
+	
+	if (distance_to_object(near_play) > global.tile_size*8)
 	{
 		objective = obj_core;	
-	} else objective = obj_player;
+	} else objective = near_play;
 	
     //Direction
     var dir = sign(objective.x-x);
@@ -54,7 +56,7 @@ if (instance_exists(objective))
 			b.direction = obj_direction;
 			b.speed = 10;
 			b.damage = 1; //Replace with difficulty;
-			b.objective = objective;
+			b.objective = PLAYER;
 			
 		}
 		else

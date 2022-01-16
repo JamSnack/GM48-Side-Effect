@@ -19,6 +19,13 @@ if (instance_exists(follow_this))
 	}
 }
 
+
+//GAME OVER CAM
+if (global.game_over == true && instance_exists(obj_core))
+{
+	follow_this = obj_core;
+}
+
 //Snap the view
 camera_set_view_pos(local_camera,x - view_wport[0]/2,y - view_hport[0]/2);
 

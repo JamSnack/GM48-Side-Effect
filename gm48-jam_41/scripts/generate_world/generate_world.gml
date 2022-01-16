@@ -52,7 +52,7 @@ function generate_world(game_state)
 			generate_worm(20, ITEMID.item_silver, irandom_range(7,12), 2, true);
 			
 			//-- Rare
-			generate_worm(2, ITEMID.item_diamond, irandom_range(1,2), 1, true);
+			generate_worm(2, ITEMID.item_diamond, 1, 1, true);
 			
 			//-- Finite
 			generate_worm(1, ITEMID.item_phynite, 1, 1, true);
@@ -60,7 +60,7 @@ function generate_world(game_state)
 			//Place enemy camps
 			repeat(1)
 			{
-				instance_create_layer( choose( irandom_range( 0, 1500 ), irandom_range( 3500, room_width-64 ) ), choose( irandom_range( 0, 1500 ), irandom_range( 3500, room_height-64 ) ), "Instances", obj_enemy_core);	
+				instance_create_layer( choose( irandom_range( 0, (room_width/4)-64 ), irandom_range( room_width-(room_width/4)+64, room_width-64 ) ), choose( irandom_range( 64, (room_height/4)-64 ), irandom_range(-(room_height/4)+room_height+64, room_height-64) ), "Instances", obj_enemy_core);	
 			}
 
 		}

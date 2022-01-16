@@ -22,17 +22,21 @@ if (interaction_open == true && currently_placing == false)
 			draw_text_transformed(_xx+90,_yy+195,"Core Turret Fire-Rate",text_scale,text_scale,0);
 			draw_sprite_ext(spr_item_drops,ITEMID.item_iron,_xx+25,_yy+220,item_scale,item_scale,0,c_white,1);
 			draw_text_transformed(_xx+90,_yy+270,"Core Turret Damage",text_scale,text_scale,0);
+			draw_sprite_ext(spr_item_drops,ITEMID.item_silver,_xx+25,_yy+295,item_scale,item_scale,0,c_white,1);
+			draw_text_transformed(_xx+90,_yy+345,"Core Turret HP",text_scale,text_scale,0);
 	
 			//Draw XP bars
 			draw_set_colour(c_black);
 			draw_rectangle(_xx+90,_yy+80,_xx+390,_yy+110,false);
 			draw_rectangle(_xx+90,_yy+170-15,_xx+390,_yy+170+15,false);
 			draw_rectangle(_xx+90,_yy+245-15,_xx+390,_yy+245+15,false);
+			draw_rectangle(_xx+90,_yy+320-15,_xx+390,_yy+320+15,false);
 	
 			draw_set_colour(c_purple);
 			draw_rectangle(_xx+90,_yy+80,_xx+90+(300*(core_hp_xp/core_hp_xp_max)),_yy+110,false);
 			draw_rectangle(_xx+90,_yy+170-15,_xx+90+(300*(core_turret_rate_xp/core_turret_rate_xp_max)),_yy+170+15,false);
 			draw_rectangle(_xx+90,_yy+245-15,_xx+90+(300*(core_turret_damage_xp/core_turret_damage_xp_max)),_yy+245+15,false);
+			draw_rectangle(_xx+90,_yy+320-15,_xx+90+(300*(core_turret_hp_xp/core_turret_hp_xp_max)),_yy+320+15,false);
 		}
 		break;
 		

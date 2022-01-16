@@ -85,6 +85,10 @@ if (interaction_open == true) && currently_placing == false
 		{
 			upgrade_hovering = ITEMID.item_iron;
 		}
+		else if (point_in_rectangle(dx,dy,_xx+25,_yy+295,_xx+25+64,_yy+295+64))
+		{
+			upgrade_hovering = ITEMID.item_silver;
+		}
 	}
 	else if (menu_panel == menu_panel_max)
 	{
@@ -116,6 +120,7 @@ if (interaction_open == true) && currently_placing == false
 				case ITEMID.item_stone: { core_hp_xp += 1;} break;
 				case ITEMID.item_coal: { core_turret_rate_xp += 1;} break;
 				case ITEMID.item_iron: { core_turret_damage_xp += 1;} break;
+				case ITEMID.item_silver: { core_turret_hp_xp += 1;} break;
 			}
 			
 			
@@ -125,14 +130,16 @@ if (interaction_open == true) && currently_placing == false
 				core_hp_xp_max *= 2;
 				core_hp_xp = 0;
 				
-				maxHp += 25;
+				maxHp += 15;
+				event_user(0);
 			}
 			else if (core_turret_rate_xp >= core_turret_rate_xp_max)
 			{
 				core_turret_rate_xp_max *= 2;
 				core_turret_rate_xp = 0;
 				
-				core_turret_rate -= 10;
+				core_turret_rate = lerp(core_turret_rate,0,.2);
+				event_user(0);
 			}
 			else if (core_turret_damage_xp >= core_turret_damage_xp_max)
 			{
@@ -140,6 +147,15 @@ if (interaction_open == true) && currently_placing == false
 				core_turret_damage_xp = 0;
 				
 				core_turret_damage += 1;
+				event_user(0);
+			}
+			else if (core_turret_hp_xp >= core_turret_hp_xp_max)
+			{
+				core_turret_hp_xp_max *= 2;
+				core_turret_hp_xp = 0;
+				
+				core_turret_hp += 1;
+				event_user(0);
 			}
 			
 		} 
@@ -147,6 +163,14 @@ if (interaction_open == true) && currently_placing == false
 		
 		update_inventory();
 	}
+}
+
+//Death
+if (global.game_over == false && hp <= 0)
+{
+	global.game_over = true;
+	
+	obj_control.hud_text_buffer += "GAME OVER";
 }
 
 //-SPIN

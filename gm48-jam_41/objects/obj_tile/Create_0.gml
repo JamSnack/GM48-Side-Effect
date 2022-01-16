@@ -9,3 +9,6 @@ drop_item = true;
 depth = 1;
 
 light = 0;
+
+jitter_x = 0;
+jitter_y = 0;

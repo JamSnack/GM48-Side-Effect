@@ -4,3 +4,5 @@ alarm[0] = room_speed*7;
 
 damage = 1;
 objective = noone;
+
+play_sound_local(snd_attack);
