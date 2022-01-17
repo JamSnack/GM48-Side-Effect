@@ -4,7 +4,7 @@
 image_speed = 0;
 
 maxHp = 25;
-hp = maxHp - 10;
+hp = maxHp - 5;
 
 //Drawing
 interaction_text_alpha = 0;
@@ -31,3 +31,7 @@ core_turret_hp = 2;
 
 //Healing
 alarm[0] = 1;
+
+//Message
+alarm[1] = room_speed*8;
+alarm[2] = room_speed*11;

@@ -68,10 +68,13 @@ if global.game_over == false && global.game_paused == false
 	if (wave_delay <= 0)
 	{
 		difficulty += 1;
-	
-		repeat((difficulty mod 5)+floor(difficulty/3))
+		
+		if (difficulty > 2)
 		{
-			instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
+			repeat((difficulty mod 2))
+			{
+				instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
+			}
 		}
 	
 		wave_delay = clamp((room_speed*(90-difficulty)), room_speed*60, room_speed*90);
@@ -159,4 +162,13 @@ if (music_delay <= 0 && irandom(300) == 1)
 else if (music_delay > 0)
 {
 	music_delay -= 1;	
+}
+
+
+//GAME OVER
+if (global.game_over == true && keyboard_check_released(vk_escape))
+{
+	//GO TO THE MENU.
+	room_goto(rm_menu);
+	audio_stop_all();	
 }

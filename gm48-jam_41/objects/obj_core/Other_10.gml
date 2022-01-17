@@ -5,7 +5,7 @@
 audio_play_sound(snd_upgrade_complete,3,false);
 
 //Textuals
-obj_control.hud_text_buffer += "Upgrade Complete!";
+obj_control.hud_text_buffer += "\nUpgrade Complete!\n";
 
 //Install new turret hardware
 var _hp = core_turret_hp;

@@ -217,6 +217,8 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 {
 	dead = true;
 	respawn_delay = 10*room_speed;
+	hspd = 0;
+	vspd = 0;
 }
 else if (dead == true && respawn_delay <= 0)
 {

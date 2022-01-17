@@ -8,7 +8,7 @@ repeat(floor(maxHp/10)*2)
 	
 	_i.item_id = _itd;
 	_i.image_index = _itd;
-	_i.pickup_delay = room_speed*3;
+	_i.pickup_delay = room_speed*1;
 	_i.speed = 3;
 	_i.direction = irandom(360);
 }

@@ -66,7 +66,7 @@ if (currently_placing != false && mb_left_released)
 	}
 	else
 	{
-		obj_control.hud_text_buffer += "Not enough resources."	
+		obj_control.hud_text_buffer += "\nNot enough resources.\n"	
 	}
 	
 	currently_placing = false;
@@ -189,7 +189,7 @@ if (global.game_over == false && hp <= 0)
 {
 	global.game_over = true;
 	
-	obj_control.hud_text_buffer += "GAME OVER";
+	obj_control.hud_text_buffer = "GAME OVER";
 }
 
 //-SPIN
