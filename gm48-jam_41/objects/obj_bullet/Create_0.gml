@@ -6,3 +6,6 @@ damage = 1;
 objective = noone;
 
 play_sound_local(snd_attack,x,y);
+
+//Spawn dummy bullets in multiplayer games
+alarm[1] = 1;

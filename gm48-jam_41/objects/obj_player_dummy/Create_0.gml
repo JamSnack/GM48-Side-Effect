@@ -8,3 +8,5 @@ maxHp = 10;
 flame_scale = 0;
 flame_index = 0;
 flame_xscale = choose(1,-1);
+
+sprite_rotation = 0;

@@ -1,8 +1,8 @@
 /// @description Draw the guy!
-draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,c_white,1);
+draw_sprite_ext(sprite_index,image_index,x,y,1,1,sprite_rotation,c_white,1);
 
 //Draw the flame
-draw_sprite_ext(spr_flame, flame_index, x-lengthdir_x(9,image_angle),y-lengthdir_y(8,image_angle),flame_scale,flame_scale*flame_xscale,image_angle,c_white,1);
+draw_sprite_ext(spr_flame, flame_index, x-lengthdir_x(9,sprite_rotation),y-lengthdir_y(8,sprite_rotation),flame_scale,flame_scale*flame_xscale,sprite_rotation,c_white,1);
 
 //Draw HP
 if (hp < maxHp)

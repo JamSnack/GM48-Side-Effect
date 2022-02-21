@@ -16,7 +16,7 @@ else if (global.is_host == true)
 		var _d = ds_map_create();
 		_d[? "cmd"] = "inventory_add_item";
 		_d[? "item"] = item_id;
-		_d[? "p_id"] = global.player_id;
+		_d[? "p_id"] = player_lock.p_id;
 		send_data(_d);
 	}
 }

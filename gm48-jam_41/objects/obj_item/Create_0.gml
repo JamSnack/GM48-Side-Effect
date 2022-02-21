@@ -12,3 +12,5 @@ image_angle = random(360);
 
 player_lock = noone;
 object_id = 0;
+
+alarm[0] = 1; //Synchronize item spawns

@@ -54,7 +54,6 @@ function send_data(data_map)
 	var _b = buffer_write(buff, buffer_string, json_map);
 	
 	if (_b == -1) then show_debug_message("buffer_write failed.");
-	show_debug_message("sending: "+buffer_read(buff, buffer_string));
 	
 	if (global.multiplayer == true)
 	{
@@ -64,7 +63,7 @@ function send_data(data_map)
 		}
 		else
 		{
-			for (var i = 0; i < ds_list_size(global.socketlist); ++i;)
+			for (var i = 0; i < ds_list_size(global.socketlist); i++;)
 		    {
 				network_send_packet(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
 		    }
@@ -101,23 +100,37 @@ function handle_data(data)
 		
 		case "player_sync":
 		{
+			var _p_id = parsed_data[? "id"];
+			if (_p_id == global.player_id) then exit;
+			
 			if (instance_exists(obj_player_dummy))
 			{
-				var _p_id = parsed_data[? "id"];
 				with (obj_player_dummy)
 				{
 					if (p_id != _p_id)
+					{
 						continue;
+					}
 					else
 					{
 						x = parsed_data[? "x"];	
 						y = parsed_data[? "y"];
 						hspd = parsed_data[? "hspd"];
 						vspd = parsed_data[? "vspd"];
+						
+						//Server relay
+						server_relay_data(parsed_data);
+						exit;
 					}
 				}
+				
+				//If we make it this far, make a new dude. Used when there are more than 2 players!!
+				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
+				_p.p_id = parsed_data[? "id"];
+				_p.hspd = parsed_data[? "hspd"];
+				_p.vspd = parsed_data[? "vspd"];
 			}
-			else
+			else //Make a new dude here b/c no dude exists!
 			{
 				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
 				_p.p_id = parsed_data[? "id"];
@@ -129,17 +142,34 @@ function handle_data(data)
 		
 		case "player_stats_sync":
 		{
-			if (instance_exists(obj_player_dummy))
+			
+			var _p_id = parsed_data[? "id"];
+			if (_p_id == global.player_id)
 			{
-				var _p_id = parsed_data[? "id"];
-				with (obj_player_dummy)
+				//The sync is for us, from the host!
+				if (instance_exists(obj_player))
 				{
-					if (p_id != _p_id)
-						continue;
-					else
+					with (obj_player)
 					{
 						hp = parsed_data[? "hp"];	
 						maxHp = parsed_data[? "maxHp"];
+					}
+				}
+			}
+			else
+			{
+				if (instance_exists(obj_player_dummy))
+				{
+				
+					with (obj_player_dummy)
+					{
+						if (p_id != _p_id)
+							continue;
+						else
+						{
+							hp = parsed_data[? "hp"];	
+							maxHp = parsed_data[? "maxHp"];
+						}
 					}
 				}
 			}
@@ -160,6 +190,7 @@ function handle_data(data)
 				{
 					if (item_id == parsed_data[? "type"])
 					{
+						drop_item = parsed_data[? "drop_item"];
 						instance_destroy();	
 					}
 				}
@@ -180,6 +211,22 @@ function handle_data(data)
 				y = parsed_data[? "y"];
 				break;
 			}
+		}
+		break;
+		
+		case "item_create":
+		{
+			if (global.player_id == parsed_data[? "player_id"]) then exit;
+			
+			var _it = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_item);
+			_it.item_id = parsed_data[? "item_id"];
+			_it.image_index = parsed_data[? "item_id"];
+			_it.speed = parsed_data[? "speed"];
+			_it.direction = parsed_data[? "direction"];
+			_it.pickup_delay = 10;
+			_it.alarm[0] = -1; //PLEASE DO NOT GIVE ME 10290 STONE FROM ONE NODE AND BUFFER OVREFLOW THE GAME AGAIN OH MY GOD
+			
+			server_relay_data(parsed_data);
 		}
 		break;
 		
@@ -235,6 +282,7 @@ function handle_data(data)
 						y = parsed_data[? "y"];
 						hAccel = parsed_data[? "hAccel"];
 						vAccel = parsed_data[? "vAccel"];
+						hp = parsed_data[? "hp"];
 					}
 				}
 			}
@@ -244,6 +292,7 @@ function handle_data(data)
 				_p.object_id = parsed_data[? "id"];
 				_p.hAccel = parsed_data[? "hAccel"];
 				_p.vAccel = parsed_data[? "vAccel"];
+				_p.hp = parsed_data[? "hp"];
 			}
 		}
 		break;
@@ -268,5 +317,28 @@ function handle_data(data)
 			}
 		}
 		break;
+		
+		case "bullet_dummy_create":
+		{
+			if (global.player_id == parsed_data[? "player_id"]) then exit;
+			
+			var _bu = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_bullet);
+			_bu.speed = parsed_data[? "speed"];
+			_bu.direction = parsed_data[? "direction"];
+			_bu.image_angle = parsed_data[? "image_angle"];
+			_bu.objective = parsed_data[? "objective"];
+			_bu.alarm[1] = -1;
+			
+			server_relay_data(parsed_data); //make sure all clients see this!
+		}
+		break;
+	}
+}
+
+function server_relay_data(data_to_relay)
+{
+	if (global.player_count > 1 && global.is_host == true)
+	{
+		send_data(data_to_relay);
 	}
 }

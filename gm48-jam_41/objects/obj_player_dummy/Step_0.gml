@@ -4,7 +4,10 @@ x += hspd;
 y += vspd;
 
 //Rotation
-image_angle = point_direction(x,y,x+hspd,y+vspd);
+if (hspd != 0 || vspd != 0)
+{
+	sprite_rotation = point_direction(x,y,x+hspd,y+vspd);
+}
 
 //Flame animate
 flame_scale = min(abs(hspd)+abs(vspd), 2.75);
