@@ -1,5 +1,6 @@
 /// @description Initialize multiplayer stuff
 // You can write your code in this editor
+randomise();
 
 //Initialize Multiplayer stuff
 global.socket = noone;

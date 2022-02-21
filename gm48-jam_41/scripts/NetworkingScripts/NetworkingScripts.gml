@@ -242,8 +242,29 @@ function handle_data(data)
 			{
 				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
 				_p.object_id = parsed_data[? "id"];
-				hAccel = parsed_data[? "hAccel"];
-				vAccel = parsed_data[? "vAccel"];
+				_p.hAccel = parsed_data[? "hAccel"];
+				_p.vAccel = parsed_data[? "vAccel"];
+			}
+		}
+		break;
+		
+		case "object_destroy":
+		{
+			var o_index = parsed_data[? "object_index"];
+			
+			if (instance_exists(o_index))
+			{
+				var _id = parsed_data[? "object_id"];
+				with (o_index)
+				{
+					if (object_id != _id)
+						continue;
+					else 
+					{
+						instance_destroy();
+						break;
+					}
+				}
 			}
 		}
 		break;

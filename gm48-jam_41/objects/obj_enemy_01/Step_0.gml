@@ -1,4 +1,7 @@
 /// @description Insert description here
+
+image_angle = point_direction(x,y,x+hAccel,y+vAccel);
+
 if global.is_host == false then exit;
 
 
@@ -41,10 +44,6 @@ else
 {
 	vAccel = -vAccel;
 }
-	
-	
-	
-image_angle = point_direction(x,y,x+hAccel,y+vAccel);
 	
 //Shoot at objective
 if (shoot_delay <= 0)
