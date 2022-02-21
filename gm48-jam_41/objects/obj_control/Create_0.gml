@@ -37,6 +37,7 @@ global.inventory = array_create(ITEMID.last,0);
 
 //World GEN :)
 game_state = "INIT";
+id_counter = 1;
 generate_world(game_state);
 
 //Text log

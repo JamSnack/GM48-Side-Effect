@@ -48,7 +48,21 @@ if hud_text_delay <= 0 && (hud_text_buffer != "" && hud_text != hud_text_buffer)
 hud_text_delay -= 1;
 
 //Timer
-if global.game_over == false && global.game_paused == false
+function sync_wave()
+{
+	//Synchronize the timer in multiplayer games
+	if (global.is_host == true)
+	{
+		var _d = ds_map_create();
+		_d[? "cmd"] = "wave_time_sync";
+		_d[? "time_mil"] = time_mil;
+		_d[? "time_m"] = time_m;
+		_d[? "time_h"] = time_h;
+		send_data(_d);
+	}
+}
+
+if (global.multiplayer == false && global.game_over == false && global.game_paused == false) || (global.multiplayer == true)
 {
 	time_mil += (1/60);
 
@@ -65,8 +79,10 @@ if global.game_over == false && global.game_paused == false
 	}
 
 	//A wave a minute!
-	if (wave_delay <= 0)
+	if (global.is_host == true && wave_delay <= 0)
 	{
+		sync_wave();
+		
 		difficulty += 1;
 		
 		if (difficulty > 2)
@@ -108,7 +124,7 @@ if global.game_over == false && global.game_paused == false
 		{
 			audio_sound_gain(music_drums,ran_volume,1000*2);
 		}
-		
+
 		show_debug_message("#Wave spawned#Difficulty: "+string(difficulty)+"#enemies: "+string(instance_number(obj_enemy_01))+"#asteroids: "+string(instance_number(obj_asteroid)));
 	}
 

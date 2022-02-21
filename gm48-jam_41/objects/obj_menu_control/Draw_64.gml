@@ -40,7 +40,7 @@ switch (menu_section)
 		else if (global.is_host == true)
 		{
 			draw_text_transformed(display_get_gui_width()/2,175,"Press Q to start the game.",0.6,0.6,0);
-			draw_text_transformed(display_get_gui_width()/2,400,server_status+"\nPlayers: "+string(ds_list_size(global.socketlist)+1)+"/3",2,2,0);
+			draw_text_transformed(display_get_gui_width()/2,400,server_status+"\nPlayers: "+string(global.player_count)+"/3",2,2,0);
 		}
 		else draw_text_transformed(display_get_gui_width()/2,400,server_status,2,2,0);
 	}

@@ -12,3 +12,5 @@ light = 0;
 
 jitter_x = 0;
 jitter_y = 0;
+
+object_id = 0;//for multiplayer

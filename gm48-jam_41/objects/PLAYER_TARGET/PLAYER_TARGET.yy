@@ -5,8 +5,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "PLAYER_TARGET",
-    "path": "objects/PLAYER_TARGET/PLAYER_TARGET.yy",
+    "name": "PAUSE",
+    "path": "objects/PAUSE/PAUSE.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -28,7 +28,7 @@
     "path": "folders/Objects.yy",
   },
   "resourceVersion": "1.0",
-  "name": "PLAYER",
+  "name": "PLAYER_TARGET",
   "tags": [],
   "resourceType": "GMObject",
 }

@@ -1,8 +1,10 @@
 /// @description Insert description here
 // You can write your code in this editor
-
 global.game_paused = !global.game_paused;
 
+
+//Physically pause instances
+if (global.multiplayer == true) then exit;
 if (global.game_paused == true)
 {
 	with (PAUSE)

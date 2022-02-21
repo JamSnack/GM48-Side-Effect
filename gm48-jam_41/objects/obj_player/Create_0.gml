@@ -26,6 +26,7 @@ dead = false;
 //Other
 mask_index = hbox_player;
 sprite_rotation = 0;
+multiplayer_delay = 0;
 
 //Inventory
 inventory_open = false;

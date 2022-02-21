@@ -22,3 +22,5 @@ while collision_circle(x,y,global.tile_size*4,obj_tile,false,false) != noone
 		instance_destroy();
 	}
 }
+
+object_id = get_object_id();

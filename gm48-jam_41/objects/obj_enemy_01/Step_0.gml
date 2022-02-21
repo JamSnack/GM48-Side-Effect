@@ -1,5 +1,7 @@
 /// @description Insert description here
-// You can write your code in this editor
+if global.is_host == false then exit;
+
+
 if (instance_exists(objective))
 {
 	var near_play = instance_nearest(x,y,PLAYER);
@@ -93,6 +95,19 @@ else
 	mining = false;
 }
 
-
 //Death
 if (hp <= 0) then instance_destroy();
+
+//Multiplayer!
+if (global.multiplayer == true)
+{
+	var _d = ds_map_create();
+	_d[? "cmd"] = "enemy_sync";
+	_d[? "id"] = object_id;
+	_d[? "x"] = x;
+	_d[? "y"] = y;
+	_d[? "hAccel"] = hAccel;
+	_d[? "vAccel"] = vAccel;
+	_d[? "object_index"] = object_index;
+	send_data(_d);	
+}

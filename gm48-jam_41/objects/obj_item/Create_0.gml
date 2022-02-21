@@ -9,3 +9,6 @@ friction = 0.5;
 pickup_delay = 5;
 
 image_angle = random(360);
+
+player_lock = noone;
+object_id = 0;

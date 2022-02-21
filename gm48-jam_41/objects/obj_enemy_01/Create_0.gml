@@ -15,3 +15,6 @@ mining = false;
 
 maxHp = 5;
 hp = maxHp;
+
+//multiplayer stuff
+object_id = get_object_id();

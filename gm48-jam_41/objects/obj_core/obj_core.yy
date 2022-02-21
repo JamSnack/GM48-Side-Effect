@@ -8,8 +8,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "PLAYER",
-    "path": "objects/PLAYER/PLAYER.yy",
+    "name": "PLAYER_TARGET",
+    "path": "objects/PLAYER_TARGET/PLAYER_TARGET.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

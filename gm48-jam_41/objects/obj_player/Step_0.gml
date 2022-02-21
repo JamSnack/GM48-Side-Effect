@@ -219,6 +219,13 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 	respawn_delay = 10*room_speed;
 	hspd = 0;
 	vspd = 0;
+	
+	if (global.multiplayer == true)
+	{
+		send_chat(string(global.player_id) + " has died.");
+		event_user(1);
+	}
+	
 }
 else if (dead == true && respawn_delay <= 0)
 {
@@ -259,4 +266,16 @@ else if (inventory_action_delay > 0)
 	{
 		inventory_action_disable = false;	
 	}
+}
+
+
+//Send multiplayer information
+if ((x != xprevious || y != yprevious) && (multiplayer_delay <= 5)) || multiplayer_delay <= 0
+{
+	multiplayer_delay = 10;
+	event_user(0);
+}
+else if (multiplayer_delay > 0)
+{
+	multiplayer_delay -= 1;	
 }

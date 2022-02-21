@@ -14,6 +14,7 @@ function generate_world(game_state)
 			//Fill the room with tiles!
 			for (_i = 0; _i < world_width*world_height; _i++)
 			{
+				id_counter++;
 				var column = floor(_i/world_width);
 				var pos_x = (_i*global.tile_size)-(column*world_width*global.tile_size);
 				var pos_y = (column*global.tile_size);
@@ -22,6 +23,7 @@ function generate_world(game_state)
 				_inst.item_id = ITEMID.item_stone;
 				_inst.image_index = ITEMID.item_stone;
 				_inst.hp = get_tile_hp(ITEMID.item_stone);
+				_inst.object_id = id_counter;
 			}
 	
 	

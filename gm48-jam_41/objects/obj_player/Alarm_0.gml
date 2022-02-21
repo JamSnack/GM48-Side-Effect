@@ -8,3 +8,6 @@ if dead == false && global.game_over == false
 }
 
 alarm[0] = hp_regen_rate;
+
+//Send player stats
+event_user(1);
