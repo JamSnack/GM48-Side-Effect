@@ -369,7 +369,7 @@ function handle_data(data)
 						
 						_counter++;
 					}
-					show_debug_message("Instance Number: "+string(instance_number(o_index)));
+					//show_debug_message("Instance Number: "+string(instance_number(o_index)));
 				}
 				else
 				{
@@ -392,12 +392,16 @@ function handle_data(data)
 					var _id = parsed_data[? "object_id"];
 					with (o_index)
 					{
-						if (object_id != _id)
-							continue;
-						else 
+						show_debug_message("DESTROY ME: "+string(_id)+", ME: "+string(object_id));
+						if (object_id == _id)
 						{
+							show_debug_message("ME: "+string(object_id)+" DED");
 							instance_destroy();
 							break;
+						}
+						else 
+						{
+							continue;
 						}
 					}
 				}

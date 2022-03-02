@@ -2,7 +2,7 @@
 // You can write your code in this editor
 image_angle += speed*rotation*3;
 
-if (global.multiplayer == true && global.is_host == false) then exit;
+if (global.is_host == false) then exit;
 
 if (place_meeting_fast(hspeed,vspeed,obj_tile,false))
 {
@@ -56,7 +56,7 @@ else
 
 
 //Multiplayer!
-if (global.multiplayer == true)
+if (global.is_host == true)
 {
 	var _d = ds_map_create();
 	_d[? "cmd"] = "enemy_sync_asteroid";
