@@ -67,7 +67,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_asteroid","path":"sprites/spr_asteroid/spr_asteroid.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_asteroid",
     "tags": [],
     "resourceType": "GMSequence",

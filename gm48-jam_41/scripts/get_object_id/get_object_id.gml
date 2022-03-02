@@ -2,9 +2,10 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function get_object_id()
 {
-	if (instance_exists(obj_control))
+	if (global.is_host == true && instance_exists(obj_control))
 	{
 		obj_control.id_counter++;
 		return obj_control.id_counter;
 	}
+	else return -1;
 }

@@ -26,7 +26,7 @@ function joinServer(ip, port)
 	
 	global.socket = network_create_socket(network_socket_tcp);
 	
-	var _s = network_connect(global.socket, ip, port);
+	var _s = network_connect_async(global.socket, ip, port);
 	
 	if (_s < 0)
 	{
@@ -81,258 +81,329 @@ function send_data(data_map)
 
 function handle_data(data)
 {
-	var parsed_data = json_decode( buffer_read(data,buffer_string) );
+	var parsed_data = json_decode(data);
+	var successful_parse = false;
+	
 	show_debug_message("Handling data: "+string(data));
 	
-	switch parsed_data[? "cmd"]
+	
+	if (ds_exists(parsed_data,ds_type_map))
 	{
-		case "generate_world":
-		{
-			show_debug_message("Generate gate 1!");
-			if (instance_exists(obj_menu_control) && obj_menu_control.begin_sequence = false)
-			{
-				show_debug_message("Generate gate 2!");
-				random_set_seed(parsed_data[? "seed"]);
-				obj_menu_control.begin_sequence = true;
-			}
-		}
-		break;
+		successful_parse = true;
 		
-		case "player_sync":
+		switch parsed_data[? "cmd"]
 		{
-			var _p_id = parsed_data[? "id"];
-			if (_p_id == global.player_id) then exit;
-			
-			if (instance_exists(obj_player_dummy))
+			case "generate_world":
 			{
-				with (obj_player_dummy)
+				show_debug_message("Generate gate 1!");
+				if (instance_exists(obj_menu_control) && obj_menu_control.begin_sequence = false)
 				{
-					if (p_id != _p_id)
-					{
-						continue;
-					}
-					else
-					{
-						x = parsed_data[? "x"];	
-						y = parsed_data[? "y"];
-						hspd = parsed_data[? "hspd"];
-						vspd = parsed_data[? "vspd"];
-						
-						//Server relay
-						server_relay_data(parsed_data);
-						exit;
-					}
-				}
-				
-				//If we make it this far, make a new dude. Used when there are more than 2 players!!
-				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
-				_p.p_id = parsed_data[? "id"];
-				_p.hspd = parsed_data[? "hspd"];
-				_p.vspd = parsed_data[? "vspd"];
-			}
-			else //Make a new dude here b/c no dude exists!
-			{
-				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
-				_p.p_id = parsed_data[? "id"];
-				_p.hspd = parsed_data[? "hspd"];
-				_p.vspd = parsed_data[? "vspd"];
-			}
-		}
-		break;
-		
-		case "player_stats_sync":
-		{
-			
-			var _p_id = parsed_data[? "id"];
-			if (_p_id == global.player_id)
-			{
-				//The sync is for us, from the host!
-				if (instance_exists(obj_player))
-				{
-					with (obj_player)
-					{
-						hp = parsed_data[? "hp"];	
-						maxHp = parsed_data[? "maxHp"];
-					}
+					show_debug_message("Generate gate 2!");
+					random_set_seed(parsed_data[? "seed"]);
+					obj_menu_control.begin_sequence = true;
 				}
 			}
-			else
+			break;
+		
+			case "player_sync":
 			{
+				var _p_id = parsed_data[? "id"];
+				if (_p_id == global.player_id) then exit;
+			
 				if (instance_exists(obj_player_dummy))
 				{
-				
 					with (obj_player_dummy)
 					{
 						if (p_id != _p_id)
+						{
 							continue;
+						}
 						else
+						{
+							x = parsed_data[? "x"];	
+							y = parsed_data[? "y"];
+							hspd = parsed_data[? "hspd"];
+							vspd = parsed_data[? "vspd"];
+						
+							//Server relay
+							server_relay_data(parsed_data);
+							exit;
+						}
+					}
+				
+					//If we make it this far, make a new dude. Used when there are more than 2 players!!
+					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
+					_p.p_id = parsed_data[? "id"];
+					_p.hspd = parsed_data[? "hspd"];
+					_p.vspd = parsed_data[? "vspd"];
+				}
+				else //Make a new dude here b/c no dude exists!
+				{
+					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_player_dummy);
+					_p.p_id = parsed_data[? "id"];
+					_p.hspd = parsed_data[? "hspd"];
+					_p.vspd = parsed_data[? "vspd"];
+				}
+			}
+			break;
+		
+			case "player_stats_sync":
+			{
+			
+				var _p_id = parsed_data[? "id"];
+				if (_p_id == global.player_id)
+				{
+					//The sync is for us, from the host!
+					if (instance_exists(obj_player))
+					{
+						with (obj_player)
 						{
 							hp = parsed_data[? "hp"];	
 							maxHp = parsed_data[? "maxHp"];
 						}
 					}
 				}
-			}
-		}
-		break;
-		
-		case "tile_destroy":
-		{
-			var _x = parsed_data[? "x"];
-			var _y = parsed_data[? "y"];
-			instance_activate_region(_x,_y,1,1,true);
-			
-			var _t = collision_point(_x,_y,obj_tile,false,false);
-			
-			if (_t != noone)
-			{
-				with (_t)
+				else
 				{
-					if (item_id == parsed_data[? "type"])
+					if (instance_exists(obj_player_dummy))
 					{
-						drop_item = parsed_data[? "drop_item"];
-						instance_destroy();	
-					}
-				}
-			}
-		}
-		break;
-		
-		case "item_sync":
-		{
-			var o_id = parsed_data[? "object_id"];
-			
-			with (obj_item)
-			{
-				if (object_id != o_id)
-					continue;
 				
-				x = parsed_data[? "x"];
-				y = parsed_data[? "y"];
-				break;
-			}
-		}
-		break;
-		
-		case "item_create":
-		{
-			if (global.player_id == parsed_data[? "player_id"]) then exit;
-			
-			var _it = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_item);
-			_it.item_id = parsed_data[? "item_id"];
-			_it.image_index = parsed_data[? "item_id"];
-			_it.speed = parsed_data[? "speed"];
-			_it.direction = parsed_data[? "direction"];
-			_it.pickup_delay = 10;
-			_it.alarm[0] = -1; //PLEASE DO NOT GIVE ME 10290 STONE FROM ONE NODE AND BUFFER OVREFLOW THE GAME AGAIN OH MY GOD
-			
-			server_relay_data(parsed_data);
-		}
-		break;
-		
-		case "inventory_add_item":
-		{
-			if (parsed_data[? "p_id"] == global.player_id)
-			{
-				//We received an item!
-				global.inventory[parsed_data[? "item"]] += 1;
-			
-				update_inventory();
-				_sn = audio_play_sound(snd_true_blip,1,false);
-				audio_sound_pitch(_sn,choose(0.99,0.995,1,1.1));
-			}
-		}
-		break;
-		
-		case "wave_sync":
-		{
-			if (instance_exists(obj_control))
-			{
-				with (obj_control)
-				{
-					time_mil = parsed_data[? "time_mil"];
-					time_m = parsed_data[? "time_m"];
-					time_h = parsed_data[? "time_h"];
-					difficulty = parsed_data[? "difficulty"];
-				}
-			}
-		}
-		break;
-		
-		case "chat_message":
-		{
-			hud_message(parsed_data[? "message"]);
-		}
-		break;
-		
-		case "enemy_sync":
-		{
-			var o_index = parsed_data[? "object_index"];
-			
-			if (instance_exists(o_index))
-			{
-				var _o_id = parsed_data[? "id"];
-				with (o_index)
-				{
-					if (object_id != _o_id)
-						continue;
-					else
-					{
-						x = parsed_data[? "x"];	
-						y = parsed_data[? "y"];
-						hAccel = parsed_data[? "hAccel"];
-						vAccel = parsed_data[? "vAccel"];
-						hp = parsed_data[? "hp"];
+						with (obj_player_dummy)
+						{
+							if (p_id != _p_id)
+								continue;
+							else
+							{
+								hp = parsed_data[? "hp"];	
+								maxHp = parsed_data[? "maxHp"];
+							}
+						}
 					}
 				}
 			}
-			else
-			{
-				var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
-				_p.object_id = parsed_data[? "id"];
-				_p.hAccel = parsed_data[? "hAccel"];
-				_p.vAccel = parsed_data[? "vAccel"];
-				_p.hp = parsed_data[? "hp"];
-			}
-		}
-		break;
+			break;
 		
-		case "object_destroy":
-		{
-			var o_index = parsed_data[? "object_index"];
-			
-			if (instance_exists(o_index))
+			case "tile_destroy":
 			{
-				var _id = parsed_data[? "object_id"];
-				with (o_index)
+				var _x = parsed_data[? "x"];
+				var _y = parsed_data[? "y"];
+				instance_activate_region(_x,_y,1,1,true);
+			
+				var _t = collision_point(_x,_y,obj_tile,false,false);
+			
+				if (_t != noone)
 				{
-					if (object_id != _id)
-						continue;
-					else 
+					with (_t)
 					{
-						instance_destroy();
-						break;
+						if (item_id == parsed_data[? "type"])
+						{
+							drop_item = parsed_data[? "drop_item"];
+							instance_destroy();	
+						}
 					}
 				}
 			}
-		}
-		break;
+			break;
 		
-		case "bullet_dummy_create":
-		{
-			if (global.player_id == parsed_data[? "player_id"]) then exit;
+			case "item_sync":
+			{
+				var o_id = parsed_data[? "object_id"];
 			
-			var _bu = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_bullet);
-			_bu.speed = parsed_data[? "speed"];
-			_bu.direction = parsed_data[? "direction"];
-			_bu.image_angle = parsed_data[? "image_angle"];
-			_bu.objective = parsed_data[? "objective"];
-			_bu.alarm[1] = -1;
+				with (obj_item)
+				{
+					if (object_id != o_id)
+						continue;
+				
+					x = parsed_data[? "x"];
+					y = parsed_data[? "y"];
+					break;
+				}
+			}
+			break;
+		
+			case "item_create":
+			{
+				if (global.player_id == parsed_data[? "player_id"]) then exit;
 			
-			server_relay_data(parsed_data); //make sure all clients see this!
+				var _it = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_item);
+				_it.item_id = parsed_data[? "item_id"];
+				_it.image_index = parsed_data[? "item_id"];
+				_it.speed = parsed_data[? "speed"];
+				_it.direction = parsed_data[? "direction"];
+				_it.pickup_delay = room_speed; //Toss time!
+				_it.friction = parsed_data[? "friction"];
+				_it.pickup_delay = parsed_data[? "pickup_delay"];
+				_it.alarm[0] = -1; //PLEASE DO NOT GIVE ME 10290 STONE FROM ONE NODE AND BUFFER OVREFLOW THE GAME AGAIN OH MY GOD
+			
+				server_relay_data(parsed_data);
+			}
+			break;
+		
+			case "inventory_add_item":
+			{
+				if (parsed_data[? "p_id"] == global.player_id)
+				{
+					//We received an item!
+					global.inventory[parsed_data[? "item"]] += 1;
+			
+					update_inventory();
+					_sn = audio_play_sound(snd_true_blip,1,false);
+					audio_sound_pitch(_sn,choose(0.99,0.995,1,1.1));
+				}
+			}
+			break;
+		
+			case "wave_sync":
+			{
+				if (instance_exists(obj_control))
+				{
+					with (obj_control)
+					{
+						time_mil = parsed_data[? "time_mil"];
+						time_m = parsed_data[? "time_m"];
+						time_h = parsed_data[? "time_h"];
+						difficulty = parsed_data[? "difficulty"];
+					}
+				}
+			}
+			break;
+		
+			case "chat_message":
+			{
+				hud_message(parsed_data[? "message"]);
+				
+				if (global.is_host == true)
+				{
+					server_relay_data(parsed_data);	
+				}
+			}
+			break;
+		
+			case "enemy_sync":
+			{
+				var o_index = parsed_data[? "object_index"];
+			
+				if (instance_exists(o_index))
+				{
+					var _o_id = parsed_data[? "id"];
+					var _counter = 0;
+						
+					with (o_index)
+					{
+						if (object_id == -1)
+						{
+							//Allow us to assign this very object the new id.
+							object_id = _o_id;
+						}
+						else if (object_id == _o_id)
+						{
+							x = parsed_data[? "x"];	
+							y = parsed_data[? "y"];
+							hAccel = parsed_data[? "hAccel"];
+							vAccel = parsed_data[? "vAccel"];
+							hp = parsed_data[? "hp"];
+							break;
+						}
+						else if (_counter == instance_number(o_index) - 1)
+						{
+							//Create a new instance
+							var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+							_p.object_id = parsed_data[? "id"];
+							_p.hAccel = parsed_data[? "hAccel"];
+							_p.vAccel = parsed_data[? "vAccel"];
+							_p.hp = parsed_data[? "hp"];
+						}
+						
+						_counter++;
+					}
+					show_debug_message("Instance Number: "+string(instance_number(o_index)));
+				}
+				else
+				{
+					//Create a new instance
+					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+					_p.object_id = parsed_data[? "id"];
+					_p.hAccel = parsed_data[? "hAccel"];
+					_p.vAccel = parsed_data[? "vAccel"];
+					_p.hp = parsed_data[? "hp"];
+				}
+			}
+			break;
+		
+			case "enemy_sync_asteroid":
+			{
+				//NOTE: This code is exactly the same as enemy_sync, except hAccel and vAccel are replaced with hspeed and vspeed.
+				var o_index = parsed_data[? "object_index"];
+			
+				if (instance_exists(o_index))
+				{
+					var _o_id = parsed_data[? "id"];
+					with (o_index)
+					{
+						if (object_id != _o_id)
+							continue;
+						else
+						{
+							x = parsed_data[? "x"];	
+							y = parsed_data[? "y"];
+							hspeed = parsed_data[? "hAccel"];
+							vspeed = parsed_data[? "vAccel"];
+							hp = parsed_data[? "hp"];
+						}
+					}
+				}
+				else
+				{
+					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+					_p.object_id = parsed_data[? "id"];
+					_p.hspeed = parsed_data[? "hAccel"];
+					_p.vspeed = parsed_data[? "vAccel"];
+					_p.hp = parsed_data[? "hp"];
+				}
+			}
+			break;
+		
+			case "object_destroy":
+			{
+				var o_index = parsed_data[? "object_index"];
+			
+				if (instance_exists(o_index))
+				{
+					var _id = parsed_data[? "object_id"];
+					with (o_index)
+					{
+						if (object_id != _id)
+							continue;
+						else 
+						{
+							instance_destroy();
+							break;
+						}
+					}
+				}
+			}
+			break;
+		
+			case "bullet_dummy_create":
+			{
+				if (global.player_id == parsed_data[? "player_id"]) then exit;
+			
+				var _bu = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", obj_bullet);
+				_bu.speed = parsed_data[? "speed"];
+				_bu.direction = parsed_data[? "direction"];
+				_bu.image_angle = parsed_data[? "image_angle"];
+				_bu.objective = parsed_data[? "objective"];
+				_bu.alarm[1] = -1;
+			
+				server_relay_data(parsed_data); //make sure all clients see this!
+			}
+			break;
+			
+			default: { successful_parse = false; } break;
 		}
-		break;
 	}
+	
+	return successful_parse;
 }
 
 function server_relay_data(data_to_relay)

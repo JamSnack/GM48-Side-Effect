@@ -1,5 +1,4 @@
 /// @description Handle networking
-
 var t = ds_map_find_value(async_load, "type");
 switch(t)
 {
@@ -11,7 +10,7 @@ switch(t)
 	
 	case network_type_disconnect:
 	    var sock = ds_map_find_value(async_load, "socket");
-	    ds_map_delete(global.socketlist, sock);
+	    ds_list_delete(global.socketlist, ds_list_find_index(global.socketlist, sock));
 		global.player_count = ds_list_size(global.socketlist)+1;
 		
 		var _str = "A player has disconnected.";
@@ -25,6 +24,8 @@ switch(t)
 	
 	case network_type_data:
 		var data = async_load[? "buffer"];
-	    handle_data(data);
+		data = buffer_read(data,buffer_string);
+		handle_data(data);
+		//ds_list_add(packet_queue, data); //Put the data into the packet_queue.
 	break;
 }

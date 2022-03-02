@@ -22,6 +22,7 @@ if (instance_exists(obj_player))
 }
 
 //-- Tile placement
+
 if (currently_placing != false && mb_left_released)
 {
 	var _success = false;	
@@ -130,53 +131,56 @@ if (interaction_open == true) && currently_placing == false
 	{
 		if (global.inventory[upgrade_hovering] > 0)
 		{
-			global.inventory[upgrade_hovering] -= 1;
+			if (global.multiplayer == false || global.is_host == true)
+			{
+				global.inventory[upgrade_hovering] -= 1;
 			
-			switch upgrade_hovering
-			{
-				case ITEMID.item_stone: { core_hp_xp += 1;} break;
-				case ITEMID.item_coal: { core_turret_rate_xp += 1;} break;
-				case ITEMID.item_iron: { core_turret_damage_xp += 1;} break;
-				case ITEMID.item_silver: { core_turret_hp_xp += 1;} break;
-			}
+				switch upgrade_hovering
+				{
+					case ITEMID.item_stone: { core_hp_xp += 1;} break;
+					case ITEMID.item_coal: { core_turret_rate_xp += 1;} break;
+					case ITEMID.item_iron: { core_turret_damage_xp += 1;} break;
+					case ITEMID.item_silver: { core_turret_hp_xp += 1;} break;
+				}
 			
 			
-			//Check for upgrades
-			if (core_hp_xp >= core_hp_xp_max)
-			{
-				core_hp_xp_max *= 2;
-				core_hp_xp = 0;
+				//Check for upgrades
+				if (core_hp_xp >= core_hp_xp_max)
+				{
+					core_hp_xp_max *= 2;
+					core_hp_xp = 0;
 				
-				maxHp += 15;
-				event_user(0);
-			}
-			else if (core_turret_rate_xp >= core_turret_rate_xp_max)
-			{
-				core_turret_rate_xp_max *= 2;
-				core_turret_rate_xp = 0;
+					maxHp += 15;
+					event_user(0);
+				}
+				else if (core_turret_rate_xp >= core_turret_rate_xp_max)
+				{
+					core_turret_rate_xp_max *= 2;
+					core_turret_rate_xp = 0;
 				
-				core_turret_rate = lerp(core_turret_rate,0,.2);
-				event_user(0);
-			}
-			else if (core_turret_damage_xp >= core_turret_damage_xp_max)
-			{
-				core_turret_damage_xp_max *= 2;
-				core_turret_damage_xp = 0;
+					core_turret_rate = lerp(core_turret_rate,0,.2);
+					event_user(0);
+				}
+				else if (core_turret_damage_xp >= core_turret_damage_xp_max)
+				{
+					core_turret_damage_xp_max *= 2;
+					core_turret_damage_xp = 0;
 				
-				core_turret_damage += 1;
-				event_user(0);
-			}
-			else if (core_turret_hp_xp >= core_turret_hp_xp_max)
-			{
-				core_turret_hp_xp_max *= 2;
-				core_turret_hp_xp = 0;
+					core_turret_damage += 1;
+					event_user(0);
+				}
+				else if (core_turret_hp_xp >= core_turret_hp_xp_max)
+				{
+					core_turret_hp_xp_max *= 2;
+					core_turret_hp_xp = 0;
 				
-				core_turret_hp += 1;
-				event_user(0);
-			}
+					core_turret_hp += 1;
+					event_user(0);
+				}
 			
-		} 
-		else upgrade_hovering = noone; 
+			} 
+			else upgrade_hovering = noone;
+		}
 		
 		update_inventory();
 		obj_player.inventory_action_disable = true;

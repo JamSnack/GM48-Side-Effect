@@ -10,3 +10,10 @@ global.multiplayer = false; //Whether or not this is a multiplayer game.
 global.is_host = false; //Whether or not this client is hosting a multiplayer game.
 global.player_id = irandom(99999);
 global.player_count = 1;
+global.networking_debug = true; //Whether or not to dislay networking debug stuff
+
+simulate_lag = true;
+simulate_lag_ping = 100;
+ping = 0;
+display_ping = 0;
+packet_queue = ds_list_create();

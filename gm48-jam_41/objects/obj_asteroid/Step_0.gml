@@ -2,6 +2,8 @@
 // You can write your code in this editor
 image_angle += speed*rotation*3;
 
+if (global.multiplayer == true && global.is_host == false) then exit;
+
 if (place_meeting_fast(hspeed,vspeed,obj_tile,false))
 {
 	//EXPLODDDEEE
@@ -46,4 +48,20 @@ else if place_meeting_fast(hspeed,vspeed,PLAYER,false)
 if (hp <= 0)
 {
 	instance_destroy();	
+}
+
+
+//Multiplayer!
+if (global.multiplayer == true)
+{
+	var _d = ds_map_create();
+	_d[? "cmd"] = "enemy_sync_asteroid";
+	_d[? "id"] = object_id;
+	_d[? "x"] = x;
+	_d[? "y"] = y;
+	_d[? "hAccel"] = hspeed;
+	_d[? "vAccel"] = vspeed;
+	_d[? "object_index"] = object_index;
+	_d[? "hp"] = hp;
+	send_data(_d);
 }

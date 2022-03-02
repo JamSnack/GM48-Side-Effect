@@ -2,24 +2,19 @@
 // You can write your code in this editor
 if (instance_exists(PLAYER) && pickup_delay <= 0)
 {
-	if (player_lock == noone)
-	{ 
-		player_lock = instance_nearest(x,y,PLAYER);
-	}
-	else
+	var nearest_player = instance_nearest(x,y,PLAYER);
+	var distance_to_player = distance_to_object(nearest_player);
+	
+	if (distance_to_player < global.tile_size*2 || player_lock != noone)
 	{
-		var distance_to_player = distance_to_object(player_lock);
+		player_lock = nearest_player;
+		motion_add(point_direction(x,y,nearest_player.x,nearest_player.y),1);
 	
-		if (distance_to_player < global.tile_size*2)
+		image_angle += hspeed;
+	
+		if (distance_to_player < 2)
 		{
-			motion_add(point_direction(x,y,player_lock.x,player_lock.y),1);
-	
-			image_angle += hspeed;
-	
-			if (distance_to_player < 2)
-			{
-				instance_destroy();
-			}
+			instance_destroy();
 		}
 	}
 }

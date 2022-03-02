@@ -26,11 +26,11 @@ if (begin_sequence == false)
 		{
 			if (keyboard_check_released(vk_f1))
 			{
-				createServer(1337, 3);
+				createServer(get_integer("Enter server port.", 1337), 2);
 			}
 			else if (keyboard_check_released(vk_f2))
 			{
-				joinServer("127.0.0.1", 1337);	
+				joinServer(get_string("Enter target IP address.","127.0.0.1"), get_integer("Enter server port.", 1337));	
 			}
 		}
 		else if (global.is_host == true && keyboard_check_released(ord("Q")))

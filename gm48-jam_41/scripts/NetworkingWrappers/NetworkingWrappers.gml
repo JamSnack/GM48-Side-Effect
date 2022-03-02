@@ -5,5 +5,6 @@ function send_chat(str)
 	var _ch = ds_map_create();
 	_ch[? "cmd"] = "chat_message";
 	_ch[? "message"] = str;
+	_ch[? "id"] = global.player_id;
 	send_data(_ch);
 }
