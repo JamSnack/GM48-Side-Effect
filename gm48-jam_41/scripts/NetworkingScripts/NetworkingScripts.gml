@@ -99,7 +99,9 @@ function handle_data(data)
 				if (instance_exists(obj_menu_control) && obj_menu_control.begin_sequence = false)
 				{
 					show_debug_message("Generate gate 2!");
-					random_set_seed(parsed_data[? "seed"]);
+					var _rng_seed = parsed_data[? "seed"];
+					global.game_seed = _rng_seed;
+					random_set_seed(_rng_seed);
 					obj_menu_control.begin_sequence = true;
 				}
 			}
@@ -338,22 +340,40 @@ function handle_data(data)
 				if (instance_exists(o_index))
 				{
 					var _o_id = parsed_data[? "id"];
+					var _counter = 0;
+						
 					with (o_index)
 					{
-						if (object_id != _o_id)
-							continue;
-						else
+						if (object_id == -1)
+						{
+							//Allow us to assign this very object the new id.
+							object_id = _o_id;
+						}
+						else if (object_id == _o_id)
 						{
 							x = parsed_data[? "x"];	
 							y = parsed_data[? "y"];
 							hspeed = parsed_data[? "hAccel"];
-							vspeed = parsed_data[? "vAccel"];
-							hp = parsed_data[? "hp"];
+							vspeed = parsed_data[? "hp"];
+							break;
 						}
+						else if (_counter == instance_number(o_index) - 1)
+						{
+							//Create a new instance
+							var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+							_p.object_id = parsed_data[? "id"];
+							_p.hspeed = parsed_data[? "hAccel"];
+							_p.vspeed = parsed_data[? "vAccel"];
+							_p.hp = parsed_data[? "hp"];
+						}
+						
+						_counter++;
 					}
+					show_debug_message("Instance Number: "+string(instance_number(o_index)));
 				}
 				else
 				{
+					//Create a new instance
 					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
 					_p.object_id = parsed_data[? "id"];
 					_p.hspeed = parsed_data[? "hAccel"];

@@ -2,12 +2,15 @@
 
 image_angle = point_direction(x,y,x+hAccel,y+vAccel);
 
+//Death
+if (hp <= 0) then instance_destroy();
+
 if global.is_host == false then exit;
 
 
 if (instance_exists(objective))
 {
-	var near_play = instance_nearest(x,y,PLAYER);
+	var near_play = instance_nearest(x,y,PLAYER_TARGET);
 	
 	if (distance_to_object(near_play) > global.tile_size*8)
 	{
@@ -93,9 +96,6 @@ else
 	shoot_delay -= 1;
 	mining = false;
 }
-
-//Death
-if (hp <= 0) then instance_destroy();
 
 //Multiplayer!
 if (global.multiplayer == true)

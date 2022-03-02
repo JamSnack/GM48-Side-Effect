@@ -45,9 +45,13 @@ else if place_meeting_fast(hspeed,vspeed,PLAYER,false)
 	instance_destroy();
 }
 
-if (hp <= 0)
+if (hp <= 0 || counter > 10000)
 {
 	instance_destroy();	
+}
+else
+{
+	counter++;	
 }
 
 

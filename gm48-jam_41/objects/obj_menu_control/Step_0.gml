@@ -38,6 +38,7 @@ if (begin_sequence == false)
 			begin_sequence = true;
 			randomise(); //Randomise the world seed
 			var rng_seed = random_get_seed();
+			global.game_seed = rng_seed;
 			
 			var _d = ds_map_create();
 			_d[? "cmd"] = "generate_world";

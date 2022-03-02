@@ -15,4 +15,5 @@ image_yscale = scale;
 maxHp = 1+scale;
 hp = maxHp;
 
+counter = 0;
 object_id = get_object_id();
