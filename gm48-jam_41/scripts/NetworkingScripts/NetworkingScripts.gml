@@ -283,102 +283,55 @@ function handle_data(data)
 		
 			case "enemy_sync":
 			{
+				var _o_id = parsed_data[? "id"];
 				var o_index = parsed_data[? "object_index"];
-			
-				if (instance_exists(o_index))
+				
+				//ignore packets from recently destroyed objects.
+				if (ds_list_find_index(global.recently_destroyed_objects, _o_id) == -1)
 				{
-					var _o_id = parsed_data[? "id"];
-					var _counter = 0;
-						
-					with (o_index)
+					if (instance_exists(o_index))
 					{
-						if (object_id == -1)
-						{
-							//Allow us to assign this very object the new id.
-							object_id = _o_id;
-						}
-						else if (object_id == _o_id)
-						{
-							x = parsed_data[? "x"];	
-							y = parsed_data[? "y"];
-							hAccel = parsed_data[? "hAccel"];
-							vAccel = parsed_data[? "vAccel"];
-							hp = parsed_data[? "hp"];
-							break;
-						}
-						else if (_counter == instance_number(o_index) - 1)
-						{
-							//Create a new instance
-							var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
-							_p.object_id = parsed_data[? "id"];
-							_p.hAccel = parsed_data[? "hAccel"];
-							_p.vAccel = parsed_data[? "vAccel"];
-							_p.hp = parsed_data[? "hp"];
-						}
+						var _counter = 0;
 						
-						_counter++;
+						with (o_index)
+						{
+							if (object_id == -1)
+							{
+								//Allow us to assign this very object the new id.
+								object_id = _o_id;
+							}
+							else if (object_id == _o_id)
+							{
+								x = parsed_data[? "x"];	
+								y = parsed_data[? "y"];
+								hAccel = parsed_data[? "hAccel"];
+								vAccel = parsed_data[? "vAccel"];
+								hp = parsed_data[? "hp"];
+								break;
+							}
+							else if (_counter == instance_number(o_index) - 1)
+							{
+								//Create a new instance
+								var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+								_p.object_id = parsed_data[? "id"];
+								_p.hAccel = parsed_data[? "hAccel"];
+								_p.vAccel = parsed_data[? "vAccel"];
+								_p.hp = parsed_data[? "hp"];
+							}
+						
+							_counter++;
+						}
+						show_debug_message("Instance Number: "+string(instance_number(o_index)));
 					}
-					show_debug_message("Instance Number: "+string(instance_number(o_index)));
-				}
-				else
-				{
-					//Create a new instance
-					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
-					_p.object_id = parsed_data[? "id"];
-					_p.hAccel = parsed_data[? "hAccel"];
-					_p.vAccel = parsed_data[? "vAccel"];
-					_p.hp = parsed_data[? "hp"];
-				}
-			}
-			break;
-		
-			case "enemy_sync_asteroid":
-			{
-				//NOTE: This code is exactly the same as enemy_sync, except hAccel and vAccel are replaced with hspeed and vspeed.
-				var o_index = parsed_data[? "object_index"];
-			
-				if (instance_exists(o_index))
-				{
-					var _o_id = parsed_data[? "id"];
-					var _counter = 0;
-						
-					with (o_index)
+					else
 					{
-						if (object_id == -1)
-						{
-							//Allow us to assign this very object the new id.
-							object_id = _o_id;
-						}
-						else if (object_id == _o_id)
-						{
-							x = parsed_data[? "x"];	
-							y = parsed_data[? "y"];
-							hspeed = parsed_data[? "hAccel"];
-							vspeed = parsed_data[? "hp"];
-							break;
-						}
-						else if (_counter == instance_number(o_index) - 1)
-						{
-							//Create a new instance
-							var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
-							_p.object_id = parsed_data[? "id"];
-							_p.hspeed = parsed_data[? "hAccel"];
-							_p.vspeed = parsed_data[? "vAccel"];
-							_p.hp = parsed_data[? "hp"];
-						}
-						
-						_counter++;
+						//Create a new instance
+						var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
+						_p.object_id = parsed_data[? "id"];
+						_p.hAccel = parsed_data[? "hAccel"];
+						_p.vAccel = parsed_data[? "vAccel"];
+						_p.hp = parsed_data[? "hp"];
 					}
-					//show_debug_message("Instance Number: "+string(instance_number(o_index)));
-				}
-				else
-				{
-					//Create a new instance
-					var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
-					_p.object_id = parsed_data[? "id"];
-					_p.hspeed = parsed_data[? "hAccel"];
-					_p.vspeed = parsed_data[? "vAccel"];
-					_p.hp = parsed_data[? "hp"];
 				}
 			}
 			break;
@@ -397,6 +350,15 @@ function handle_data(data)
 						{
 							show_debug_message("ME: "+string(object_id)+" DED");
 							instance_destroy();
+							
+							//Recently destroyed objects.
+							ds_list_add(global.recently_destroyed_objects, object_id);
+							
+							if (ds_list_size(global.recently_destroyed_objects) > 15)
+							{
+								ds_list_delete(global.recently_destroyed_objects, 0);	
+							}
+							
 							break;
 						}
 						else 
@@ -420,6 +382,22 @@ function handle_data(data)
 				_bu.alarm[1] = -1;
 			
 				server_relay_data(parsed_data); //make sure all clients see this!
+			}
+			break;
+			
+			case "init_asteroid":
+			{
+				with (obj_asteroid)
+				{
+					if (parsed_data[? "object_id"] == object_id)
+					{
+						scale = parsed_data[? "scale"];
+						image_xscale = scale;
+						image_yscale = scale;
+						maxHp = 1+scale;
+						break;
+					}
+				}
 			}
 			break;
 			

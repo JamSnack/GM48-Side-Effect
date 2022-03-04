@@ -109,5 +109,5 @@ if (global.multiplayer == true)
 	_d[? "vAccel"] = vAccel;
 	_d[? "object_index"] = object_index;
 	_d[? "hp"] = hp;
-	send_data(_d);	
+	send_data(_d);
 }

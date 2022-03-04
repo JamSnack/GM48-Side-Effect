@@ -17,3 +17,6 @@ simulate_lag_ping = 100;
 ping = 0;
 display_ping = 0;
 packet_queue = ds_list_create();
+
+//Garbage packet collection
+global.recently_destroyed_objects = ds_list_create();

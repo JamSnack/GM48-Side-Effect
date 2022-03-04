@@ -1,10 +1,20 @@
 /// @description Insert description here
 // You can write your code in this editor
-image_angle += speed*rotation*3;
+image_angle += _speed*rotation*3;
+
+//Death
+if (hp <= 0 || counter > 120*60)
+{
+	instance_destroy();
+}
+else
+{
+	counter++;	
+}
 
 if (global.is_host == false) then exit;
 
-if (place_meeting_fast(hspeed,vspeed,obj_tile,false))
+if (place_meeting_fast(hAccel,vAccel,obj_tile,false))
 {
 	//EXPLODDDEEE
 	repeat(25)
@@ -22,7 +32,7 @@ if (place_meeting_fast(hspeed,vspeed,obj_tile,false))
 	
 	instance_destroy();	
 }
-else if place_meeting_fast(hspeed,vspeed,PLAYER,false)
+else if place_meeting_fast(hAccel,vAccel,PLAYER,false)
 {
 	var _list = ds_list_create();
 	collision_circle_list(x,y,global.tile_size*(scale),PLAYER,false,false,_list,false);
@@ -45,27 +55,25 @@ else if place_meeting_fast(hspeed,vspeed,PLAYER,false)
 	instance_destroy();
 }
 
-if (hp <= 0 || counter > 10000)
-{
-	instance_destroy();	
-}
-else
-{
-	counter++;	
-}
 
+//Position update
+x += hAccel;
+y += vAccel;
 
 //Multiplayer!
 if (global.is_host == true)
 {
 	var _d = ds_map_create();
-	_d[? "cmd"] = "enemy_sync_asteroid";
+	_d[? "cmd"] = "enemy_sync";
 	_d[? "id"] = object_id;
 	_d[? "x"] = x;
 	_d[? "y"] = y;
-	_d[? "hAccel"] = hspeed;
-	_d[? "vAccel"] = vspeed;
+	_d[? "hAccel"] = hAccel;
+	_d[? "vAccel"] = vAccel;
 	_d[? "object_index"] = object_index;
 	_d[? "hp"] = hp;
 	send_data(_d);
+	
+	if (counter < 2) //send a couple of these for consistency's sake
+		init_asteroid_for_multiplayer();
 }
