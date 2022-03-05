@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
-maxHp = 2;
-hp = 1;
+maxHp = 6;
+hp = maxHp-1;
 attack_rate = obj_core.core_turret_rate;
 attack_range = global.tile_size*5;
 attack_angle = 0;
@@ -26,3 +26,6 @@ alarm[0] = room_speed*2;
 play_sound_local(snd_alien_charge,x,y);
 
 with (obj_core) event_user(0);
+
+//Multiplayer
+object_id = get_object_id();

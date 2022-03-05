@@ -21,6 +21,15 @@ else if (instance_exists(objective) && place_meeting_fast(hspeed,vspeed,objectiv
 				_d[? "maxHp"] = maxHp;
 				send_data(_d);
 			}
+			else if (object_index == obj_core || object_index == obj_core_turret || object_index == obj_red_turret)
+			{
+				var _d = ds_map_create();
+				_d[? "cmd"] = "structure_stats_sync";
+				_d[? "id"] = object_id;
+				_d[? "hp"] = hp;
+				_d[? "maxHp"] = maxHp;
+				send_data(_d);
+			}
 		}
 	}
 	

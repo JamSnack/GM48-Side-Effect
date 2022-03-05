@@ -1,5 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
+if (global.multiplayer == true && global.is_host == false)
+	exit;
+
 if (attack_delay <= 0 && instance_exists(ENEMY))
 {
 	var _him = instance_nearest(x,y,ENEMY);
