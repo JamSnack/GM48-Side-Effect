@@ -133,22 +133,22 @@ if (interaction_open == true) && currently_placing == false
 		{
 			if (global.multiplayer == false || global.is_host == true)
 			{
-				global.inventory[upgrade_hovering] -= 1;
-			
-				switch upgrade_hovering
-				{
-					case ITEMID.item_stone: { core_hp_xp += 1;} break;
-					case ITEMID.item_coal: { core_turret_rate_xp += 1;} break;
-					case ITEMID.item_iron: { core_turret_damage_xp += 1;} break;
-					case ITEMID.item_silver: { core_turret_hp_xp += 1;} break;
-				}
+				global.inventory[upgrade_hovering] -= 1; //this happens outside scr_apply_core_upgrade b/c we want clients to be able to call scr_apply... w/o taking resources from the host.
+				scr_apply_core_upgrade(upgrade_hovering);
 			
 			
 				//Check for upgrades and level up if yeah!
 				scr_update_core();
 			} 
-			else upgrade_hovering = noone;
-		}
+			else if (global.multiplayer == true)
+			{
+				var _d = ds_map_create();
+				_d[? "cmd"] = "core_upgrade_request";
+				_d[? "upgrade"] = upgrade_hovering;
+				_d[? "p_id"] = global.player_id;
+				send_data(_d);
+			}
+		} else upgrade_hovering = noone;
 		
 		update_inventory();
 		obj_player.inventory_action_disable = true;

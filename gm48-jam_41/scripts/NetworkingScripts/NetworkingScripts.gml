@@ -284,7 +284,7 @@ function handle_data(data)
 			case "enemy_sync":
 			{
 				var _o_id = parsed_data[? "id"];
-				var o_index = parsed_data[? "object_index"];
+				var o_index = parsed_data[? "o_indx"];
 				
 				//ignore packets from recently destroyed objects.
 				if (ds_list_find_index(global.recently_destroyed_objects, _o_id) == -1)
@@ -304,8 +304,8 @@ function handle_data(data)
 							{
 								x = parsed_data[? "x"];	
 								y = parsed_data[? "y"];
-								hAccel = parsed_data[? "hAccel"];
-								vAccel = parsed_data[? "vAccel"];
+								hAccel = parsed_data[? "hspd"];
+								vAccel = parsed_data[? "vspd"];
 								hp = parsed_data[? "hp"];
 								break;
 							}
@@ -314,8 +314,8 @@ function handle_data(data)
 								//Create a new instance
 								var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
 								_p.object_id = parsed_data[? "id"];
-								_p.hAccel = parsed_data[? "hAccel"];
-								_p.vAccel = parsed_data[? "vAccel"];
+								_p.hAccel = parsed_data[? "hspd"];
+								_p.vAccel = parsed_data[? "vspd"];
 								_p.hp = parsed_data[? "hp"];
 							}
 						
@@ -328,8 +328,8 @@ function handle_data(data)
 						//Create a new instance
 						var _p = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", o_index);
 						_p.object_id = parsed_data[? "id"];
-						_p.hAccel = parsed_data[? "hAccel"];
-						_p.vAccel = parsed_data[? "vAccel"];
+						_p.hAccel = parsed_data[? "hspd"];
+						_p.vAccel = parsed_data[? "vspd"];
 						_p.hp = parsed_data[? "hp"];
 					}
 				}
@@ -460,6 +460,36 @@ function handle_data(data)
 						hp = parsed_data[? "hp"];
 						alarm[0] = parsed_data[? "alarm_time"];
 					}
+				}
+			}
+			break;
+			
+			case "core_upgrade_request":
+			{
+				if (global.is_host == true)
+				{
+					//We've received an upgrade request!
+					server_relay_data(parsed_data);
+				}
+				else if (parsed_data[? "p_id"] == global.player_id)
+				{
+					global.inventory[parsed_data[? "upgrade"]] -= 1;
+					update_inventory();
+					
+					var _d = ds_map_create();
+					_d[? "cmd"] = "core_upgrade_success";
+					_d[? "upgrade"] = parsed_data[? "upgrade"];
+					send_data(_d);
+				}
+			}
+			break;
+			
+			case "core_upgrade_success":
+			{
+				if (global.is_host == true)
+				{
+					scr_apply_core_upgrade(parsed_data[? "upgrade"]);
+					scr_update_core();
 				}
 			}
 			break;

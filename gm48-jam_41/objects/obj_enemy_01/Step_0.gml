@@ -117,9 +117,9 @@ if (global.multiplayer == true)
 	_d[? "id"] = object_id;
 	_d[? "x"] = x;
 	_d[? "y"] = y;
-	_d[? "hAccel"] = hAccel;
-	_d[? "vAccel"] = vAccel;
-	_d[? "object_index"] = object_index;
+	_d[? "hspd"] = hAccel;
+	_d[? "vspd"] = vAccel;
+	_d[? "o_indx"] = object_index;
 	_d[? "hp"] = hp;
 	send_data(_d);
 }

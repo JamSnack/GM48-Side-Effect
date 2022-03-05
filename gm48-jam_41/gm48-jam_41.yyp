@@ -22,6 +22,7 @@
     {"id":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},"order":2,},
     {"id":{"name":"spr_enemy_01","path":"sprites/spr_enemy_01/spr_enemy_01.yy",},"order":10,},
     {"id":{"name":"fnt_terminal_grotesque","path":"fonts/fnt_terminal_grotesque/fnt_terminal_grotesque.yy",},"order":0,},
+    {"id":{"name":"scr_apply_core_upgrade","path":"scripts/scr_apply_core_upgrade/scr_apply_core_upgrade.yy",},"order":15,},
     {"id":{"name":"snd_true_blip","path":"sounds/snd_true_blip/snd_true_blip.yy",},"order":25,},
     {"id":{"name":"snd_big_splosion","path":"sounds/snd_big_splosion/snd_big_splosion.yy",},"order":18,},
     {"id":{"name":"spr_font","path":"sprites/spr_font/spr_font.yy",},"order":4,},
