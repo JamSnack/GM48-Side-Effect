@@ -144,40 +144,8 @@ if (interaction_open == true) && currently_placing == false
 				}
 			
 			
-				//Check for upgrades
-				if (core_hp_xp >= core_hp_xp_max)
-				{
-					core_hp_xp_max *= 2;
-					core_hp_xp = 0;
-				
-					maxHp += 15;
-					event_user(0);
-				}
-				else if (core_turret_rate_xp >= core_turret_rate_xp_max)
-				{
-					core_turret_rate_xp_max *= 2;
-					core_turret_rate_xp = 0;
-				
-					core_turret_rate = lerp(core_turret_rate,0,.2);
-					event_user(0);
-				}
-				else if (core_turret_damage_xp >= core_turret_damage_xp_max)
-				{
-					core_turret_damage_xp_max *= 2;
-					core_turret_damage_xp = 0;
-				
-					core_turret_damage += 1;
-					event_user(0);
-				}
-				else if (core_turret_hp_xp >= core_turret_hp_xp_max)
-				{
-					core_turret_hp_xp_max *= 2;
-					core_turret_hp_xp = 0;
-				
-					core_turret_hp += 1;
-					event_user(0);
-				}
-			
+				//Check for upgrades and level up if yeah!
+				scr_update_core();
 			} 
 			else upgrade_hovering = noone;
 		}

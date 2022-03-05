@@ -401,6 +401,69 @@ function handle_data(data)
 			}
 			break;
 			
+			case "existence_bounce":
+			{
+				var kill_me = true;
+				
+				if (parsed_data[? "p_id"] == global.player_id)
+				{
+					with (parsed_data[? "o_index"])
+					{
+						if (parsed_data[? "o_id"] == object_id)
+						{
+							//The instance exists!
+							if (global.is_host == true)
+							{
+								server_relay_data(parsed_data);
+							}
+							else kill_me = false;
+							
+							break;
+						}
+						
+						if (kill_me)
+						{
+							instance_destroy();	
+						}
+					}
+				}
+			}
+			break;
+			
+			case "core_update":
+			{
+				//NOTE: Having an excess of resource XP is responsible for leveling up, 
+				//the host WILL NOT send a level up packet. Make sure core XP is synchronized BEFORE
+				//scr_update_core() is called.
+				
+				//We've received a core update
+				if (instance_exists(obj_core))
+				{
+					with (obj_core)
+					{						
+						core_hp_xp = parsed_data[? "hp_xp"];
+						core_turret_rate_xp = parsed_data[? "t_r_xp"];
+						core_turret_damage_xp = parsed_data[? "t_d_xp"];
+						core_turret_hp_xp = parsed_data[? "t_h_xp"];
+						scr_update_core();
+					}
+				}
+			}
+			break;
+			
+			case "core_hp_sync":
+			{
+				if (instance_exists(obj_core))
+				{
+					with (obj_core)
+					{
+						hp = parsed_data[? "hp"];
+						alarm[0] = parsed_data[? "alarm_time"];
+					}
+				}
+			}
+			break;
+			
 			default: { successful_parse = false; } break;
 		}
 	}

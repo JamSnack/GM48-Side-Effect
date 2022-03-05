@@ -12,6 +12,18 @@ else
 	counter++;	
 }
 
+//- Death bouncema
+if (x == xprevious && y == yprevious)
+{
+	if (multiplayer_death_counter > 60)
+	{
+		check_for_existance();	
+		multiplayer_death_counter = 0;
+	}
+	
+	multiplayer_death_counter++;
+}
+
 if (global.is_host == false) then exit;
 
 if (place_meeting_fast(hAccel,vAccel,obj_tile,false))

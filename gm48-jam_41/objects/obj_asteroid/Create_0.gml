@@ -18,6 +18,7 @@ maxHp = 1+scale;
 hp = maxHp;
 
 counter = 0;
+multiplayer_death_counter = 0;
 object_id = get_object_id();
 
 function init_asteroid_for_multiplayer()

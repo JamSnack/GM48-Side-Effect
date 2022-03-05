@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description UPGRADE EVENT
 // You can write your code in this editor
 
 //Play neat sound

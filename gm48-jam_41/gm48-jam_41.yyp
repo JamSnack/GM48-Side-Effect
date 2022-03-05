@@ -73,6 +73,7 @@
     {"id":{"name":"spr_flame","path":"sprites/spr_flame/spr_flame.yy",},"order":17,},
     {"id":{"name":"bkg_starry_sky","path":"sprites/bkg_starry_sky/bkg_starry_sky.yy",},"order":7,},
     {"id":{"name":"obj_generator_worm","path":"objects/obj_generator_worm/obj_generator_worm.yy",},"order":6,},
+    {"id":{"name":"scr_update_core","path":"scripts/scr_update_core/scr_update_core.yy",},"order":14,},
     {"id":{"name":"get_item_data","path":"scripts/get_item_data/get_item_data.yy",},"order":3,},
     {"id":{"name":"camera","path":"objects/camera/camera.yy",},"order":1,},
     {"id":{"name":"PLAYER_TARGET","path":"objects/PLAYER_TARGET/PLAYER_TARGET.yy",},"order":22,},

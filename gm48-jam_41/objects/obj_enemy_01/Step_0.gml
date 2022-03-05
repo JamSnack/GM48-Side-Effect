@@ -5,6 +5,18 @@ image_angle = point_direction(x,y,x+hAccel,y+vAccel);
 //Death
 if (hp <= 0) then instance_destroy();
 
+//- Death bouncema
+if (x == xprevious && y == yprevious)
+{
+	if (multiplayer_death_counter > 60)
+	{
+		check_for_existance();	
+		multiplayer_death_counter = 0;
+	}
+	
+	multiplayer_death_counter++;
+}
+
 if global.is_host == false then exit;
 
 
