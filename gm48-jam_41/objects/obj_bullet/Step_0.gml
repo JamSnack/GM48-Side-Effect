@@ -9,7 +9,7 @@ else if (instance_exists(objective) && place_meeting_fast(hspeed,vspeed,objectiv
 		var _d = damage;
 	
 		with instance_nearest(x,y,objective)
-		{
+		{	
 			hp -= _d;
 			
 			if (object_index == obj_player_dummy)

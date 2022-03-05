@@ -15,9 +15,9 @@ if (global.is_host == true)
 	_d[? "id"] = object_id;
 	_d[? "x"] = x;
 	_d[? "y"] = y;
-	_d[? "hAccel"] = 0;
-	_d[? "vAccel"] = 0;
-	_d[? "object_index"] = object_index;
+	_d[? "hspd"] = 0;
+	_d[? "vspd"] = 0;
+	_d[? "o_indx"] = object_index;
 	_d[? "hp"] = hp;
 	send_data(_d);
 }

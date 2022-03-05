@@ -219,6 +219,8 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 	respawn_delay = 10*room_speed;
 	hspd = 0;
 	vspd = 0;
+	x = obj_core.x;
+	y = obj_core.y;
 	
 	if (global.multiplayer == true)
 	{
@@ -229,8 +231,6 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 }
 else if (dead == true && respawn_delay <= 0)
 {
-	x = obj_core.x;
-	y = obj_core.y+64;
 	hp = maxHp;
 	dead = false;
 }
