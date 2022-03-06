@@ -255,7 +255,7 @@ function handle_data(data)
 			}
 			break;
 		
-			case "wave_sync":
+			case "wave_time_sync":
 			{
 				if (instance_exists(obj_control))
 				{
