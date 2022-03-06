@@ -261,10 +261,27 @@ function handle_data(data)
 				{
 					with (obj_control)
 					{
-						time_mil = parsed_data[? "time_mil"];
-						time_m = parsed_data[? "time_m"];
-						time_h = parsed_data[? "time_h"];
-						difficulty = parsed_data[? "difficulty"];
+						time_mil = parsed_data[? "tml"];
+						time_m = parsed_data[? "tm"];
+						time_h = parsed_data[? "th"];
+						difficulty = parsed_data[? "dif"];
+
+						//Play music
+						var ran_volume = choose(1,0);
+						if (audio_sound_get_gain(music_drums) != ran_volume)
+						{
+							audio_sound_gain(music_drums,ran_volume,1000*2);
+						}
+						
+						if (difficulty > 5)
+						{
+							if (audio_sound_get_gain(music_enemy) != 1)
+							{
+								audio_sound_gain(music_enemy,1,1000*2);
+								music_delay = room_speed*28;
+							}	
+						}
+						
 					}
 				}
 			}
@@ -389,9 +406,9 @@ function handle_data(data)
 			{
 				with (obj_asteroid)
 				{
-					if (parsed_data[? "object_id"] == object_id)
+					if (parsed_data[? "o_id"] == object_id)
 					{
-						scale = parsed_data[? "scale"];
+						scale = parsed_data[? "scl"];
 						image_xscale = scale;
 						image_yscale = scale;
 						maxHp = 1+scale;

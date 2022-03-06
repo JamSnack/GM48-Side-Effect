@@ -55,9 +55,10 @@ function sync_wave()
 	{
 		var _d = ds_map_create();
 		_d[? "cmd"] = "wave_time_sync";
-		_d[? "time_mil"] = time_mil;
-		_d[? "time_m"] = time_m;
-		_d[? "time_h"] = time_h;
+		_d[? "tml"] = time_mil;
+		_d[? "tm"] = time_m;
+		_d[? "th"] = time_h;
+		_d[? "dif"] = difficulty;
 		send_data(_d);
 	}
 }
@@ -79,7 +80,7 @@ if (global.multiplayer == false && global.game_over == false && global.game_paus
 	}
 
 	//A wave a minute!
-	if (global.is_host == true && wave_delay <= 0)
+	if ( ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false) && wave_delay <= 0)
 	{
 		sync_wave();
 		
@@ -87,13 +88,13 @@ if (global.multiplayer == false && global.game_over == false && global.game_paus
 		
 		if (difficulty > 3)
 		{
-			repeat((difficulty mod (2+global.player_count-1)))
+			repeat((difficulty mod ( 2 + (global.player_count-1) + floor(time_m/20) )))
 			{
 				instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
 			}
 		}
 	
-		wave_delay = clamp((room_speed*(90-difficulty)), room_speed*60, room_speed*90);
+		wave_delay = clamp((room_speed*(90-difficulty)), room_speed*45, room_speed*90);
 	
 		if (difficulty >= 5)
 		{

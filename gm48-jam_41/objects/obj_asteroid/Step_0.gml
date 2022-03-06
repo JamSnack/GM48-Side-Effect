@@ -3,17 +3,13 @@
 image_angle += _speed*rotation*3;
 
 //Death
-if (hp <= 0 || counter > 120*60)
+if (hp <= 0)
 {
 	instance_destroy();
 }
-else
-{
-	counter++;	
-}
 
 //- Death bouncema
-if (x == xprevious && y == yprevious)
+if (global.multiplayer == false && global.is_host == true) && (x == xprevious && y == yprevious)
 {
 	if (multiplayer_death_counter > 60)
 	{
@@ -88,6 +84,6 @@ if (global.is_host == true)
 	_d[? "hp"] = hp;
 	send_data(_d);
 	
-	if (counter < 2) //send a couple of these for consistency's sake
+	if (alarm[0] > 59*room_speed) //send a couple of these for consistency's sake
 		init_asteroid_for_multiplayer();
 }

@@ -17,7 +17,6 @@ image_yscale = scale;
 maxHp = 1+scale;
 hp = maxHp;
 
-counter = 0;
 multiplayer_death_counter = 0;
 object_id = get_object_id();
 
@@ -27,8 +26,11 @@ function init_asteroid_for_multiplayer()
 	{
 		var _d = ds_map_create();
 		_d[? "cmd"] = "init_asteroid";
-		_d[? "scale"] = scale;
-		_d[? "object_id"] = object_id;
+		_d[? "scl"] = scale;
+		_d[? "o_id"] = object_id;
 		send_data(_d);
 	}
 }
+
+//Instance_Destroy alarm
+alarm[0] = 60*room_speed;
