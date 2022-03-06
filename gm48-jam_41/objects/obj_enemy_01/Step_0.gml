@@ -10,12 +10,13 @@ if (x == xprevious && y == yprevious)
 {
 	if (multiplayer_death_counter > 60)
 	{
-		check_for_existance();	
+		instance_destroy();
 		multiplayer_death_counter = 0;
 	}
 	
 	multiplayer_death_counter++;
 }
+else multiplayer_death_counter = 0;
 
 if global.is_host == false then exit;
 
