@@ -44,10 +44,10 @@ if (place_meeting_fast(hAccel,vAccel,obj_tile,false))
 	
 	instance_destroy();	
 }
-else if place_meeting_fast(hAccel,vAccel,PLAYER,false)
+else if place_meeting_fast(hAccel,vAccel,PLAYER_TARGET,false)
 {
 	var _list = ds_list_create();
-	collision_circle_list(x,y,global.tile_size*(scale),PLAYER,false,false,_list,false);
+	collision_circle_list(x,y,global.tile_size*(scale),PLAYER_TARGET,false,false,_list,false);
 	
 	for(_i=0;_i<ds_list_size(_list);_i++)
 	{

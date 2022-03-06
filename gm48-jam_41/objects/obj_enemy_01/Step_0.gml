@@ -74,7 +74,7 @@ if (shoot_delay <= 0)
 		b.direction = obj_direction;
 		b.speed = 10;
 		b.damage = 1; //Replace with difficulty;
-		b.objective = PLAYER;
+		b.objective = PLAYER_TARGET;
 		b.image_angle = image_angle;
 			
 	}
