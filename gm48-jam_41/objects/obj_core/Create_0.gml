@@ -35,3 +35,5 @@ alarm[0] = 1;
 //Message
 alarm[1] = room_speed*8;
 alarm[2] = room_speed*11;
+
+object_id = get_object_id();

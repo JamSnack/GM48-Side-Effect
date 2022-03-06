@@ -11,6 +11,7 @@
     {"id":{"name":"get_tile_hp","path":"scripts/get_tile_hp/get_tile_hp.yy",},"order":5,},
     {"id":{"name":"approach","path":"scripts/approach/approach.yy",},"order":0,},
     {"id":{"name":"obj_menu_control","path":"objects/obj_menu_control/obj_menu_control.yy",},"order":0,},
+    {"id":{"name":"structure_deduct_cost","path":"scripts/structure_deduct_cost/structure_deduct_cost.yy",},"order":16,},
     {"id":{"name":"obj_enemy_01","path":"objects/obj_enemy_01/obj_enemy_01.yy",},"order":8,},
     {"id":{"name":"STRUCTURE","path":"objects/STRUCTURE/STRUCTURE.yy",},"order":23,},
     {"id":{"name":"spr_core_turret","path":"sprites/spr_core_turret/spr_core_turret.yy",},"order":13,},

@@ -510,9 +510,27 @@ function handle_data(data)
 			}
 			break;
 			
-			case "sync_turret":
+			case "request_structure_placement":
 			{
-				
+				if (global.is_host == true)
+				{
+					instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", parsed_data[? "structure"]);	
+					
+					var _d = ds_map_create();
+					_d[? "cmd"] = "structure_successfully_placed";
+					_d[? "p_id"] = parsed_data[? "p_id"];
+					_d[? "structure"] = parsed_data[? "structure"];
+					send_data(_d);
+				}
+			}
+			break;
+			
+			case "structure_successfully_placed":
+			{
+				if (global.player_id == parsed_data[? "p_id"])
+				{
+					structure_deduct_cost(parsed_data[? "structure"]);
+				}
 			}
 			break;
 			

@@ -25,49 +25,23 @@ if (instance_exists(obj_player))
 
 if (currently_placing != false && mb_left_released)
 {
-	var _success = false;	
+	var _mx = floor(mouse_x/32)*32;
+	var _my = floor(mouse_y/32)*32;
 	
-	switch currently_placing
+	if ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false)
 	{
-		case obj_core_turret:
-		{
-			if (global.inventory[ITEMID.item_stone] >= 12 && global.inventory[ITEMID.item_copper] >= 3 && global.inventory[ITEMID.item_iron] >= 3)
-			{
-				global.inventory[ITEMID.item_stone] -= 12;	
-				global.inventory[ITEMID.item_copper] -= 3;
-				global.inventory[ITEMID.item_iron] -= 3;
-				
-				_success = true;
-			}
-		}
-		break;
-		
-		case obj_red_turret:
-		{
-			if (global.inventory[ITEMID.item_aluminum] >= 4 && global.inventory[ITEMID.item_ruby] >= 3 && global.inventory[ITEMID.item_obsidian] >= 2)
-			{
-				global.inventory[ITEMID.item_aluminum] -= 4;	
-				global.inventory[ITEMID.item_ruby] -= 3;
-				global.inventory[ITEMID.item_obsidian] -= 2;
-				
-				_success = true;
-			}
-		}
-		break;
-	}
-	
-	if _success == true
-	{
-		var _mx = floor(mouse_x/32)*32;
-		var _my = floor(mouse_y/32)*32;
-	
 		instance_create_layer(_mx,_my,"Instances",currently_placing);
-		
-		update_inventory();
+		structure_deduct_cost(currently_placing);
 	}
-	else
+	else if (global.is_host == false)
 	{
-		obj_control.hud_text_buffer += "\nNot enough resources.\n"	
+		var _d = ds_map_create();
+		_d[? "cmd"] = "request_structure_placement";
+		_d[? "structure"] = currently_placing;
+		_d[? "p_id"] = global.player_id;
+		_d[? "x"] = _mx;
+		_d[? "y"] = _my;
+		send_data(_d);
 	}
 	
 	currently_placing = false;
