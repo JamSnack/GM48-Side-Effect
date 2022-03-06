@@ -28,4 +28,16 @@ play_sound_local(snd_alien_charge,x,y);
 with (obj_core) event_user(0);
 
 //Multiplayer
-object_id = get_object_id();
+if (global.multiplayer == true) //multiplayer check only b/c clients can place these too.
+{
+	object_id = get_object_id();
+
+	var _d = ds_map_create();
+	_d[? "cmd"] = "init_turret";
+	_d[? "o_id"] = object_id;
+	_d[? "p_id"] = global.player_id;
+	_d[? "o_indx"] = object_index;
+	_d[? "x"] = x;
+	_d[? "y"] = y;
+	send_data(_d);
+}

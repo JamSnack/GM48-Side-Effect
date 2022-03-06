@@ -1,5 +1,4 @@
-/// @description Insert description here
-// Sync object destruction
+/// @description MULTIPLAYER
 if (global.is_host == true && global.multiplayer == true)
 {
 	var _d = ds_map_create();

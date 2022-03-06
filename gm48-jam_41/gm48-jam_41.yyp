@@ -12,6 +12,7 @@
     {"id":{"name":"approach","path":"scripts/approach/approach.yy",},"order":0,},
     {"id":{"name":"obj_menu_control","path":"objects/obj_menu_control/obj_menu_control.yy",},"order":0,},
     {"id":{"name":"obj_enemy_01","path":"objects/obj_enemy_01/obj_enemy_01.yy",},"order":8,},
+    {"id":{"name":"STRUCTURE","path":"objects/STRUCTURE/STRUCTURE.yy",},"order":23,},
     {"id":{"name":"spr_core_turret","path":"sprites/spr_core_turret/spr_core_turret.yy",},"order":13,},
     {"id":{"name":"obj_core","path":"objects/obj_core/obj_core.yy",},"order":7,},
     {"id":{"name":"obj_core_turret","path":"objects/obj_core_turret/obj_core_turret.yy",},"order":12,},
