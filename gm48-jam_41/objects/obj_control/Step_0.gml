@@ -187,5 +187,7 @@ if (global.game_over == true && keyboard_check_released(vk_escape))
 {
 	//GO TO THE MENU.
 	room_goto(rm_menu);
-	audio_stop_all();	
+	audio_stop_all();
+	
+	if (global.multiplayer == true) then network_destroy_connections();
 }

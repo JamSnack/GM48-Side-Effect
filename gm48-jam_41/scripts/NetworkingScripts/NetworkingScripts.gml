@@ -564,3 +564,9 @@ function server_relay_data(data_to_relay)
 		send_data(data_to_relay);
 	}
 }
+
+function network_destroy_connections()
+{
+	network_destroy(global.socket);
+	
+}
