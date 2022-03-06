@@ -63,7 +63,7 @@ function sync_wave()
 	}
 }
 
-if (global.multiplayer == false && global.game_over == false && global.game_paused == false) || (global.multiplayer == true)
+if (global.game_over == false) && ((global.multiplayer == false && global.game_paused == false) || (global.multiplayer == true))
 {
 	time_mil += (1/60);
 
