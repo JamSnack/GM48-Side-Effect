@@ -501,9 +501,8 @@ function handle_data(data)
 					var _tu = instance_create_layer(parsed_data[? "x"], parsed_data[? "y"], "Instances", parsed_data[? "o_indx"]);
 					
 					var o_id = parsed_data[? "o_id"];
-					
-					if (o_id == -1 && global.is_host == true)
-						_tu.object_id = get_object_id();
+					_tu.object_id = o_id;
+						
 				}
 				
 				server_relay_data(parsed_data);	//send this turret to other clients.
@@ -529,7 +528,7 @@ function handle_data(data)
 			{
 				if (global.player_id == parsed_data[? "p_id"])
 				{
-					structure_deduct_cost(parsed_data[? "structure"]);
+					//structure_deduct_cost(parsed_data[? "structure"]);
 				}
 			}
 			break;

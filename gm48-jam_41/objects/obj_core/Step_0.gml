@@ -35,13 +35,16 @@ if (currently_placing != false && mb_left_released)
 	}
 	else if (global.is_host == false)
 	{
-		var _d = ds_map_create();
-		_d[? "cmd"] = "request_structure_placement";
-		_d[? "structure"] = currently_placing;
-		_d[? "p_id"] = global.player_id;
-		_d[? "x"] = _mx;
-		_d[? "y"] = _my;
-		send_data(_d);
+		if (structure_deduct_cost(currently_placing) == true)
+		{
+			var _d = ds_map_create();
+			_d[? "cmd"] = "request_structure_placement";
+			_d[? "structure"] = currently_placing;
+			_d[? "p_id"] = global.player_id;
+			_d[? "x"] = _mx;
+			_d[? "y"] = _my;
+			send_data(_d);
+		}
 	}
 	
 	currently_placing = false;
