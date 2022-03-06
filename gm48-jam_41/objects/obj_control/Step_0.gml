@@ -85,9 +85,9 @@ if (global.multiplayer == false && global.game_over == false && global.game_paus
 		
 		difficulty += 1;
 		
-		if (difficulty > 2)
+		if (difficulty > 3)
 		{
-			repeat((difficulty mod 2))
+			repeat((difficulty mod (2+global.player_count-1)))
 			{
 				instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
 			}

@@ -30,8 +30,10 @@ if (currently_placing != false && mb_left_released)
 	
 	if ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false)
 	{
-		instance_create_layer(_mx,_my,"Instances",currently_placing);
-		structure_deduct_cost(currently_placing);
+		if (structure_deduct_cost(currently_placing) == true)
+		{
+			instance_create_layer(_mx,_my,"Instances",currently_placing);
+		}
 	}
 	else if (global.is_host == false)
 	{

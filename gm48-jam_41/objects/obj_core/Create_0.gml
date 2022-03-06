@@ -19,15 +19,15 @@ currently_placing = false;
 core_hp_xp = 0;
 core_hp_xp_max = 25;
 core_turret_rate_xp = 0;
-core_turret_rate_xp_max = 25;
+core_turret_rate_xp_max = 35;
 core_turret_damage_xp = 0;
 core_turret_damage_xp_max = 25;
 core_turret_hp_xp = 0;
-core_turret_hp_xp_max = 25;
+core_turret_hp_xp_max = 30;
 
-core_turret_rate = room_speed*3;
+core_turret_rate = room_speed*2;
 core_turret_damage = 1;
-core_turret_hp = 2;
+core_turret_hp = 3;
 
 //Healing
 alarm[0] = 1;
