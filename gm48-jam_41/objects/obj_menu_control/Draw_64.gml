@@ -33,8 +33,6 @@ switch (menu_section)
 		var _center = display_get_gui_width()/2;
 		
 		draw_set_alpha(_alpha);
-		draw_text(5,10,"Name: "+global.player_name);
-		
 		
 		draw_set_halign(fa_center);
 		draw_set_font(fnt_terminal_grotesque);
@@ -46,7 +44,7 @@ switch (menu_section)
 			draw_text_transformed(_center,175,"Press F1 to start a server. Press F2 to join one.",0.6,0.6,0);
 		}
 		else 
-		{
+		{			
 			if (global.is_host == true)
 			{
 				draw_text_transformed(_center,display_get_gui_height()-30,"Press Q to start the game.",0.6,0.6,0);
@@ -63,6 +61,10 @@ switch (menu_section)
 				draw_sprite_ext(spr_player,0,_xx,250,2,2,(_i*45)+menu_animation_timer,c_white,_alpha);
 				draw_text_transformed(_xx,300,global.player_name_list[| _i],0.6,0.6,0);
 			}
+			
+			draw_set_halign(fa_left);
+			draw_text(5,10,"Name: "+global.player_name);
+			draw_text(5,35,"Press 'Enter' to change.");
 		}
 	}
 	break;
