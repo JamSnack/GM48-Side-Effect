@@ -24,3 +24,21 @@ packet_queue = ds_list_create();
 
 //Garbage packet collection
 global.recently_destroyed_objects = ds_list_create();
+
+function refresh_lobby_names()
+{
+	if (global.is_host == true)
+	{
+		//Flush player name list
+		ds_list_destroy(global.player_name_list);
+		global.player_name_list = ds_list_create();
+		ds_list_add(global.player_name_list, global.player_name);
+	
+		//Ask clients for new information
+		var _d = ds_map_create();
+		_d[? "cmd"] = "request_init_connection";
+		send_data(_d);
+		
+		sync_lobby();
+	}
+}

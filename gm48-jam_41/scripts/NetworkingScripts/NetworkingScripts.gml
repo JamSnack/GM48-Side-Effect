@@ -125,6 +125,21 @@ function handle_data(data)
 			}
 			break;
 			
+			case "lobby_change_name":
+			{
+				if (global.is_host == true)
+				{
+					var _old = parsed_data[? "old"];
+					var _new = parsed_data[? "new"];
+					var _indx = ds_list_find_index(global.player_name_list, _old);
+					show_debug_message("AGHHHHHH"+_new);
+					global.player_name_list[| _indx] = _new;
+				
+					sync_lobby();
+				}
+			}
+			break;
+			
 			case "generate_world":
 			{
 				show_debug_message("Generate gate 1!");

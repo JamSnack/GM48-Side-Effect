@@ -32,6 +32,7 @@ function init_connection()
 
 function sync_lobby()
 {
+	//For use by the host.
 	var _da = ds_map_create();
 	_da[? "cmd"] = "sync_init_connection";
 	_da[? "size"] = ds_list_size(global.player_name_list);

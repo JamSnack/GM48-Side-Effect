@@ -1,5 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
+var disp_width = display_get_gui_width();
+var disp_height = display_get_gui_height();
+
 draw_set_alpha(_alpha);
 
 switch (menu_section)
@@ -64,6 +67,21 @@ switch (menu_section)
 	}
 	break;
 	
+}
+
+//Playername change!
+if (change_playername == true)
+{
+	draw_set_halign(fa_center);
+	draw_set_font(fnt_terminal_grotesque);
+	draw_set_color(c_white);
+	
+	draw_set_alpha(0.8);
+	draw_rectangle_color(0,0,disp_width,disp_height,c_black,c_black,c_black,c_black,false);
+	draw_set_alpha(1);
+	
+	draw_text_transformed(disp_width/2,(disp_height/2)-100,"Enter name:\n"+new_playername,2,2,0);
+	draw_text_transformed(disp_width/2,(disp_height/2)+30,"Press 'Enter' to confirm.",1,1,0);
 }
 
 draw_set_alpha(1-_alpha);
