@@ -209,8 +209,11 @@ else
 
 
 //World border
-x = clamp(x,0,room_width);
-y = clamp(y,0,room_height);
+if (instance_exists(obj_control))
+{
+	x = clamp(x,0,obj_control.game_world_width);
+	y = clamp(y,0,obj_control.game_world_height);
+}
 
 //Death
 if (hp <= 0 && respawn_delay <= 0 && dead == false)

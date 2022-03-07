@@ -6,8 +6,8 @@ function generate_world(game_state)
 	{
 		case "INIT":
 		{
-			var world_width = ceil(room_width/global.tile_size);
-			var world_height = ceil(room_height/global.tile_size);
+			var world_width = ceil(game_world_width/global.tile_size);
+			var world_height = ceil(game_world_height/global.tile_size);
 	
 	
 	
@@ -33,7 +33,7 @@ function generate_world(game_state)
 			{
 				repeat(repeat_amt)
 				{
-					var ore_worm = instance_create_layer(irandom_range(0,room_width),irandom_range(0,room_height),"Instances",obj_generator_worm);
+					var ore_worm = instance_create_layer(irandom_range(0,game_world_width),irandom_range(0,game_world_height),"Instances",obj_generator_worm);
 					ore_worm.tile_placing = tile_placing;
 					ore_worm.life_span = life_span;
 					ore_worm.radius = radius;
@@ -69,6 +69,12 @@ function generate_world(game_state)
 			//-- Finite
 			generate_worm(1, ITEMID.item_phynite, 1, 1, true);
 
+
+			//Destroy the menu control object
+			if (instance_exists(obj_menu_control))
+			{
+				with (obj_menu_control) instance_destroy();
+			}
 		}
 		break;
 	}

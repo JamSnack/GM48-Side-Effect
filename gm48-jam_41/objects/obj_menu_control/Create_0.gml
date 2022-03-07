@@ -9,3 +9,4 @@ change_playername = false;
 new_playername = "";
 change_playername_delay = 0
 old_playername = global.player_name;
+new_world_size = 3500; //default room_width for Room1

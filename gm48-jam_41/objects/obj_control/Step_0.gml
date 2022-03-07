@@ -5,7 +5,7 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	
 	show_debug_message("##game_state INIT finished. game_state = PLAYER##");
 	game_state = "PLAYER";
-	instance_create_layer(irandom_range((room_width/4),room_width-(room_width/4)),irandom_range(room_height/4,room_height-(room_height/4)),"Instances",obj_player);
+	instance_create_layer(irandom_range((game_world_width/4),game_world_width-(game_world_width/4)),irandom_range(game_world_height/4,game_world_height-(game_world_height/4)),"Instances",obj_player);
 	
 	//Place enemy camps
 	repeat(1)
@@ -17,8 +17,8 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 		
 		while (point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) 
 		{	
-			_xx = choose( irandom_range( 0, (room_width/4)-64 ), irandom_range( room_width-(room_width/4)+64, room_width-64 ) );
-			_yy = choose( irandom_range( 64, (room_height/4)-64 ), irandom_range(-(room_height/4)+room_height+64, room_height-64) );
+			_xx = choose( irandom_range( 0, (game_world_width/4)-64 ), irandom_range( game_world_width-(game_world_width/4)+64, game_world_width-64 ) );
+			_yy = choose( irandom_range( 64, (game_world_height/4)-64 ), irandom_range(-(game_world_height/4)+game_world_height+64, game_world_height-64) );
 			
 			_breaker += 1;
 			
@@ -90,7 +90,7 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 		{
 			repeat((difficulty mod ( 2 + (global.player_count-1) + floor(time_m/20) )))
 			{
-				instance_create_layer(choose(-64,room_width+64),choose(-64,room_height+64),"Instances",obj_enemy_01);
+				instance_create_layer(choose(-64,game_world_width+64),choose(-64,game_world_height+64),"Instances",obj_enemy_01);
 			}
 		}
 	
@@ -104,11 +104,11 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 			
 				if _top == 1
 				{
-					instance_create_layer(choose( -128, room_width+128 ), choose(-64,room_height+64), "Instances", obj_asteroid);
+					instance_create_layer(choose( -128, game_world_width+128 ), choose(-64,game_world_height+64), "Instances", obj_asteroid);
 				}
 				else
 				{
-					instance_create_layer(choose( -128, room_width+128 ), room_height/2, "Instances", obj_asteroid);
+					instance_create_layer(choose( -128, game_world_width+128 ), game_world_height/2, "Instances", obj_asteroid);
 				}
 			}
 			

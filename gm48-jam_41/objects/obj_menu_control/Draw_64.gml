@@ -62,6 +62,15 @@ switch (menu_section)
 				draw_text_transformed(_xx,300,global.player_name_list[| _i],0.6,0.6,0);
 			}
 			
+			//Draw world-gen information
+			var _ws = string(ceil(new_world_size/32)); //MN: 32 is global.tile_size
+			
+			draw_rectangle_color(_center-220,340,_center+220,480,c_black,c_black,c_black,c_black,false);
+			
+			draw_text(_center,350,"World Size:\n\n\n"+_ws+"x"+_ws);
+			draw_text(_center,500,"Difficulty:");
+			
+			//Name and other infor
 			draw_set_halign(fa_left);
 			draw_text(5,10,"Name: "+global.player_name);
 			draw_text(5,35,"Press 'Enter' to change.");
@@ -87,4 +96,5 @@ if (change_playername == true)
 }
 
 draw_set_alpha(1-_alpha);
+draw_set_halign(fa_center);
 draw_text_transformed(display_get_gui_width()/2,350,"Generating world...",2,2,0);

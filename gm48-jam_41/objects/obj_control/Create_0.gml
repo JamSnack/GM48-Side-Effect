@@ -38,6 +38,8 @@ global.inventory = array_create(ITEMID.last,0);
 //World GEN :)
 game_state = "INIT";
 id_counter = 1;
+game_world_width = obj_menu_control.new_world_size;
+game_world_height = game_world_width;
 generate_world(game_state);
 
 //Text log
