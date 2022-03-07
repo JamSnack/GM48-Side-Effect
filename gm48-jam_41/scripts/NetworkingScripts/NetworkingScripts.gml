@@ -26,7 +26,7 @@ function joinServer(ip, port)
 	
 	global.socket = network_create_socket(network_socket_tcp);
 	
-	var _s = network_connect_async(global.socket, ip, port);
+	var _s = network_connect(global.socket, ip, port);
 	
 	if (_s < 0)
 	{
@@ -41,6 +41,8 @@ function joinServer(ip, port)
 		global.is_host = false;
 		global.multiplayer = true;
 		server_status = "Server joined!";
+		
+		init_connection();
 	}	
 }
 
@@ -93,6 +95,36 @@ function handle_data(data)
 		
 		switch parsed_data[? "cmd"]
 		{
+			case "init_connection":
+			{
+				if (global.is_host == true)
+				{
+					ds_list_add(global.player_name_list, parsed_data[? "name"]);
+					sync_lobby();
+				}
+			}
+			break;
+			
+			case "request_init_connection":
+			{
+				init_connection();
+			}
+			break;
+			
+			case "sync_init_connection":
+			{
+				//Responsible for updating the client's list of playernames and other info.
+				//Expect a list of names.
+				ds_list_destroy(global.player_name_list);
+				global.player_name_list = ds_list_create();
+				
+				for (var _p = 0; _p < parsed_data[? "size"]; _p++)
+				{
+					global.player_name_list[| _p] = parsed_data[? string(_p)];
+				}
+			}
+			break;
+			
 			case "generate_world":
 			{
 				show_debug_message("Generate gate 1!");

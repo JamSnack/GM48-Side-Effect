@@ -19,6 +19,21 @@ switch(t)
 		
 		if (instance_exists(obj_player_dummy))
 			with (obj_player_dummy) instance_destroy(); //We can make new ones later
+			
+		//Flush player name list
+		var _size = ds_list_size(global.player_name_list);
+		
+		for (var _i = _size; _i > 0; _i--)
+		{
+			ds_list_delete(global.player_name_list, _i);
+		}
+		
+		//Request new connection information
+		var _d = ds_map_create();
+		_d[? "cmd"] = "request_init_connection";
+		send_data(_d);
+		
+		sync_lobby();
 		
 	break;
 	

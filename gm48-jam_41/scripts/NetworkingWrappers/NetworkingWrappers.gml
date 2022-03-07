@@ -21,3 +21,25 @@ function check_for_existance()
 		send_data(_d);
 	}
 }
+
+function init_connection()
+{
+	var _d = ds_map_create();
+	_d[? "cmd"] = "init_connection";
+	_d[? "name"] = global.player_name;
+	send_data(_d);
+}
+
+function sync_lobby()
+{
+	var _da = ds_map_create();
+	_da[? "cmd"] = "sync_init_connection";
+	_da[? "size"] = ds_list_size(global.player_name_list);
+					
+	for (var _p = 0; _p < _da[? "size"]; _p++)
+	{
+		_da[? string(_p)] = global.player_name_list[| _p];
+	}
+					
+	send_data(_da);
+}

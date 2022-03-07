@@ -245,7 +245,7 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 	
 	if (global.multiplayer == true)
 	{
-		send_chat(string(global.player_id) + " has died.");
+		send_chat(string(global.player_name) + " has died.");
 		event_user(1);
 	}
 

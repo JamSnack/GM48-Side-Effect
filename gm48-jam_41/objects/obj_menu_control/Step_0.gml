@@ -45,6 +45,8 @@ if (begin_sequence == false)
 			_d[? "seed"] = rng_seed;
 			send_data(_d);
 		}
+		
+		menu_animation_timer++;
 	}
 }
 

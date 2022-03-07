@@ -4,3 +4,4 @@ _alpha = 1;
 begin_sequence = false;
 menu_section = "START";
 server_status = "";
+menu_animation_timer = 0;

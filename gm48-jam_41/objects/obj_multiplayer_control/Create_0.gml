@@ -10,7 +10,11 @@ global.multiplayer = false; //Whether or not this is a multiplayer game.
 global.is_host = false; //Whether or not this client is hosting a multiplayer game.
 global.player_id = irandom(99999);
 global.player_count = 1;
+global.player_name = choose("Avocado","Crab","Cheeto","Lemon","Birds","Callous","Wool","Baby","Sweet","Tart","Armor")+string(global.player_id);
+global.player_name_list = ds_list_create();
 global.networking_debug = true; //Whether or not to dislay networking debug stuff
+
+ds_list_add(global.player_name_list, global.player_name); //add playername
 
 simulate_lag = true;
 simulate_lag_ping = 100;
