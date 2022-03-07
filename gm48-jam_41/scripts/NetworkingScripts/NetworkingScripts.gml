@@ -615,5 +615,15 @@ function server_relay_data(data_to_relay)
 function network_destroy_connections()
 {
 	network_destroy(global.socket);
+	if (global.is_host == true)
+	{
+		//Empty connected sockets
+		ds_list_clear(global.socketlist);
+	}
 	
+	ds_list_clear(global.player_name_list);
+	
+	global.player_count = 0;
+	global.is_host = false;
+	global.multiplayer = false;
 }
