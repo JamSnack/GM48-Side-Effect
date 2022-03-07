@@ -215,6 +215,27 @@ y = clamp(y,0,room_height);
 //Death
 if (hp <= 0 && respawn_delay <= 0 && dead == false)
 {
+	
+	//Drop inventory on death
+	for (var _i = 0; _i < ITEMID.last; _i++)
+	{
+		while ( global.inventory[_i] > 0 )
+		{
+			global.inventory[_i] -= 1;
+			
+			var _di = instance_create_layer(x,y,"Instances",obj_item); //death item
+			_di.pickup_delay = room_speed;
+			_di.speed = 8;
+			_di.friction = 0.2;
+			_di.direction = irandom(360);
+			_di.item_id = _i;
+			_di.image_index = _i;
+			
+			show_debug_message(string(_i));
+		}
+	}
+	
+	
 	dead = true;
 	respawn_delay = 10*room_speed;
 	hspd = 0;
@@ -227,6 +248,8 @@ if (hp <= 0 && respawn_delay <= 0 && dead == false)
 		send_chat(string(global.player_id) + " has died.");
 		event_user(1);
 	}
+
+	update_inventory();
 	
 }
 else if (dead == true && respawn_delay <= 0)
