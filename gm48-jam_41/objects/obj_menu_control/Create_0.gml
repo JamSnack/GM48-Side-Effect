@@ -10,3 +10,9 @@ new_playername = "";
 change_playername_delay = 0
 old_playername = global.player_name;
 new_world_size = 3500; //default room_width for Room1
+
+//Option sliders
+max_world_size = 3500*2;
+min_world_size = 2000;
+drag_world_size = false; //Whether or not the option slider is being dragged.
+

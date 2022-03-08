@@ -33,17 +33,62 @@ if (begin_sequence == false && change_playername == false)
 				joinServer(get_string("Enter target IP address.","127.0.0.1"), get_integer("Enter server port.", 1337));	
 			}
 		}
-		else if (global.is_host == true && keyboard_check_released(ord("Q")))
+		else if (global.is_host == true)
 		{
-			begin_sequence = true;
-			randomise(); //Randomise the world seed
-			var rng_seed = random_get_seed();
-			global.game_seed = rng_seed;
+			if (keyboard_check_released(ord("Q")))
+			{
+				begin_sequence = true;
+				randomise(); //Randomise the world seed
+				var rng_seed = random_get_seed();
+				global.game_seed = rng_seed;
 			
-			var _d = ds_map_create();
-			_d[? "cmd"] = "generate_world";
-			_d[? "seed"] = rng_seed;
-			send_data(_d);
+				var _d = ds_map_create();
+				_d[? "cmd"] = "generate_world";
+				_d[? "seed"] = rng_seed;
+				send_data(_d);
+			}
+			else if (mouse_check_button(mb_left))
+			{
+				var _dx = device_mouse_x_to_gui(0);
+				var _dy = device_mouse_y_to_gui(0);
+				var _center = display_get_gui_width()/2;
+				var world_size_drag_x = (_center-150)+((300)*((new_world_size-min_world_size)/(max_world_size-min_world_size)));
+				//world_size_drag_x = clamp(world_size_drag_x, _center-150, _center+150);
+				
+				if (drag_world_size == false)
+				{
+					
+					var _yy = 400;
+					
+					if (point_in_rectangle(_dx,_dy,world_size_drag_x-8,_yy-2,world_size_drag_x+8,_yy+2))
+					{
+						drag_world_size = true;
+					}
+				}
+				else if (drag_world_size == true)
+				{
+					var _c2 = _center+150;
+					var _c1 = _center-150;
+					var _dist = point_distance(0,0,_c1,0);
+					
+					new_world_size = (((_dx-_dist)/(_c2-_dist))*min_world_size*2)+min_world_size; //GOOD LUCK WITH THESE MAGIC NUMBERS! I HAD NO FUCKING IDEA WHAT THEY MEANT WHILE I WAS TYPING THEM >:(
+					new_world_size = clamp(new_world_size, min_world_size, max_world_size);
+					
+					show_debug_message(world_size_drag_x);
+				}
+			}
+			else
+			{
+				drag_world_size = false;
+				
+				if (global.is_host == true)
+				{
+					var _d = ds_map_create();
+					_d[? "cmd"] = "lobby_change_world_info";
+					_d[? "size"] = new_world_size;
+					send_data(_d);
+				}
+			}
 		}
 		
 		menu_animation_timer++;

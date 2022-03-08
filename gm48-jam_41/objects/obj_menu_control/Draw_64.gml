@@ -60,13 +60,19 @@ switch (menu_section)
 				var _xx = _center-((player_amt-1)*60)+(120*_i);
 				draw_sprite_ext(spr_player,0,_xx,250,2,2,(_i*45)+menu_animation_timer,c_white,_alpha);
 				draw_text_transformed(_xx,300,global.player_name_list[| _i],0.6,0.6,0);
+				
+				if (_i == 0)
+					draw_sprite(spr_ui_host, 0, _xx-(string_width(global.player_name_list[| _i])/2)+5,310); //host crown
 			}
 			
 			//Draw world-gen information
 			var _ws = string(ceil(new_world_size/32)); //MN: 32 is global.tile_size
 			
 			draw_rectangle_color(_center-220,340,_center+220,480,c_black,c_black,c_black,c_black,false);
-			
+			draw_rectangle_color(_center-150,398,_center+150,402,c_gray,c_gray,c_gray,c_gray,false);
+			var world_size_drag_x = (_center-150)+((300)*((new_world_size-min_world_size)/(max_world_size-min_world_size)));
+			//world_size_drag_x = clamp(world_size_drag_x, _center-150, _center+150);
+			draw_sprite(spr_ui_slider,0,world_size_drag_x,400);
 			draw_text(_center,350,"World Size:\n\n\n"+_ws+"x"+_ws);
 			draw_text(_center,500,"Difficulty:");
 			

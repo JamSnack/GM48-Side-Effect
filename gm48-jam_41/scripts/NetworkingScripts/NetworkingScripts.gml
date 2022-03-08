@@ -140,6 +140,22 @@ function handle_data(data)
 			}
 			break;
 			
+			case "lobby_change_world_info":
+			{
+				if (global.is_host == false)
+				{
+					if (instance_exists(obj_menu_control))
+					{
+						with(obj_menu_control)
+						{
+							new_world_size = parsed_data[? "size"];
+							//Difficulty goes here :)
+						}
+					}
+				}
+			}
+			break;
+			
 			case "generate_world":
 			{
 				show_debug_message("Generate gate 1!");
