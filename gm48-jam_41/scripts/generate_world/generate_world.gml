@@ -38,6 +38,8 @@ function generate_world(game_state)
 					ore_worm.life_span = life_span;
 					ore_worm.radius = radius;
 					ore_worm.is_ore = is_ore;
+					ore_worm.room_h = game_world_height;
+					ore_worm.room_w = game_world_width;
 				}
 			}
 			
