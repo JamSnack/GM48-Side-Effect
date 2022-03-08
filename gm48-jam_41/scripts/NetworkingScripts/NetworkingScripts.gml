@@ -250,22 +250,37 @@ function handle_data(data)
 		
 			case "tile_destroy":
 			{
+				var _id = parsed_data[? "o_id"];
 				var _x = parsed_data[? "x"];
 				var _y = parsed_data[? "y"];
+				
+				var t_pos = 
+				{
+					pos_x : _x,
+					pos_y : _y
+				};
+				
 				instance_activate_region(_x-34,_y-34,68,68,true); //-32 pixels and then some
 			
 				var _t = collision_point(_x,_y,obj_tile,false,false);
-			
+				var _success = false;
+				
 				if (_t != noone)
 				{
 					with (_t)
 					{
 						if (item_id == parsed_data[? "type"])
 						{
-							drop_item = parsed_data[? "drop_item"];
+							drop_item = false;//parsed_data[? "drop_item"];
+							_success = true;
 							instance_destroy();	
 						}
 					}
+				}
+				
+				if (_success == false)
+				{
+					ds_list_add(global.recently_destroyed_tiles, t_pos);	
 				}
 			}
 			break;

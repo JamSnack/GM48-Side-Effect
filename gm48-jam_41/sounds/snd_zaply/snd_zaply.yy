@@ -1,5 +1,4 @@
 {
-  "conversionMode": 0,
   "compression": 2,
   "volume": 0.19,
   "preload": false,
@@ -14,8 +13,8 @@
   "soundFile": "snd_zaply.ogg",
   "duration": 0.2322,
   "parent": {
-    "name": "gm48-jam_41",
-    "path": "gm48-jam_41.yyp",
+    "name": "Stroid_Raider",
+    "path": "Stroid_Raider.yyp",
   },
   "resourceVersion": "1.0",
   "name": "snd_zaply",

@@ -24,6 +24,7 @@ packet_queue = ds_list_create();
 
 //Garbage packet collection
 global.recently_destroyed_objects = ds_list_create();
+global.recently_destroyed_tiles = ds_list_create();
 
 function refresh_lobby_names()
 {

@@ -12,7 +12,7 @@ if (obj_control.game_state == "PLAYER")
 		_d[? "type"] = item_id;
 		_d[? "x"] = x;
 		_d[? "y"] = y;
-		_d[? "drop_item"] = false; //Item spawns in other clients will be determined by the item_create command insinde the obj_item create event
+		//_d[? "drop_item"] = false; //Item spawns in other clients will be determined by the item_create command insinde the obj_item create event
 		send_data(_d);
 	}
 

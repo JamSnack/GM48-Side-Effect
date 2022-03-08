@@ -95,6 +95,7 @@
   ],
   "isDnDProject": false,
   "isEcma": false,
+  "tutorialPath": "",
   "configs": {
     "name": "Default",
     "children": [],
@@ -129,10 +130,10 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2022.2.0.614",
+    "IDEVersion": "2.3.5.589",
   },
-  "resourceVersion": "1.5",
-  "name": "gm48-jam_41",
+  "resourceVersion": "1.4",
+  "name": "Stroid_Raider",
   "tags": [],
   "resourceType": "GMProject",
 }

@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"hbox_player","path":"sprites/hbox_player/hbox_player.yy",},
-    "resourceVersion": "1.4",
+    "resourceVersion": "1.3",
     "name": "hbox_player",
     "tags": [],
     "resourceType": "GMSequence",

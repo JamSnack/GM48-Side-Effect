@@ -3,7 +3,6 @@
   "glyphOperations": 0,
   "interpreter": 0,
   "pointRounding": 0,
-  "applyKerning": 0,
   "fontName": "Terminal Grotesque Open",
   "styleName": "Regular",
   "size": 24.0,

@@ -107,7 +107,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_tile","path":"sprites/spr_tile/spr_tile.yy",},
-    "resourceVersion": "1.4",
+    "resourceVersion": "1.3",
     "name": "spr_tile",
     "tags": [],
     "resourceType": "GMSequence",

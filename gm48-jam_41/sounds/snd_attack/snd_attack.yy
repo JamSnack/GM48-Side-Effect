@@ -1,5 +1,4 @@
 {
-  "conversionMode": 0,
   "compression": 2,
   "volume": 0.08,
   "preload": false,
@@ -14,8 +13,8 @@
   "soundFile": "snd_attack.wav",
   "duration": 0.221859,
   "parent": {
-    "name": "gm48-jam_41",
-    "path": "gm48-jam_41.yyp",
+    "name": "Stroid_Raider",
+    "path": "Stroid_Raider.yyp",
   },
   "resourceVersion": "1.0",
   "name": "snd_attack",

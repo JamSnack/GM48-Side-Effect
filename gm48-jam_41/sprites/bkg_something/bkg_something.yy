@@ -138,7 +138,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"bkg_something","path":"sprites/bkg_something/bkg_something.yy",},
-    "resourceVersion": "1.4",
+    "resourceVersion": "1.3",
     "name": "bkg_something",
     "tags": [],
     "resourceType": "GMSequence",

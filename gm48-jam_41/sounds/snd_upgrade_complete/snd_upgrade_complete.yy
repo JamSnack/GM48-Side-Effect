@@ -1,5 +1,4 @@
 {
-  "conversionMode": 0,
   "compression": 2,
   "volume": 0.14,
   "preload": false,
@@ -14,8 +13,8 @@
   "soundFile": "snd_upgrade_complete.ogg",
   "duration": 0.326077,
   "parent": {
-    "name": "gm48-jam_41",
-    "path": "gm48-jam_41.yyp",
+    "name": "Stroid_Raider",
+    "path": "Stroid_Raider.yyp",
   },
   "resourceVersion": "1.0",
   "name": "snd_upgrade_complete",

@@ -107,7 +107,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_item_drops","path":"sprites/spr_item_drops/spr_item_drops.yy",},
-    "resourceVersion": "1.4",
+    "resourceVersion": "1.3",
     "name": "spr_item_drops",
     "tags": [],
     "resourceType": "GMSequence",

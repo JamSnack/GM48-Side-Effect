@@ -207,11 +207,41 @@ if (instance_exists(obj_player))
 		var _boundary = global.tile_size*24;
 		instance_activate_region(player_buffer_x-_boundary, player_buffer_y-_boundary, _boundary*2, _boundary*2, true);
 		
+		
+		//This should happen because we just deactivated all tiles and we need to make sure enemies don't clip into things
 		if (global.is_host == true)
 		{
 			with (ENEMY)
 			{
 				instance_activate_region(x-_boundary/4, y-_boundary/4, _boundary/2, _boundary/2, true);
+			}
+		}
+		
+		//Check for tiles to destroy
+		var _size = ds_list_size(global.recently_destroyed_tiles);
+		
+		if (ds_exists(global.recently_destroyed_tiles, ds_type_list) && _size > 0)
+		{
+			for (var _i = 0; _i < _size; _i++)
+			{
+				var t_pos = global.recently_destroyed_tiles[| _i];
+				
+				if (is_struct(t_pos))
+				{
+					var _t = collision_point(t_pos.pos_x, t_pos.pos_y, obj_tile, false, false);
+				
+					if ( _t != noone)
+					{
+						with (_t)
+						{
+							drop_item = false; //Assume this
+							show_debug_message("DESTROYED: "+string(t_pos.pos_x)+":"+string(t_pos.pos_y));
+							instance_destroy();
+						}
+					
+						ds_list_delete(global.recently_destroyed_tiles, _i);
+					}
+				} else ds_list_delete(global.recently_destroyed_tiles, _i);
 			}
 		}
 	}

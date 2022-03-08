@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_flame","path":"sprites/spr_flame/spr_flame.yy",},
-    "resourceVersion": "1.4",
+    "resourceVersion": "1.3",
     "name": "spr_flame",
     "tags": [],
     "resourceType": "GMSequence",
