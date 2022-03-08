@@ -16,3 +16,9 @@ max_world_size = 3500*2;
 min_world_size = 2000;
 drag_world_size = false; //Whether or not the option slider is being dragged.
 
+
+//play some musicals
+audio_play_sound(Eternal_Boredom,10,true);
+
+//Networkin timeout
+network_set_config(network_config_connect_timeout, 5000);

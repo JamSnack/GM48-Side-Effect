@@ -87,3 +87,6 @@ if (global.is_host == true)
 	if (alarm[0] > 59*room_speed) //send a couple of these for consistency's sake
 		init_asteroid_for_multiplayer();
 }
+
+//Instance culling
+activate_region(2);

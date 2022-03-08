@@ -17,3 +17,6 @@ flame_xscale = choose(1,-1);
 //Death stuff
 if (hp <= 0) { visible = false; }
 	else visible = true;
+	
+//Instance culling
+activate_region(6);

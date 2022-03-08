@@ -38,10 +38,11 @@ switch (menu_section)
 		draw_set_font(fnt_terminal_grotesque);
 		draw_set_color(c_white);
 		
-		if (server_status == "")
+		if (server_status == "" || string_char_at(server_status, 1) == "F")
 		{
 			draw_text_transformed(_center,50,"STROID RAIDER: TOGETHER",2,2,0);
 			draw_text_transformed(_center,175,"Press F1 to start a server. Press F2 to join one.",0.6,0.6,0);
+			draw_text_transformed(display_get_gui_width()/2,400,server_status,2,2,0);
 		}
 		else 
 		{			

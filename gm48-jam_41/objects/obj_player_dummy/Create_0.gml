@@ -10,3 +10,8 @@ flame_index = 0;
 flame_xscale = choose(1,-1);
 
 sprite_rotation = 0;
+
+
+//Instance culling stuff
+buffer_x = 0;
+buffer_y = 0;

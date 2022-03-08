@@ -252,7 +252,7 @@ function handle_data(data)
 			{
 				var _x = parsed_data[? "x"];
 				var _y = parsed_data[? "y"];
-				instance_activate_region(_x,_y,1,1,true);
+				instance_activate_region(_x-34,_y-34,68,68,true); //-32 pixels and then some
 			
 				var _t = collision_point(_x,_y,obj_tile,false,false);
 			

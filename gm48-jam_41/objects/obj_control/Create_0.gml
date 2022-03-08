@@ -75,3 +75,7 @@ music_bkg = audio_play_sound(snd_cosmic_background_radiation,4,true);
 audio_sound_gain(music_bkg,0,0);
 music_enemy = audio_play_sound(snd_trouble_arrives,4,true);
 audio_sound_gain(music_enemy,0,0);
+
+//Instance Culling
+player_buffer_x = 0;
+player_buffer_y = 0;

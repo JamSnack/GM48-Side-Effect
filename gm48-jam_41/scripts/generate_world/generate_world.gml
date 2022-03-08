@@ -43,33 +43,43 @@ function generate_world(game_state)
 				}
 			}
 			
-			generate_worm(7, ITEMID.item_dirt, irandom_range(15,20), 3, false);
+			function scale_distribution(base_rate)
+			{
+				//Base_rate is how many worms we want to spawn in a normal (110x110) world.
+				if (game_world_width > 110)
+				{
+					return base_rate + floor(game_world_width/220);
+				}
+				else return base_rate;
+			}
+			
+			generate_worm(scale_distribution(7), ITEMID.item_dirt, irandom_range(15,20), 3, false);
 			
 			//-- Rare
-			generate_worm(2, ITEMID.item_ruby, irandom_range(6,11), 1, true);
-			generate_worm(2, ITEMID.item_gold, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(2), ITEMID.item_ruby, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(2), ITEMID.item_gold, irandom_range(6,11), 1, true);
 			
 			//-- Uncommon
-			generate_worm(6, ITEMID.item_obsidian, irandom_range(6,11), 1, true);
-			generate_worm(6, ITEMID.item_aluminum, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(6), ITEMID.item_obsidian, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(6), ITEMID.item_aluminum, irandom_range(6,11), 1, true);
 			
 			//-- Common
-			generate_worm(15, ITEMID.item_silver, irandom_range(7,12), 2, true);
-			generate_worm(15, ITEMID.item_coal, irandom_range(7,12), 2, true);
-			generate_worm(15, ITEMID.item_iron, irandom_range(7,12), 2, true);
-			generate_worm(15, ITEMID.item_copper, irandom_range(7,12), 2, true);
+			generate_worm(scale_distribution(15), ITEMID.item_silver, irandom_range(7,12), 2, true);
+			generate_worm(scale_distribution(15), ITEMID.item_coal, irandom_range(7,12), 2, true);
+			generate_worm(scale_distribution(15), ITEMID.item_iron, irandom_range(7,12), 2, true);
+			generate_worm(scale_distribution(15), ITEMID.item_copper, irandom_range(7,12), 2, true);
 		
 			//-- Uncommon again
-			generate_worm(4, ITEMID.item_obsidian, irandom_range(6,11), 1, true);
-			generate_worm(4, ITEMID.item_aluminum, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(4), ITEMID.item_obsidian, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(4), ITEMID.item_aluminum, irandom_range(6,11), 1, true);
 			
 			//-- Rare again
-			generate_worm(4, ITEMID.item_ruby, irandom_range(6,11), 1, true);
-			generate_worm(4, ITEMID.item_gold, irandom_range(6,11), 1, true);
-			generate_worm(2, ITEMID.item_diamond, 1, 1, true);
+			generate_worm(scale_distribution(4), ITEMID.item_ruby, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(4), ITEMID.item_gold, irandom_range(6,11), 1, true);
+			generate_worm(scale_distribution(2), ITEMID.item_diamond, 1, 1, true);
 			
 			//-- Finite
-			generate_worm(1, ITEMID.item_phynite, 1, 1, true);
+			generate_worm(scale_distribution(1), ITEMID.item_phynite, 1, 1, true);
 
 
 			//Destroy the menu control object

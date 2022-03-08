@@ -19,3 +19,5 @@ hp = maxHp;
 //multiplayer stuff
 multiplayer_death_counter = 0;
 object_id = get_object_id();
+
+event_inherited();

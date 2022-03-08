@@ -34,3 +34,5 @@ function init_asteroid_for_multiplayer()
 
 //Instance_Destroy alarm
 alarm[0] = 60*room_speed;
+
+event_inherited();

@@ -191,3 +191,28 @@ if (global.game_over == true && keyboard_check_released(vk_escape))
 	
 	if (global.multiplayer == true) then network_destroy_connections();
 }
+
+//Tile culling
+if (instance_exists(obj_player))
+{
+	if (point_distance(obj_player.x, obj_player.y, player_buffer_x, player_buffer_y) > global.tile_size*2)
+	{
+		player_buffer_x = obj_player.x;
+		player_buffer_y = obj_player.y;
+		
+		//Deactivate all tiles
+		instance_deactivate_object(obj_tile);
+		
+		//Reactivate tiles around the player and important creatures
+		var _boundary = global.tile_size*24;
+		instance_activate_region(player_buffer_x-_boundary, player_buffer_y-_boundary, _boundary*2, _boundary*2, true);
+		
+		if (global.is_host == true)
+		{
+			with (ENEMY)
+			{
+				instance_activate_region(x-_boundary/4, y-_boundary/4, _boundary/2, _boundary/2, true);
+			}
+		}
+	}
+}

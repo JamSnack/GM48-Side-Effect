@@ -124,3 +124,6 @@ if (global.multiplayer == true)
 	_d[? "hp"] = hp;
 	send_data(_d);
 }
+
+//Instance culling
+activate_region(2);
