@@ -81,6 +81,10 @@ switch (menu_section)
 			draw_set_halign(fa_left);
 			draw_text(5,10,"Name: "+global.player_name);
 			draw_text(5,35,"Press 'Enter' to change.");
+			
+			//Draw exit lobby button
+			draw_sprite_ext(spr_ui_button,lobby_button_exit_index,4,disp_height-40,2,1,0,c_white,1);
+			draw_text(12,disp_height-38,"Exit");
 		}
 	}
 	break;

@@ -158,7 +158,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"bkg_starry_sky","path":"sprites/bkg_starry_sky/bkg_starry_sky.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "bkg_starry_sky",
     "tags": [],
     "resourceType": "GMSequence",

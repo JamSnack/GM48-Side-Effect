@@ -22,3 +22,6 @@ audio_play_sound(Eternal_Boredom,10,true);
 
 //Networkin timeout
 network_set_config(network_config_connect_timeout, 5000);
+
+//Buttons
+lobby_button_exit_index = 0;

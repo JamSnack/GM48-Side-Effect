@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_core","path":"sprites/spr_core/spr_core.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_core",
     "tags": [],
     "resourceType": "GMSequence",

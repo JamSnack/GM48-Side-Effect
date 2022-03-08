@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_obsta","path":"sprites/spr_obsta/spr_obsta.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_obsta",
     "tags": [],
     "resourceType": "GMSequence",

@@ -131,31 +131,19 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 
 	wave_delay -= 1;
 }
-else if (global.game_paused == true)
+
+
+if (global.game_paused == true)
 {
-	var _dx = device_mouse_x_to_gui(0);
-	var _dy = device_mouse_y_to_gui(0);
+	var mouse_result = ui_button_check_gui(spr_button_exit, 4, 4, 690-64*2,250, mb_left);
 	
-	if (point_in_rectangle(_dx,_dy,690-64*2,250,690-64*2+64*4,250+32*4))
+	exit_index = mouse_result;
+	
+	if (mouse_result == MB_RELEASED)
 	{
-		exit_index = 1;	
-		
-		if (mouse_check_button_pressed(mb_left))
-		{
-			exit_index = 2;	
-		}
-		
-		if (mouse_check_button_released(mb_left))
-		{
-			//GO TO THE MENU.
-			room_goto(rm_menu);
-			audio_stop_all();
-		}
-		
-	}
-	else
-	{
-		exit_index = 0;	
+		room_goto(rm_menu);
+		audio_stop_all();
+		network_destroy_connections();
 	}
 }
 

@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_core_turret_head","path":"sprites/spr_core_turret_head/spr_core_turret_head.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_core_turret_head",
     "tags": [],
     "resourceType": "GMSequence",

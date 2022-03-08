@@ -14,8 +14,6 @@ global.player_name = choose("Avocado","Crab","Cheeto","Lemon","Birds","Callous",
 global.player_name_list = ds_list_create();
 global.networking_debug = true; //Whether or not to dislay networking debug stuff
 
-ds_list_add(global.player_name_list, global.player_name); //add playername
-
 simulate_lag = true;
 simulate_lag_ping = 100;
 ping = 0;

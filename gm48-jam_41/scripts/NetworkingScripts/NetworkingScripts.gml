@@ -17,6 +17,8 @@ function createServer(port, max_clients)
 		global.is_host = true;
 		global.multiplayer = true;
 		server_status = "Server created.";
+		
+		ds_list_add(global.player_name_list, global.player_name); //add playername
 	}
 }
 
@@ -646,15 +648,19 @@ function server_relay_data(data_to_relay)
 function network_destroy_connections()
 {
 	network_destroy(global.socket);
-	if (global.is_host == true)
-	{
-		//Empty connected sockets
-		ds_list_clear(global.socketlist);
-	}
 	
+	//Clear out socket list
+	if (global.is_host == true)
+		ds_list_clear(global.socketlist);
+	
+	//Clear out other lists
 	ds_list_clear(global.player_name_list);
 	
+	//Reset variables
 	global.player_count = 0;
 	global.is_host = false;
 	global.multiplayer = false;
+	
+	if (instance_exists(obj_menu_control))
+		with (obj_menu_control) server_status = "";
 }

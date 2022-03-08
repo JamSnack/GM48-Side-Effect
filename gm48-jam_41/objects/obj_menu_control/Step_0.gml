@@ -92,6 +92,16 @@ if (begin_sequence == false && change_playername == false)
 		}
 		
 		menu_animation_timer++;
+		
+		//Buttons
+		var lobby_button_exit = ui_button_check_gui(spr_ui_button, 2, 1, 4, display_get_gui_height()-40, mb_left);
+		lobby_button_exit_index = lobby_button_exit;
+		
+		if (lobby_button_exit == MB_RELEASED)
+		{
+			menu_section = "START";
+			network_destroy_connections();
+		}
 	}
 }
 
