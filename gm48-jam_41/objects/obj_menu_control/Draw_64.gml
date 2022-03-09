@@ -77,10 +77,36 @@ switch (menu_section)
 			draw_text(_center,350,"World Size:\n\n\n"+_ws+"x"+_ws);
 			draw_text(_center,500,"Difficulty:");
 			
+			//Difficulty options
+			var x_sc = 2.25;
+			var y_sc = 1.25;
+			var _wid = sprite_get_width(spr_ui_button)*x_sc;
+			var _str = "";
+			
+			for (var _i = difficulty_min; _i <= difficulty_max; _i++)
+			{
+				var _pos_x = (36 + _center - (_wid*difficulty_max) + (_wid+30)*_i);
+				var difficulty_button = ui_button_check_gui(spr_ui_button, 2.25, 1.25, _pos_x, 550, mb_left);
+				var _indx = (_i == selected_difficulty) ? 1 : difficulty_button; //Big dick ternary operator
+				draw_sprite_ext(spr_ui_button, _indx, _pos_x, 550, x_sc, y_sc, 0, c_white, 1);
+				
+				switch (_i)
+				{
+					case 0: { _str = "Peaceful"; } break;
+					case 1: { _str = "Easy"; } break;
+					case 2: { _str = "Normal"; } break;
+					case 3: { _str = "Hard"; } break;
+					case 4: { _str = "Extreme"; } break;
+				}
+				
+				draw_text_transformed(_pos_x+38, 550+10, _str, 0.6, 0.6, 0);
+			}
+			
 			//Name and other infor
 			draw_set_halign(fa_left);
 			draw_text(5,10,"Name: "+global.player_name);
 			draw_text(5,35,"Press 'Enter' to change.");
+			
 			
 			//Draw exit lobby button
 			draw_sprite_ext(spr_ui_button,lobby_button_exit_index,4,disp_height-40,2,1,0,c_white,1);

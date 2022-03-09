@@ -102,6 +102,21 @@ if (begin_sequence == false && change_playername == false)
 			menu_section = "START";
 			network_destroy_connections();
 		}
+		
+		
+		// - Difficulty
+		var _wid = sprite_get_width(spr_ui_button)*2.25; //2.25 = x_sc
+		
+		for (var _i = difficulty_min; _i <= difficulty_max; _i++)
+		{
+			var dif_x = (28 + (display_get_gui_width()/2) - (_wid*difficulty_max) + (_wid+30)*_i);
+			var difficulty_buttons = ui_button_check_gui(spr_ui_button, 2.25, 1.25, dif_x, 550, mb_left);
+			
+			if (difficulty_buttons == MB_RELEASED)
+			{
+				selected_difficulty = _i;	
+			}
+		}
 	}
 }
 

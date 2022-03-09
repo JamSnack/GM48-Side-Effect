@@ -25,3 +25,6 @@ network_set_config(network_config_connect_timeout, 5000);
 
 //Buttons
 lobby_button_exit_index = 0;
+difficulty_min = 0; //Peaceful
+difficulty_max = 4; //Extreme
+selected_difficulty = 2; //Normal

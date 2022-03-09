@@ -20,7 +20,7 @@ if (instance_exists(follow_this))
 }
 
 
-//GAME OVER CAM
+//GAME OVER CAM (HOT)
 if (global.game_over == true && instance_exists(obj_core))
 {
 	follow_this = obj_core;
