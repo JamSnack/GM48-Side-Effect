@@ -22,7 +22,7 @@ if (global.multiplayer == false && global.is_host == true) && (x == xprevious &&
 }
 else multiplayer_death_counter = 0;
 
-if (global.is_host == false) then exit;
+if (global.is_host == false && global.multiplayer == true) then exit;
 
 if (place_meeting_fast(hAccel,vAccel,obj_tile,false))
 {
@@ -42,17 +42,20 @@ if (place_meeting_fast(hAccel,vAccel,obj_tile,false))
 	
 	instance_destroy();	
 }
-else if place_meeting_fast(hAccel,vAccel,PLAYER_TARGET,false)
+
+if place_meeting_fast(hAccel,vAccel,PLAYER_TARGET,false)
 {
 	var _list = ds_list_create();
-	collision_circle_list(x,y,global.tile_size*(scale),PLAYER_TARGET,false,false,_list,false);
+	collision_circle_list(x,y,global.tile_size*(scale)*2,PLAYER_TARGET,false,false,_list,false);
 	
-	for(_i=0;_i<ds_list_size(_list);_i++)
+	for(var _i = 0;_i < ds_list_size(_list); _i++)
 	{
-		var _inst = ds_list_find_value(_list,_i);
-		hurt_instance(_inst, scale*2);
+		var _inst = ds_list_find_value(_list, _i);
+		hurt_instance(_inst, 10);
+		show_debug_message("Please hurt: "+string(_inst));
 	}
 	
+	ds_list_destroy(_list);
 	instance_destroy();
 }
 

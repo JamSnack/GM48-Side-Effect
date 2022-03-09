@@ -8,7 +8,7 @@ direction += irandom_range(-15,15);
 image_speed = 0;
 
 scale = choose(1,2,3);
-_speed = 4-scale;
+_speed = 3.4-scale;
 hAccel = lengthdir_x(_speed,direction);
 vAccel = lengthdir_y(_speed,direction);
 
