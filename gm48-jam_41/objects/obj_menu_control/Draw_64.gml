@@ -88,7 +88,7 @@ switch (menu_section)
 				var _pos_x = (36 + _center - (_wid*difficulty_max) + (_wid+30)*_i);
 				var difficulty_button = ui_button_check_gui(spr_ui_button, 2.25, 1.25, _pos_x, 550, mb_left);
 				var _indx = (_i == selected_difficulty) ? 1 : difficulty_button; //Big dick ternary operator
-				draw_sprite_ext(spr_ui_button, _indx, _pos_x, 550, x_sc, y_sc, 0, c_white, 1);
+				draw_sprite_ext(spr_ui_button, _indx, _pos_x, 550, x_sc, y_sc, 0, c_white, _alpha);
 				
 				switch (_i)
 				{
