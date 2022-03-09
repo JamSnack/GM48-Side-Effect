@@ -11,12 +11,13 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	var _amt = 1;
 	
 	if (game_difficulty > 2)
-		_amt += game_difficulty;
+		_amt += game_difficulty-2;
 	
 	repeat(_amt)
 	{
 		var _xx = obj_player.x; //we gotta start somehwere :eyes:
 		var _yy = obj_player.y;
+		var _success = true;
 		
 		//init dist_from_nearest_core
 		var dist_from_nearest_core = 0;
@@ -35,11 +36,15 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 			
 			_breaker += 1;
 			
-			if (_breaker > 75) then break;
+			if (_breaker > 75) 
+			{
+				_success = false;
+				break;
+			}
 		}
-		
-				
-		instance_create_layer( _xx, _yy, "Instances", obj_enemy_core);	
+			
+		if (_success = true)
+			instance_create_layer( _xx, _yy, "Instances", obj_enemy_core);
 	}
 }
 
@@ -101,7 +106,7 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 		
 		if (difficulty > 5-game_difficulty)
 		{
-			repeat((difficulty mod ( game_difficulty + (global.player_count-1) + floor(time_m/10) )))
+			repeat( (global.player_count) + floor(difficulty/(9-game_difficulty)) )
 			{
 				instance_create_layer(choose(-64,game_world_width+64),choose(-64,game_world_height+64),"Instances",obj_enemy_01);
 			}
