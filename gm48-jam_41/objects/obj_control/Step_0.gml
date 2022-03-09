@@ -93,21 +93,21 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 	}
 
 	//A wave a minute!
-	if ( ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false) && wave_delay <= 0)
+	if ( ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false) && wave_delay <= 0 && game_difficulty != 0)
 	{
 		sync_wave();
 		
 		difficulty += 1;
 		
-		if (difficulty > 3)
+		if (difficulty > 5-game_difficulty)
 		{
-			repeat((difficulty mod ( 2 + (global.player_count-1) + floor(time_m/20) )))
+			repeat((difficulty mod ( game_difficulty + (global.player_count-1) + floor(time_m/10) )))
 			{
 				instance_create_layer(choose(-64,game_world_width+64),choose(-64,game_world_height+64),"Instances",obj_enemy_01);
 			}
 		}
 	
-		wave_delay = clamp((room_speed*(90-difficulty)), room_speed*45, room_speed*90);
+		wave_delay = clamp((room_speed*(90-(difficulty*floor(game_difficulty/2)))), room_speed*45, room_speed*90);
 	
 		if (difficulty >= 5)
 		{
