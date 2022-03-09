@@ -14,7 +14,7 @@ if (attack_delay <= 0 && instance_exists(ENEMY))
 		var _b = instance_create_layer(x,y,"Instances",obj_bullet);
 		_b.damage = attack_damage;
 		_b.direction = attack_angle;
-		_b.speed = 12;
+		_b.speed = 16;
 		_b.objective = ENEMY;
 		
 		attack_delay = attack_rate;

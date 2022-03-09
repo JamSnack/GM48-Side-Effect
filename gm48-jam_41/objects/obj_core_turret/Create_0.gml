@@ -3,7 +3,7 @@
 maxHp = 6;
 hp = maxHp-1;
 attack_rate = obj_core.core_turret_rate;
-attack_range = global.tile_size*5;
+attack_range = global.tile_size*8;
 attack_angle = 0;
 attack_delay = 0;
 attack_damage = obj_core.core_turret_damage;
