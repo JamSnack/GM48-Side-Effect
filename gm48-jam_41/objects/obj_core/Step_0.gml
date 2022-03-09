@@ -32,10 +32,13 @@ if (currently_placing != false && mb_left_released)
 	{
 		var _plr = instance_nearest(_mx, _my, PLAYER_TARGET);
 		
-		if ( point_distance(_mx, _my, _plr.x, _plr.y) > global.tile_size*1.5 && structure_deduct_cost(currently_placing) == true)
+		if ( point_distance(_mx, _my, _plr.x, _plr.y) > global.tile_size-2)
 		{
-			instance_create_layer(_mx,_my,"Instances",currently_placing);
-		}
+			if (structure_deduct_cost(currently_placing) == true)
+			{
+				instance_create_layer(_mx,_my,"Instances",currently_placing);
+			}
+		} else obj_control.hud_text_buffer += "\nToo close to a player or structure.\n";
 	}
 	else if (global.is_host == false)
 	{

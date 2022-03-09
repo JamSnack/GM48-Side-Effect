@@ -660,6 +660,8 @@ function network_destroy_connections()
 	
 	//Clear out other lists
 	ds_list_clear(global.player_name_list);
+	ds_list_clear(global.recently_destroyed_tiles);
+	ds_list_clear(global.recently_destroyed_objects);
 	
 	//Reset variables
 	global.player_count = 0;
