@@ -60,6 +60,7 @@
     {"id":{"name":"obj_asteroid","path":"objects/obj_asteroid/obj_asteroid.yy",},"order":13,},
     {"id":{"name":"place_meeting_fast","path":"scripts/place_meeting_fast/place_meeting_fast.yy",},"order":1,},
     {"id":{"name":"NetworkingScripts","path":"scripts/NetworkingScripts/NetworkingScripts.yy",},"order":0,},
+    {"id":{"name":"difficulty_to_string","path":"scripts/difficulty_to_string/difficulty_to_string.yy",},"order":19,},
     {"id":{"name":"spr_button_exit","path":"sprites/spr_button_exit/spr_button_exit.yy",},"order":20,},
     {"id":{"name":"snd_attack","path":"sounds/snd_attack/snd_attack.yy",},"order":14,},
     {"id":{"name":"spr_enemy_core","path":"sprites/spr_enemy_core/spr_enemy_core.yy",},"order":11,},

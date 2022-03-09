@@ -30,7 +30,9 @@ if (currently_placing != false && mb_left_released)
 	
 	if ((global.is_host == true && global.multiplayer == true) || global.multiplayer == false)
 	{
-		if (structure_deduct_cost(currently_placing) == true)
+		var _plr = instance_nearest(_mx, _my, PLAYER_TARGET);
+		
+		if ( point_distance(_mx, _my, _plr.x, _plr.y) > global.tile_size*1.5 && structure_deduct_cost(currently_placing) == true)
 		{
 			instance_create_layer(_mx,_my,"Instances",currently_placing);
 		}

@@ -90,14 +90,7 @@ switch (menu_section)
 				var _indx = (_i == selected_difficulty) ? 1 : difficulty_button; //Big dick ternary operator
 				draw_sprite_ext(spr_ui_button, _indx, _pos_x, 550, x_sc, y_sc, 0, c_white, _alpha);
 				
-				switch (_i)
-				{
-					case 0: { _str = "Peaceful"; } break;
-					case 1: { _str = "Easy"; } break;
-					case 2: { _str = "Normal"; } break;
-					case 3: { _str = "Hard"; } break;
-					case 4: { _str = "Extreme"; } break;
-				}
+				_str = difficulty_to_string(_i);
 				
 				draw_text_transformed(_pos_x+38, 550+10, _str, 0.6, 0.6, 0);
 			}
@@ -109,7 +102,7 @@ switch (menu_section)
 			
 			
 			//Draw exit lobby button
-			draw_sprite_ext(spr_ui_button,lobby_button_exit_index,4,disp_height-40,2,1,0,c_white,1);
+			draw_sprite_ext(spr_ui_button,lobby_button_exit_index,4,disp_height-40,2,1,0,c_white,_alpha);
 			draw_text(12,disp_height-38,"Exit");
 		}
 	}

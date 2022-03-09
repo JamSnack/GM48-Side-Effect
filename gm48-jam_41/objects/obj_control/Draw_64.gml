@@ -24,10 +24,11 @@ if (global.game_paused == true)
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_bottom);
 	draw_text_transformed(690,200,"Game Paused",2,2,0);
+	draw_text_transformed(690,650,"Difficulty: "+difficulty_to_string(game_difficulty),1.5,1.5,0);
 	draw_sprite_ext(spr_button_exit,exit_index,690-64*2,250,4,4,0,c_white,1);
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
-	draw_text_transformed(20,200,"F1 - Toggle Fullscreen\nF - Toggle Inventory\nE - Interact with the Core.\nWASD - Movement\nLeft Click - Mining laser\nRight Click - Shoot projectile\n\nScroll through many resources\nin the inventory using the mousewheel.",0.8,0.8,0);
+	draw_text_transformed(20,200,"F11 - Toggle Fullscreen\nF - Toggle Inventory\nE - Interact with the Core.\nWASD - Movement\nLeft Click - Mining laser\nRight Click - Shoot projectile\n\nScroll through many resources\nin the inventory using the mousewheel.",0.8,0.8,0);
 }
 
 if (global.game_over == true)
