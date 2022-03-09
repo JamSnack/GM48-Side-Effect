@@ -44,7 +44,7 @@ function joinServer(ip, port)
 		global.multiplayer = true;
 		server_status = "Server joined!";
 		
-		init_connection();
+		lobby_init_connection();
 	}	
 }
 
@@ -97,7 +97,7 @@ function handle_data(data)
 		
 		switch parsed_data[? "cmd"]
 		{
-			case "init_connection":
+			case "lobby_init_connection":
 			{
 				if (global.is_host == true)
 				{
@@ -107,13 +107,13 @@ function handle_data(data)
 			}
 			break;
 			
-			case "request_init_connection":
+			case "request_lobby_init_connection":
 			{
-				init_connection();
+				lobby_init_connection();
 			}
 			break;
 			
-			case "sync_init_connection":
+			case "sync_lobby_init_connection":
 			{
 				//Responsible for updating the client's list of playernames and other info.
 				//Expect a list of names.
@@ -123,6 +123,11 @@ function handle_data(data)
 				for (var _p = 0; _p < parsed_data[? "size"]; _p++)
 				{
 					global.player_name_list[| _p] = parsed_data[? string(_p)];
+				}
+				
+				if (instance_exists(obj_menu_control))
+				{
+					obj_menu_control.selected_difficulty = parsed_data[? "dif"];	
 				}
 			}
 			break;

@@ -22,10 +22,10 @@ function check_for_existance()
 	}
 }
 
-function init_connection()
+function lobby_init_connection()
 {
 	var _d = ds_map_create();
-	_d[? "cmd"] = "init_connection";
+	_d[? "cmd"] = "lobby_init_connection";
 	_d[? "name"] = global.player_name;
 	send_data(_d);
 }
@@ -34,7 +34,13 @@ function sync_lobby()
 {
 	//For use by the host.
 	var _da = ds_map_create();
-	_da[? "cmd"] = "sync_init_connection";
+	_da[? "cmd"] = "sync_lobby_init_connection";
+	
+	//Package difficulty
+	var _pack = (instance_exists(obj_menu_control)) ? obj_menu_control.selected_difficulty : 2; //Normal 
+	_da[? "dif"] = _pack;
+	
+	//Package player_name_list
 	_da[? "size"] = ds_list_size(global.player_name_list);
 					
 	for (var _p = 0; _p < _da[? "size"]; _p++)

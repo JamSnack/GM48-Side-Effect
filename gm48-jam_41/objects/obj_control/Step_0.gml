@@ -8,14 +8,27 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	instance_create_layer(irandom_range((game_world_width/4),game_world_width-(game_world_width/4)),irandom_range(game_world_height/4,game_world_height-(game_world_height/4)),"Instances",obj_player);
 	
 	//Place enemy camps
-	repeat(1)
+	var _amt = 1;
+	
+	if (game_difficulty > 2)
+		_amt += game_difficulty;
+	
+	repeat(_amt)
 	{
-		var _xx = obj_player.x;
+		var _xx = obj_player.x; //we gotta start somehwere :eyes:
 		var _yy = obj_player.y;
 		
-		var _breaker = 0;
+		//init dist_from_nearest_core
+		var dist_from_nearest_core = 0;
+		if (instance_exists(obj_enemy_core))
+		{
+			var _g = instance_nearest(_xx, _yy, obj_enemy_core);
+			dist_from_nearest_core = point_distance(_xx, _yy, _g.x, _g.y);
+		}
 		
-		while (point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) 
+		//loop for a spawn point
+		var _breaker = 0;
+		while ((point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) && dist_from_nearest_core < global.tile_size*2) 
 		{	
 			_xx = choose( irandom_range( 0, (game_world_width/4)-64 ), irandom_range( game_world_width-(game_world_width/4)+64, game_world_width-64 ) );
 			_yy = choose( irandom_range( 64, (game_world_height/4)-64 ), irandom_range(-(game_world_height/4)+game_world_height+64, game_world_height-64) );

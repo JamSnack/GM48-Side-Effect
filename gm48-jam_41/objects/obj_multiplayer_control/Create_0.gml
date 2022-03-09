@@ -35,7 +35,7 @@ function refresh_lobby_names()
 	
 		//Ask clients for new information
 		var _d = ds_map_create();
-		_d[? "cmd"] = "request_init_connection";
+		_d[? "cmd"] = "request_lobby_init_connection";
 		send_data(_d);
 		
 		sync_lobby();
