@@ -48,7 +48,7 @@ function scr_update_core()
 			core_turret_hp_xp_max *= 2;
 			core_turret_hp_xp = 0;
 				
-			core_turret_hp += 8;
+			core_turret_hp += 4;
 			event_user(0);
 		}
 	}
