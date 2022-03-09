@@ -50,16 +50,7 @@ else if place_meeting_fast(hAccel,vAccel,PLAYER_TARGET,false)
 	for(_i=0;_i<ds_list_size(_list);_i++)
 	{
 		var _inst = ds_list_find_value(_list,_i);
-		
-		if (instance_exists(_inst))
-		{
-			var _dam = scale*2;
-			
-			with _inst
-			{
-				_inst.hp -= _dam;	
-			}
-		}
+		hurt_instance(_inst, scale*2);
 	}
 	
 	instance_destroy();

@@ -6,7 +6,7 @@
     "path": "folders/Scripts/group1.yy",
   },
   "resourceVersion": "1.0",
-  "name": "update_inventory",
+  "name": "game_functions",
   "tags": [],
   "resourceType": "GMScript",
 }
