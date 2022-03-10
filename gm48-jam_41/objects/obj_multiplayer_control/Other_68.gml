@@ -21,9 +21,12 @@ switch(t)
 	break;
 	
 	case network_type_data:
-		var data = async_load[? "buffer"];
-		data = buffer_read(data,buffer_string);
+		var b_data = async_load[? "buffer"];
+		var data = buffer_read(b_data,buffer_string);
 		handle_data(data);
+		
+		//buffer cleanup
+		buffer_delete(b_data);
 		//ds_list_add(packet_queue, data); //Put the data into the packet_queue.
 	break;
 }

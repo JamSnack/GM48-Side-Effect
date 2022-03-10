@@ -637,11 +637,13 @@ function handle_data(data)
 			
 			default: { successful_parse = false; } break;
 		}
+		
+		//Map cleanup
+		ds_map_destroy(parsed_data);
 	}
 	
+	//return
 	return successful_parse;
-	
-	ds_map_destroy(parsed_data);
 }
 
 function server_relay_data(data_to_relay)
