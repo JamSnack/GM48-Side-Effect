@@ -48,7 +48,7 @@ function generate_world(game_state)
 				//Base_rate is how many worms we want to spawn in a normal (110x110) world.
 				if (ceil(game_world_width/global.tile_size) > 110)
 				{
-					return base_rate + floor(ceil(game_world_width/global.tile_size)/90);
+					return base_rate + floor(ceil(game_world_width/global.tile_size)/42);
 				}
 				else return base_rate;
 			}

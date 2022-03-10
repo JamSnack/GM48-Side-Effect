@@ -10,13 +10,8 @@ switch(t)
 	
 	case network_type_disconnect:
 	    var sock = ds_map_find_value(async_load, "socket");
-		var list_index = ds_list_find_index(global.socketlist, sock);
-	    ds_list_delete(global.socketlist, list_index);
+	    ds_list_delete(global.socketlist, sock);
 		global.player_count = ds_list_size(global.socketlist)+1;
-		
-		var _str = global.player_name_list[| list_index]+" has disconnected.";
-		hud_message(_str);
-		send_chat(_str);
 		
 		if (instance_exists(obj_player_dummy))
 			with (obj_player_dummy) instance_destroy(); //We can make new ones later

@@ -4,7 +4,7 @@ function hurt_instance(inst_id, damage)
 {
 	if (instance_exists(inst_id))
 	{
-		with instance_nearest(x,y,inst_id)
+		with inst_id
 		{	
 			if (object_index == obj_player_dummy && visible == false) || (object_index == obj_player && dead == true)
 			{

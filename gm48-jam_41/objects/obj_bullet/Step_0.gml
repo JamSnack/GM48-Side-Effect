@@ -6,7 +6,8 @@ else if (instance_exists(objective) && place_meeting_fast(hspeed,vspeed,objectiv
 {	
 	if ((global.multiplayer == true && global.is_host == true) || global.multiplayer == false)
 	{
-		hurt_instance(objective, damage);
+		var _inst = instance_nearest(x,y,objective);
+		hurt_instance(_inst, damage);
 	}
 	
 	instance_destroy();

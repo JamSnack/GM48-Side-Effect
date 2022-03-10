@@ -652,6 +652,12 @@ function server_relay_data(data_to_relay)
 
 function network_destroy_connections()
 {
+	//Disconenct chat message
+	var _str = global.player_name +" has disconnected.";
+	send_chat(_str);
+	
+	
+	//Actually disconnect
 	network_destroy(global.socket);
 	
 	//Clear out socket list

@@ -51,7 +51,7 @@ if place_meeting_fast(hAccel,vAccel,PLAYER_TARGET,false)
 	for(var _i = 0;_i < ds_list_size(_list); _i++)
 	{
 		var _inst = ds_list_find_value(_list, _i);
-		hurt_instance(_inst, 10);
+		hurt_instance(_inst, scale*2);
 		show_debug_message("Please hurt: "+string(_inst));
 	}
 	
