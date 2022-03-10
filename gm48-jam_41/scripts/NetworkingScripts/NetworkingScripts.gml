@@ -640,6 +640,8 @@ function handle_data(data)
 	}
 	
 	return successful_parse;
+	
+	ds_map_destroy(parsed_data);
 }
 
 function server_relay_data(data_to_relay)

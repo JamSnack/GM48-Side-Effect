@@ -1,5 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
+//Death
+if (hp <= 0)
+{
+	instance_destroy();
+}
+
 if (global.multiplayer == true && global.is_host == false)
 	exit;
 
@@ -24,10 +30,4 @@ else
 {
 	attack_angle += 1;
 	if attack_delay > 0 then attack_delay -= 1;
-}
-
-//Death
-if (hp <= 0)
-{
-	instance_destroy();
 }

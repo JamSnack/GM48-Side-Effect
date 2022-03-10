@@ -3,14 +3,14 @@
 function hurt_instance(inst_id, damage)
 {
 	if (instance_exists(inst_id))
-	{
+	{	
 		with inst_id
 		{	
 			if (object_index == obj_player_dummy && visible == false) || (object_index == obj_player && dead == true)
 			{
-				if (distance_to_object(obj_core) < 6)
+				if (distance_to_object(obj_core) < 4)
 				{
-					other.objective = obj_core;
+					hurt_instance(obj_core, damage);
 				}
 				
 				break;

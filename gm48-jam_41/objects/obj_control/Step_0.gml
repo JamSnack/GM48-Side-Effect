@@ -11,32 +11,33 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	var _amt = 1;
 	
 	if (game_difficulty > 2)
-		_amt += game_difficulty-2;
+		_amt += (game_difficulty-2);
 	
 	repeat(_amt)
 	{
 		var _xx = obj_player.x; //we gotta start somehwere :eyes:
 		var _yy = obj_player.y;
-		var _success = global.is_host;
+		var _success = true;
 		
 		//init dist_from_nearest_core
 		var dist_from_nearest_core = 0;
-		if (instance_exists(obj_enemy_core))
-		{
-			var _g = instance_nearest(_xx, _yy, obj_enemy_core);
-			dist_from_nearest_core = point_distance(_xx, _yy, _g.x, _g.y);
-		}
 		
 		//loop for a spawn point
 		var _breaker = 0;
-		while ((point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) || dist_from_nearest_core < global.tile_size*2) 
+		while ((point_distance(_xx,_yy,obj_player.x,obj_player.y) < global.tile_size*26) && dist_from_nearest_core < global.tile_size*2) 
 		{	
+			if (instance_exists(obj_enemy_core))
+			{
+				var _g = instance_nearest(_xx, _yy, obj_enemy_core);
+				dist_from_nearest_core = point_distance(_xx, _yy, _g.x, _g.y);
+			}
+			
 			_xx = choose( irandom_range( 0, (game_world_width/4)-64 ), irandom_range( game_world_width-(game_world_width/4)+64, game_world_width-64 ) );
 			_yy = choose( irandom_range( 64, (game_world_height/4)-64 ), irandom_range(-(game_world_height/4)+game_world_height+64, game_world_height-64) );
 			
 			_breaker += 1;
 			
-			if (_breaker > 75) 
+			if (_breaker > 200) 
 			{
 				_success = false;
 				break;
@@ -44,7 +45,10 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 		}
 			
 		if (_success == true)
+		{
 			instance_create_layer( _xx, _yy, "Instances", obj_enemy_core);
+			//show_debug_message("SPAWNED A CORE");
+		}
 	}
 }
 
@@ -106,17 +110,17 @@ if (global.game_over == false) && ((global.multiplayer == false && global.game_p
 		
 		if (difficulty > 5-game_difficulty)
 		{
-			repeat( (global.player_count) + floor(difficulty/(9-game_difficulty)) )
+			repeat( (global.player_count) + floor(difficulty/(8-game_difficulty)) )
 			{
 				instance_create_layer(choose(-64,game_world_width+64),choose(-64,game_world_height+64),"Instances",obj_enemy_01);
 			}
 		}
 	
-		wave_delay = clamp((room_speed*(90-(difficulty*floor(game_difficulty/2)))), room_speed*45, room_speed*90);
+		wave_delay = clamp((room_speed*(90-(difficulty*floor(game_difficulty/2)))), room_speed*10, room_speed*90);
 	
 		if (difficulty >= 5)
 		{
-			repeat(difficulty+(floor(difficulty/2)))
+			repeat(difficulty+(floor((difficulty*game_difficulty)/2)))
 			{
 				var _top = choose(1,2);
 			

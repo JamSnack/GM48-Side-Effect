@@ -28,3 +28,6 @@ lobby_button_exit_index = 0;
 difficulty_min = 0; //Peaceful
 difficulty_max = 4; //Extreme
 selected_difficulty = 2; //Normal
+
+//Tile size
+global.tile_size = 32;
