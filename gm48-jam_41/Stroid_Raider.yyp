@@ -39,6 +39,7 @@
     {"id":{"name":"spr_asteroid","path":"sprites/spr_asteroid/spr_asteroid.yy",},"order":16,},
     {"id":{"name":"Eternal_Boredom","path":"sounds/Eternal_Boredom/Eternal_Boredom.yy",},"order":28,},
     {"id":{"name":"spr_ui_arrow","path":"sprites/spr_ui_arrow/spr_ui_arrow.yy",},"order":15,},
+    {"id":{"name":"spr_ui_button_orange","path":"sprites/spr_ui_button_orange/spr_ui_button_orange.yy",},"order":24,},
     {"id":{"name":"update_inventory","path":"scripts/update_inventory/update_inventory.yy",},"order":3,},
     {"id":{"name":"snd_blip","path":"sounds/snd_blip/snd_blip.yy",},"order":24,},
     {"id":{"name":"snd_trouble_arrives","path":"sounds/snd_trouble_arrives/snd_trouble_arrives.yy",},"order":22,},

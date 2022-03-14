@@ -15,7 +15,7 @@ menu_panel = 0;
 menu_panel_max = 1;
 currently_placing = false;
 
-//Core stats
+//Core tech
 core_hp_xp = 0;
 core_hp_xp_max = 25;
 core_turret_rate_xp = 0;
@@ -28,6 +28,10 @@ core_turret_hp_xp_max = 30;
 core_turret_rate = room_speed;
 core_turret_damage = 1;
 core_turret_hp = 10;
+
+deposit_timer = 60; //How long to wait until we can deposit another resource.
+consecutive_deposits = 0;
+
 
 //Healing
 alarm[0] = 1;

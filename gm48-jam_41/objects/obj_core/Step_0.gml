@@ -110,8 +110,8 @@ if (interaction_open == true) && currently_placing == false
 		if (menu_panel < menu_panel_max) then menu_panel += 1;	
 	}
 	
-	//Click interaction
-	if (upgrade_hovering != noone && mouse_check_button_released(mb_left))
+	//Level up tech
+	if (upgrade_hovering != noone && ( mouse_check_button(mb_left) && deposit_timer <= 0))
 	{
 		if (global.inventory[upgrade_hovering] > 0)
 		{
@@ -137,7 +137,19 @@ if (interaction_open == true) && currently_placing == false
 		update_inventory();
 		obj_player.inventory_action_disable = true;
 		obj_player.inventory_action_delay = 30;
+		deposit_timer = max(30-(consecutive_deposits*6), 1);
+		consecutive_deposits++;
 	}
+}
+
+//Deposit timer
+if (deposit_timer > -10)
+{
+	deposit_timer -= 1;
+}
+else if (deposit_timer <= -10)
+{
+	consecutive_deposits = 0;
 }
 
 //Death
