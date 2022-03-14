@@ -22,7 +22,7 @@ if (begin_sequence == false && change_playername == false)
 	}
 	else if (menu_section == "LOBBY")
 	{
-		if (global.multiplayer = false)
+		if (global.multiplayer = false) //Pre-Lobby stuff
 		{
 			if (keyboard_check_released(vk_f1))
 			{
@@ -124,6 +124,7 @@ if (begin_sequence == false && change_playername == false)
 	}
 }
 
+//Playername logic
 if (change_playername == true && change_playername_delay < 0)
 {	
 	

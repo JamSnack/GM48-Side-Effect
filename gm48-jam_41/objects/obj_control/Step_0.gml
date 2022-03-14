@@ -10,7 +10,9 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 	//Place enemy camps
 	var _amt = 1;
 	
-	if (game_difficulty > 2)
+	if (game_difficulty == 0)
+		_amt = 0;
+	else if (game_difficulty > 2)
 		_amt += (game_difficulty-2);
 	
 	repeat(_amt)

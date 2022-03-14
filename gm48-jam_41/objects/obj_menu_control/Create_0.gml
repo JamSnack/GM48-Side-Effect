@@ -10,6 +10,7 @@ new_playername = "";
 change_playername_delay = 0
 old_playername = global.player_name;
 new_world_size = 3500; //default room_width for Room1
+currently_typing = false; //Whether or not we are reading inputs from the keyboard to use as text.
 
 //Option sliders
 max_world_size = 3500*2;
