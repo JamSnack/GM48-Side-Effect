@@ -26,7 +26,7 @@ if (begin_sequence == false && change_playername == false)
 		{
 			if (keyboard_check_released(vk_f1))
 			{
-				createServer(get_integer("Enter server port.", 1337), 2);
+				createServer(get_integer("Enter server port.", 55555), 2);
 			}
 			else if (keyboard_check_released(vk_f2))
 			{

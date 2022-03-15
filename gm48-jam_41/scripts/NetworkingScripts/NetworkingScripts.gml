@@ -2,6 +2,28 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function createServer(port, max_clients)
 {
+	global.socket = network_create_socket(network_socket_tcp);
+	
+	var _s = network_connect_raw(global.socket, "127.0.0.1", port);
+	
+	if (_s < 0)
+	{
+		//Failed...	
+		global.is_host = false;
+		global.multiplayer = false;
+		server_status = "Server failed.";
+	}
+	else
+	{
+		//Succ
+		global.is_host = true;
+		global.multiplayer = true;
+		server_status = "Server created.";
+		
+		ds_list_add(global.player_name_list, global.player_name); //add playername
+	}
+	
+	/*
 	global.socket = network_create_server(network_socket_tcp, port, max_clients);
 	
 	if (global.socket < 0)
@@ -20,6 +42,7 @@ function createServer(port, max_clients)
 		
 		ds_list_add(global.player_name_list, global.player_name); //add playername
 	}
+	*/
 }
 
 function joinServer(ip, port)
@@ -28,7 +51,7 @@ function joinServer(ip, port)
 	
 	global.socket = network_create_socket(network_socket_tcp);
 	
-	var _s = network_connect(global.socket, ip, port);
+	var _s = network_connect_raw(global.socket, ip, port);
 	
 	if (_s < 0)
 	{
@@ -61,17 +84,19 @@ function send_data(data_map)
 	
 	if (global.multiplayer == true)
 	{
-		if (global.is_host == false)
+		show_debug_message("Sending a packet..");
+		network_send_raw(global.socket, buff, buffer_tell(buff));
+		/*if (global.is_host == false)
 		{
-			network_send_packet(global.socket, buff, buffer_tell(buff));
+			network_send_raw(global.socket, buff, buffer_tell(buff));
 		}
 		else
 		{
 			for (var i = 0; i < ds_list_size(global.socketlist); i++;)
 		    {
-				network_send_packet(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
+				network_send_raw(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
 		    }
-		}
+		}*/
 	}
 	
 	//cleanup
