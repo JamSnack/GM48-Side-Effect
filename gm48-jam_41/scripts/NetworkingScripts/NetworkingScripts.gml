@@ -2,6 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function createServer(port, max_clients)
 {
+	//Creates a lobby on the relay server
 	global.socket = network_create_socket(network_socket_tcp);
 	
 	var _s = network_connect_raw(global.socket, "127.0.0.1", port);
@@ -21,6 +22,8 @@ function createServer(port, max_clients)
 		server_status = "Server created.";
 		
 		ds_list_add(global.player_name_list, global.player_name); //add playername
+		
+		lobby_search(0);
 	}
 	
 	/*
@@ -45,13 +48,13 @@ function createServer(port, max_clients)
 	*/
 }
 
-function joinServer(ip, port)
+function joinServer(lobby_id)
 {
 	server_status = "Connecting to server...";
 	
 	global.socket = network_create_socket(network_socket_tcp);
 	
-	var _s = network_connect_raw(global.socket, ip, port);
+	var _s = network_connect_raw(global.socket, "127.0.0.1", 55555);
 	
 	if (_s < 0)
 	{
@@ -67,7 +70,8 @@ function joinServer(ip, port)
 		global.multiplayer = true;
 		server_status = "Server joined!";
 		
-		lobby_init_connection();
+		lobby_search(lobby_id);
+		//lobby_init_connection();
 	}	
 }
 
@@ -84,7 +88,7 @@ function send_data(data_map)
 	
 	if (global.multiplayer == true)
 	{
-		show_debug_message("Sending a packet..");
+		show_debug_message(json_map);
 		network_send_raw(global.socket, buff, buffer_tell(buff));
 		/*if (global.is_host == false)
 		{

@@ -30,7 +30,7 @@ if (begin_sequence == false && change_playername == false)
 			}
 			else if (keyboard_check_released(vk_f2))
 			{
-				joinServer(get_string("Enter target IP address.","127.0.0.1"), get_integer("Enter server port.", 1337));	
+				joinServer(get_integer("Enter lobby id.", 1000));	
 			}
 		}
 		else if (global.is_host == true)

@@ -50,3 +50,11 @@ function sync_lobby()
 					
 	send_data(_da);
 }
+
+function lobby_search(l_id)
+{
+	var _ds = ds_map_create();
+	_ds[? "cmd"] = "lobby_info";
+	_ds[? "id"] = l_id;
+	send_data(_ds);
+}
