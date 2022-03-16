@@ -77,34 +77,34 @@ function joinServer(lobby_id)
 
 function send_data(data_map)
 {
-	var json_map = json_encode(data_map);
-	//show_debug_message("sending: "+json_map);
-	var buff = buffer_create(64, buffer_grow, 1);
-	
-	buffer_seek(buff, buffer_seek_start, 0);
-	var _b = buffer_write(buff, buffer_string, json_map);
-	
-	if (_b == -1) then show_debug_message("buffer_write failed.");
-	
 	if (global.multiplayer == true)
 	{
-		show_debug_message(json_map);
-		network_send_raw(global.socket, buff, buffer_tell(buff));
-		/*if (global.is_host == false)
-		{
-			network_send_raw(global.socket, buff, buffer_tell(buff));
-		}
-		else
-		{
-			for (var i = 0; i < ds_list_size(global.socketlist); i++;)
-		    {
-				network_send_raw(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
-		    }
-		}*/
-	}
+		var json_map = json_encode(data_map);
+		//show_debug_message("sending: "+json_map);
+		var buff = buffer_create(64, buffer_grow, 1);
 	
-	//cleanup
-	buffer_delete(buff);
+		buffer_seek(buff, buffer_seek_start, 0);
+		var _b = buffer_write(buff, buffer_string, json_map);
+	
+		if (_b == -1) then show_debug_message("buffer_write failed.");
+	
+		//show_debug_message(json_map);
+		network_send_raw(global.socket, buff, buffer_tell(buff));
+			/*if (global.is_host == false)
+			{
+				network_send_raw(global.socket, buff, buffer_tell(buff));
+			}
+			else
+			{
+				for (var i = 0; i < ds_list_size(global.socketlist); i++;)
+			    {
+					network_send_raw(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
+			    }
+			}*/
+	
+		//cleanup
+		buffer_delete(buff);
+	}
 	
 	if (ds_exists(data_map, ds_type_map))
 	{
@@ -146,29 +146,34 @@ function handle_data(data)
 			{
 				//Responsible for updating the client's list of playernames and other info.
 				//Expect a list of names.
-				ds_list_destroy(global.player_name_list);
-				global.player_name_list = ds_list_create();
-				
-				for (var _p = 0; _p < parsed_data[? "size"]; _p++)
+				if (global.is_host == false)
 				{
-					global.player_name_list[| _p] = parsed_data[? string(_p)];
-				}
+					ds_list_destroy(global.player_name_list);
+					global.player_name_list = ds_list_create();
 				
-				if (instance_exists(obj_menu_control))
-				{
-					obj_menu_control.selected_difficulty = parsed_data[? "dif"];	
+					//Update playernames
+					for (var _p = 0; _p < parsed_data[? "pl_size"]; _p++)
+					{
+						global.player_name_list[| _p] = parsed_data[? string(_p)];
+					}
+				
+					//Update difficulty and world_size
+					if (instance_exists(obj_menu_control))
+					{
+						obj_menu_control.selected_difficulty = parsed_data[? "dif"];	
+						obj_menu_control.new_world_size = parsed_data[? "w_size"];
+					}
 				}
 			}
 			break;
 			
-			case "lobby_change_name":
+			case "lobby_request_change_name":
 			{
 				if (global.is_host == true)
 				{
 					var _old = parsed_data[? "old"];
 					var _new = parsed_data[? "new"];
 					var _indx = ds_list_find_index(global.player_name_list, _old);
-					show_debug_message("AGHHHHHH"+_new);
 					global.player_name_list[| _indx] = _new;
 				
 					sync_lobby();
@@ -185,7 +190,6 @@ function handle_data(data)
 						with(obj_menu_control)
 						{
 							new_world_size = parsed_data[? "size"];
-							//Difficulty goes here :)
 						}
 					}
 				}
@@ -677,7 +681,7 @@ function handle_data(data)
 
 function server_relay_data(data_to_relay)
 {
-	if (global.player_count > 1 && global.is_host == true)
+	if (global.is_host == true)
 	{
 		send_data(data_to_relay);
 	}

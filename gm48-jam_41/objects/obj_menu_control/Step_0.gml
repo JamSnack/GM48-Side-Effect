@@ -80,14 +80,6 @@ if (begin_sequence == false && change_playername == false)
 			else
 			{
 				drag_world_size = false;
-				
-				if (global.is_host == true)
-				{
-					var _d = ds_map_create();
-					_d[? "cmd"] = "lobby_change_world_info";
-					_d[? "size"] = new_world_size;
-					send_data(_d);
-				}
 			}
 		}
 		
@@ -117,7 +109,7 @@ if (begin_sequence == false && change_playername == false)
 				if (difficulty_buttons == MB_RELEASED)
 				{
 					selected_difficulty = _i;
-					sync_lobby();
+					//sync_lobby();
 				}
 			}
 		}
@@ -147,7 +139,7 @@ if (change_playername == true && change_playername_delay < 0)
 			if (global.is_host == false)
 			{
 				var _d = ds_map_create();
-				_d[? "cmd"] = "lobby_change_name";
+				_d[? "cmd"] = "lobby_request_change_name";
 				_d[? "new"] = new_playername;
 				_d[? "old"] = old_playername;
 				send_data(_d);
@@ -180,6 +172,12 @@ else if (begin_sequence = true)
 	if _alpha <= -0.5 then room_goto(Room1);
 	
 	change_playername = false;
+}
+
+//Sync the lobby
+if (mouse_check_button_released(mb_left))
+{
+	sync_lobby();
 }
 
 //Delay!
