@@ -49,7 +49,7 @@ switch (menu_section)
 			if (global.is_host == true)
 			{
 				draw_text_transformed(_center,display_get_gui_height()-30,"Press Q to start the game.",0.6,0.6,0);
-				draw_text_transformed(_center,60,server_status+"\nPlayers: "+string(global.player_count),1,1,0);
+				draw_text_transformed(_center,60,server_status+"\nLobby ID: "+string(global.lobby_id),1,1,0);
 			} 
 			else draw_text_transformed(display_get_gui_width()/2,400,server_status,2,2,0);
 			

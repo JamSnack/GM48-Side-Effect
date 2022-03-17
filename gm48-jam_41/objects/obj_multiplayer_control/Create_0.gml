@@ -12,6 +12,7 @@ global.player_id = irandom(99999);
 global.player_count = 1;
 global.player_name = choose("Avocado","Crab","Cheeto","Lemon","Birds","Callous","Wool","Baby","Sweet","Tart","Armor")+string(global.player_id);
 global.player_name_list = ds_list_create();
+global.lobby_id = -1;
 global.networking_debug = true; //Whether or not to dislay networking debug stuff
 
 simulate_lag = true;

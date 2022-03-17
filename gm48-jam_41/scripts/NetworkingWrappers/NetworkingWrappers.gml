@@ -44,7 +44,7 @@ function sync_lobby()
 		_da[? "dif"] = _pack;
 	
 		//Package player_name_list
-		_da[? "size"] = ds_list_size(global.player_name_list);
+		_da[? "pl_size"] = ds_list_size(global.player_name_list);
 					
 		for (var _p = 0; _p < _da[? "pl_size"]; _p++)
 		{

@@ -6,6 +6,7 @@ if (global.networking_debug == true)
 	
 	draw_set_halign(fa_right);
 	draw_text(width-60,10,"Players connected: "+string(global.player_count));
+	draw_text(width-60,40,"Lobby ID: "+string(global.lobby_id));
 	//draw_text(width-60,33,"Ping: "+string(display_ping));
 }
 

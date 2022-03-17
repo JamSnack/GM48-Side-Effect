@@ -71,7 +71,6 @@ function joinServer(lobby_id)
 		server_status = "Server joined!";
 		
 		lobby_search(lobby_id);
-		//lobby_init_connection();
 	}	
 }
 
@@ -126,6 +125,14 @@ function handle_data(data)
 		
 		switch parsed_data[? "cmd"]
 		{
+			case "lobby_connect_success":
+			{
+				lobby_init_connection();
+				
+				global.lobby_id = parsed_data[? "l_id"];
+			}
+			break;
+			
 			case "lobby_init_connection":
 			{
 				if (global.is_host == true)
@@ -177,21 +184,6 @@ function handle_data(data)
 					global.player_name_list[| _indx] = _new;
 				
 					sync_lobby();
-				}
-			}
-			break;
-			
-			case "lobby_change_world_info":
-			{
-				if (global.is_host == false)
-				{
-					if (instance_exists(obj_menu_control))
-					{
-						with(obj_menu_control)
-						{
-							new_world_size = parsed_data[? "size"];
-						}
-					}
 				}
 			}
 			break;
