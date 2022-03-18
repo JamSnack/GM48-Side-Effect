@@ -296,9 +296,9 @@ else if (inventory_action_delay > 0)
 
 
 //Send multiplayer information
-if ((x != xprevious || y != yprevious) && (multiplayer_delay <= 5)) || multiplayer_delay <= 0
+if ((x != xprevious || y != yprevious) && (multiplayer_delay <= 35)) || multiplayer_delay <= 0
 {
-	multiplayer_delay = 10;
+	multiplayer_delay = 40;
 	event_user(0);
 }
 else if (multiplayer_delay > 0)

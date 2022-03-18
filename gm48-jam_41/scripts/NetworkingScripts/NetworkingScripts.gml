@@ -124,7 +124,7 @@ function handle_data(data)
 		successful_parse = true;
 		
 		switch parsed_data[? "cmd"]
-		{
+		{	
 			case "player_disconnected":
 			{
 				//A player has disconnected
