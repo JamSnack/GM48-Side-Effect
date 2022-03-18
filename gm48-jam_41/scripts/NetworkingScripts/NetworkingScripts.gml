@@ -125,6 +125,16 @@ function handle_data(data)
 		
 		switch parsed_data[? "cmd"]
 		{
+			case "player_disconnected":
+			{
+				//A player has disconnected
+				if (instance_exists(obj_player_dummy))
+					with (obj_player_dummy) instance_destroy(); //We can make new ones later
+			
+				refresh_lobby_names();
+			}
+			break;
+			
 			case "lobby_connect_success":
 			{
 				lobby_init_connection();
@@ -682,8 +692,8 @@ function server_relay_data(data_to_relay)
 function network_destroy_connections()
 {
 	//Disconenct chat message
-	var _str = global.player_name +" has disconnected.";
-	send_chat(_str);
+	//var _str = global.player_name +" has disconnected.";
+	//send_chat(_str);
 	
 	
 	//Actually disconnect

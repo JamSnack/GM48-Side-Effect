@@ -13,11 +13,6 @@ switch(t)
 	    ds_list_delete(global.socketlist, sock);
 		global.player_count = ds_list_size(global.socketlist)+1;
 		
-		if (instance_exists(obj_player_dummy))
-			with (obj_player_dummy) instance_destroy(); //We can make new ones later
-			
-		refresh_lobby_names();
-		
 	break;
 	
 	case network_type_data:
