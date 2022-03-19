@@ -11,6 +11,6 @@ pickup_delay = 5;
 image_angle = random(360);
 
 player_lock = noone;
-object_id = 0;
+object_id = get_object_id();
 
 alarm[0] = 1; //Synchronize item spawns

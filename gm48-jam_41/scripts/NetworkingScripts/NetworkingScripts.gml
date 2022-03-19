@@ -125,6 +125,12 @@ function handle_data(data)
 		
 		switch parsed_data[? "cmd"]
 		{	
+			case "stress_test":
+			{
+				show_debug_message("Number stream: "+string(parsed_data[? "val"]));
+			}
+			break;
+			
 			case "player_disconnected":
 			{
 				//A player has disconnected

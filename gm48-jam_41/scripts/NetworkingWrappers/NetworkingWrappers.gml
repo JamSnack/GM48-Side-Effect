@@ -65,3 +65,12 @@ function lobby_search(l_id)
 	_ds[? "id"] = l_id;
 	send_data(_ds);
 }
+
+function destroy_object(object_index, object_id)
+{
+	var _da = ds_map_create();
+	_da[? "cmd"] = "object_destroy";
+	_da[? "object_index"] = object_index;
+	_da[? "object_id"] = object_id;
+	send_data(_da);
+}

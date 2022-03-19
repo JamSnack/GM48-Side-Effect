@@ -42,3 +42,6 @@ function refresh_lobby_names()
 		sync_lobby();
 	}
 }
+
+//Testing stuff
+val = 0;
