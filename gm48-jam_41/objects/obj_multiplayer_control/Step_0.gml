@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 //Handle data
-if (global.multiplayer == true)
+/*if (global.multiplayer == true)
 {
 	var _d = ds_map_create();
 	_d[? "cmd"] = "stress_test";

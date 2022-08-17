@@ -5,6 +5,7 @@ function createServer(port, max_clients)
 	//Creates a lobby on the relay server
 	global.socket = network_create_socket(network_socket_tcp);
 	
+	//Connect to the relay server
 	var _s = network_connect_raw(global.socket, "127.0.0.1", port);
 	
 	if (_s < 0)
@@ -12,40 +13,19 @@ function createServer(port, max_clients)
 		//Failed...	
 		global.is_host = false;
 		global.multiplayer = false;
-		server_status = "Server failed.";
+		server_status = "Failed to connect to main server.";
 	}
 	else
 	{
 		//Succ
 		global.is_host = true;
 		global.multiplayer = true;
-		server_status = "Server created.";
+		server_status = "Lobby created successfully!";
 		
 		ds_list_add(global.player_name_list, global.player_name); //add playername
 		
 		lobby_search(0);
 	}
-	
-	/*
-	global.socket = network_create_server(network_socket_tcp, port, max_clients);
-	
-	if (global.socket < 0)
-	{
-		//Failed...	
-		global.is_host = false;
-		global.multiplayer = false;
-		server_status = "Server failed.";
-	}
-	else
-	{
-		//Succ
-		global.is_host = true;
-		global.multiplayer = true;
-		server_status = "Server created.";
-		
-		ds_list_add(global.player_name_list, global.player_name); //add playername
-	}
-	*/
 }
 
 function joinServer(lobby_id)
@@ -54,6 +34,7 @@ function joinServer(lobby_id)
 	
 	global.socket = network_create_socket(network_socket_tcp);
 	
+	//Try to connect to the main server.
 	var _s = network_connect_raw(global.socket, "127.0.0.1", 55555);
 	
 	if (_s < 0)
@@ -61,15 +42,16 @@ function joinServer(lobby_id)
 		//Failed...
 		global.is_host = false;
 		global.multiplayer = false;
-		server_status = "Failed to join "+ ip +". Try again.";
+		server_status = "Failed to connect to main server.";
 	}
 	else
 	{
 		//Succ..!
 		global.is_host = false;
 		global.multiplayer = true;
-		server_status = "Server joined!";
+		server_status = "Connected to main server. Attempting to find lobby " + string(lobby_id) + ".";
 		
+		//after we've connected to the main server, attempt to join the desired lobby:
 		lobby_search(lobby_id);
 	}	
 }
@@ -88,27 +70,22 @@ function send_data(data_map)
 		if (_b == -1) then show_debug_message("buffer_write failed.");
 	
 		//show_debug_message(json_map);
-		network_send_raw(global.socket, buff, buffer_tell(buff));
-			/*if (global.is_host == false)
-			{
-				network_send_raw(global.socket, buff, buffer_tell(buff));
-			}
-			else
-			{
-				for (var i = 0; i < ds_list_size(global.socketlist); i++;)
-			    {
-					network_send_raw(ds_list_find_value(global.socketlist, i), buff, buffer_tell(buff));
-			    }
-			}*/
+		var packet_sent = network_send_raw(global.socket, buff, buffer_tell(buff)); //final argument is optional here
+		
+		if (packet_sent == 0)
+		{
+			//the send has failed. We need to try again later.
+			show_debug_message("FAILED TO SEND: PACKET IS " +string(data_map[? "cmd"]));
+		}
 	
 		//cleanup
 		buffer_delete(buff);
 	}
 	
+	
+	//Delete the map
 	if (ds_exists(data_map, ds_type_map))
-	{
-		ds_map_destroy(data_map);	
-	}
+		ds_map_destroy(data_map);
 }
 
 function handle_data(data)
@@ -682,7 +659,10 @@ function handle_data(data)
 		//Map cleanup
 		ds_map_destroy(parsed_data);
 	}
-	
+	else
+	{
+		show_debug_message("ERROR: No data to parse\n Data is: " + string(data));	
+	}
 	//return
 	return successful_parse;
 }

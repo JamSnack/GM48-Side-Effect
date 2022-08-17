@@ -2,7 +2,7 @@
 // You can write your code in this editor
 if (instance_exists(PLAYER) && pickup_delay <= 0)
 {
-	var nearest_player = instance_nearest(x,y,PLAYER);
+	var nearest_player = instance_nearest(x, y, PLAYER);
 	var distance_to_player = distance_to_object(nearest_player);
 	
 	if (distance_to_player < global.tile_size*2 || player_lock != noone)
@@ -16,13 +16,13 @@ if (instance_exists(PLAYER) && pickup_delay <= 0)
 		{
 			if (global.is_host == true && instance_exists(player_lock))
 			{
-				instance_destroy();
-				
 				if (player_lock.object_index == obj_player)
 				{
 					global.inventory[item_id] += 1;
 			
 					update_inventory();
+					
+					//play audio effects
 					_sn = audio_play_sound(snd_true_blip,1,false);
 					audio_sound_pitch(_sn,choose(0.99,0.995,1,1.1));
 				}
@@ -36,6 +36,9 @@ if (instance_exists(PLAYER) && pickup_delay <= 0)
 					send_data(_d);
 				}
 			}
+			
+			//destroy
+			instance_destroy();
 		}
 	}
 }
