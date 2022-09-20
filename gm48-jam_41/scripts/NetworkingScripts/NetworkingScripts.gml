@@ -76,7 +76,7 @@ function send_data(data_map)
 		{
 			//the send has failed. We need to try again later.
 			show_debug_message("FAILED TO SEND: PACKET IS " +string(data_map[? "cmd"]));
-		}
+		} else global.packets_sent++;
 	
 		//cleanup
 		buffer_delete(buff);
@@ -90,16 +90,14 @@ function send_data(data_map)
 
 function handle_data(data)
 {
+	global.packets_recv++; //used for debugging purposes
+	
 	var parsed_data = json_decode(data);
-	var successful_parse = false;
 	
-	show_debug_message("Handling data: "+string(data));
+	//show_debug_message("Handling data: "+string(data));
 	
-	
-	if (ds_exists(parsed_data,ds_type_map))
+	if (parsed_data != -1)
 	{
-		successful_parse = true;
-		
 		switch parsed_data[? "cmd"]
 		{	
 			case "stress_test":
@@ -653,7 +651,7 @@ function handle_data(data)
 			}
 			break;
 			
-			default: { successful_parse = false; } break;
+			default: { show_debug_message("ERROR: CMD does not exist\n Data is: " + string(data));} break;
 		}
 		
 		//Map cleanup
@@ -663,8 +661,9 @@ function handle_data(data)
 	{
 		show_debug_message("ERROR: No data to parse\n Data is: " + string(data));	
 	}
+	
 	//return
-	return successful_parse;
+	return (parsed_data != -1) ? true : false;
 }
 
 function server_relay_data(data_to_relay)

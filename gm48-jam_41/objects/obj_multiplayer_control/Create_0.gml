@@ -14,12 +14,16 @@ global.player_name = choose("Avocado","Crab","Cheeto","Lemon","Birds","Callous",
 global.player_name_list = ds_list_create();
 global.lobby_id = -1;
 global.networking_debug = true; //Whether or not to dislay networking debug stuff
+global.packets_sent = 0;
+global.packets_recv = 0;
 
+/*
 simulate_lag = true;
 simulate_lag_ping = 100;
 ping = 0;
 display_ping = 0;
 packet_queue = ds_list_create();
+*/
 
 //Garbage packet collection
 global.recently_destroyed_objects = ds_list_create();

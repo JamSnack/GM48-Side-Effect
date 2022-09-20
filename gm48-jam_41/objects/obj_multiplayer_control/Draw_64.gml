@@ -8,6 +8,8 @@ if (global.networking_debug == true)
 	draw_text(width-60,10,"Players connected: "+string(global.player_count));
 	draw_text(width-60,40,"Lobby ID: "+string(global.lobby_id));
 	draw_text(width-60,70,"Player ID: "+string(global.player_id));
+	draw_text(width-60,100,"Sent: "+string(global.packets_sent));
+	draw_text(width-60,120,"Recv: "+string(global.packets_recv));
 	//draw_text(width-60,33,"Ping: "+string(display_ping));
 }
 
