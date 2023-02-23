@@ -136,7 +136,6 @@ function handle_data(data)
 			case "player_connected":
 			{
 				global.player_count++;
-				refresh_lobby_names();
 			}
 			break;
 			
