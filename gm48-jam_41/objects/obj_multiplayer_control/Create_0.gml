@@ -9,6 +9,7 @@ global.game_seed = 13371337; //Init the game_seed. TODO: Replace value with a ra
 global.multiplayer = false; //Whether or not this is a multiplayer game.
 global.is_host = false; //Whether or not this client is hosting a multiplayer game.
 global.player_id = irandom(99999);
+
 global.player_count = 1;
 global.player_name = choose("Avocado","Crab","Cheeto","Lemon","Birds","Callous","Wool","Baby","Sweet","Tart","Armor")+string(global.player_id);
 global.player_name_list = ds_list_create();

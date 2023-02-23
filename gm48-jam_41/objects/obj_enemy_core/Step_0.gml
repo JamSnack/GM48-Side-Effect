@@ -8,7 +8,7 @@ if (hp <= 0) then instance_destroy();
 
 
 //Multiplayer
-if (global.is_host == true)
+if (global.is_host == true && move_delay <= 0)
 {
 	var _d = ds_map_create();
 	_d[? "cmd"] = "enemy_sync";
@@ -20,4 +20,7 @@ if (global.is_host == true)
 	_d[? "o_indx"] = object_index;
 	_d[? "hp"] = hp;
 	send_data(_d);
+	
+	move_delay = 10;
 }
+else move_delay--;

@@ -2,7 +2,7 @@
 // You can write your code in this editor
 if (instance_exists(follow_this))
 {
-	var _dist = point_distance(x,y,follow_this.x,follow_this.x);
+	/*var _dist = point_distance(x,y,follow_this.x,follow_this.x);
 	
 	if (_dist > 0.5)
 	{
@@ -16,7 +16,9 @@ if (instance_exists(follow_this))
 	{
 		x = follow_this.x;
 		y = follow_this.y;
-	}
+	}*/
+	x = lerp(x, follow_this.x, 0.1);
+	y = lerp(y, follow_this.y, 0.1);
 }
 
 

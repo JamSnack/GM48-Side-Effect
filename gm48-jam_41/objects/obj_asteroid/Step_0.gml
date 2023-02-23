@@ -65,7 +65,7 @@ x += hAccel;
 y += vAccel;
 
 //Multiplayer!
-if (global.is_host == true)
+if (global.is_host == true && move_delay <= 0)
 {
 	var _d = ds_map_create();
 	_d[? "cmd"] = "enemy_sync";
@@ -80,7 +80,10 @@ if (global.is_host == true)
 	
 	if (alarm[0] > 59*room_speed) //send a couple of these for consistency's sake
 		init_asteroid_for_multiplayer();
+		
+	move_delay = 10;
 }
+else move_delay--;
 
 //Instance culling
 activate_region(2);

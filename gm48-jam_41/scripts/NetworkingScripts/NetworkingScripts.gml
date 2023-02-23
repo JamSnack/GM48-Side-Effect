@@ -61,12 +61,13 @@ function send_data(data_map)
 	if (global.multiplayer == true)
 	{
 		var json_map = json_encode(data_map);
-		//show_debug_message("sending: "+json_map);
-		var buff = buffer_create(64, buffer_grow, 1);
+		var buff = buffer_create(128, buffer_grow, 1);
 	
 		buffer_seek(buff, buffer_seek_start, 0);
-		var _b = buffer_write(buff, buffer_string, json_map);
+		var _header = buffer_write(buff, buffer_text, string(string_byte_length(json_map)) + "|");
+		var _b = buffer_write(buff, buffer_text, json_map);
 	
+		if (_header == -1) then show_debug_message("header write failed.");
 		if (_b == -1) then show_debug_message("buffer_write failed.");
 	
 		//show_debug_message(json_map);
@@ -76,16 +77,42 @@ function send_data(data_map)
 		{
 			//the send has failed. We need to try again later.
 			show_debug_message("FAILED TO SEND: PACKET IS " +string(data_map[? "cmd"]));
-		} else global.packets_sent++;
+		}// else global.packets_sent++;
 	
 		//cleanup
 		buffer_delete(buff);
+		ds_map_destroy(data_map);
 	}
 	
 	
 	//Delete the map
 	if (ds_exists(data_map, ds_type_map))
 		ds_map_destroy(data_map);
+}
+
+
+function send_data_raw(data_map)
+{
+	var json_map = json_encode(data_map);
+	var buff = buffer_create(128, buffer_grow, 1);
+	
+	buffer_seek(buff, buffer_seek_start, 0);
+	var _b = buffer_write(buff, buffer_string, json_map);
+	
+	if (_b == -1) then show_debug_message("buffer_write failed.");
+	
+	//show_debug_message(json_map);
+	var packet_sent = network_send_raw(global.socket, buff, buffer_tell(buff)); //final argument is optional here
+		
+	if (packet_sent == 0)
+	{
+		//the send has failed. We need to try again later.
+		show_debug_message("FAILED TO SEND: PACKET IS " +string(data_map[? "cmd"]));
+	}// else global.packets_sent++;
+	
+	//cleanup
+	buffer_delete(buff);
+	ds_map_destroy(data_map);
 }
 
 function handle_data(data)
@@ -103,6 +130,13 @@ function handle_data(data)
 			case "stress_test":
 			{
 				show_debug_message("Number stream: "+string(parsed_data[? "val"]));
+			}
+			break;
+			
+			case "player_connected":
+			{
+				global.player_count++;
+				refresh_lobby_names();
 			}
 			break;
 			

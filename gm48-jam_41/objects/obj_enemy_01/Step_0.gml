@@ -111,7 +111,7 @@ else
 }
 
 //Multiplayer!
-if (global.multiplayer == true)
+if (global.multiplayer == true && move_delay <= 0)
 {
 	var _d = ds_map_create();
 	_d[? "cmd"] = "enemy_sync";
@@ -123,7 +123,10 @@ if (global.multiplayer == true)
 	_d[? "o_indx"] = object_index;
 	_d[? "hp"] = hp;
 	send_data(_d);
-}
+	
+	move_delay = 2;
+} 
+else move_delay--;
 
 //Instance culling
 activate_region(2);
