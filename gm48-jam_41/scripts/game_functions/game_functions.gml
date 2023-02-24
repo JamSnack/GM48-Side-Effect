@@ -6,6 +6,7 @@ function hurt_instance(inst_id, damage)
 	{	
 		with inst_id
 		{	
+			//Attack a player-class object
 			if (object_index == obj_player_dummy && visible == false) || (object_index == obj_player && dead == true)
 			{
 				if (distance_to_object(obj_core) < 4)
@@ -16,6 +17,8 @@ function hurt_instance(inst_id, damage)
 				break;
 			}
 			
+			
+			//Attack an entity-class object
 			hp -= damage;
 		
 			if (object_index == obj_core || object_index == obj_core_turret || object_index == obj_red_turret)

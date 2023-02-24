@@ -15,6 +15,7 @@ mining = false;
 
 maxHp = 5;
 hp = maxHp;
+interpolation_rate = 0.5;
 
 //multiplayer stuff
 multiplayer_death_counter = 0;

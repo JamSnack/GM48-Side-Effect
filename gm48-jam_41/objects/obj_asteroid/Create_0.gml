@@ -12,6 +12,8 @@ _speed = 3.4-scale;
 hAccel = lengthdir_x(_speed,direction);
 vAccel = lengthdir_y(_speed,direction);
 
+drop_item = true;
+
 image_xscale = scale;
 image_yscale = scale;
 

@@ -40,7 +40,8 @@ id_counter = 1;
 game_difficulty = obj_menu_control.selected_difficulty;
 game_world_width = obj_menu_control.new_world_size;
 game_world_height = game_world_width;
-generate_world(game_state);
+tiles_in_world_width = ceil(game_world_width/global.tile_size);
+tiles_in_world_height = ceil(game_world_height/global.tile_size);
 
 //Text log
 hud_text_buffer = "Pause the game with 'ESC' to review controls.";

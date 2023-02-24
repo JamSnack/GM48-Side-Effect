@@ -7,6 +7,7 @@ buffer_y = 0;
 //Draw me
 draw_x = x;
 draw_y = y;
+interpolation_rate = 0.5;
 
 //Networking
 moved = false;

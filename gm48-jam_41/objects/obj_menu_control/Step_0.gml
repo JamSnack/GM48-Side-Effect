@@ -165,7 +165,7 @@ else if (keyboard_check_pressed(vk_enter) && menu_section == "LOBBY" && global.m
 }
 
 //Start the game!
-else if (begin_sequence = true)
+else if (begin_sequence = true && room == rm_menu)
 {
 	_alpha -= 0.01;
 	

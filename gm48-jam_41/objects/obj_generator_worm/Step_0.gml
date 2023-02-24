@@ -1,12 +1,13 @@
 /// @description Insert description here
 // You can write your code in this editor
-while (life_span > 0)
+if (life_span > 0)
 {
 	var _list = ds_list_create();
 	collision_circle_list(x,y,radius*global.tile_size,obj_tile,false,false,_list,false);
 	
 	var _tile = tile_placing;
 	
+	//Replace tiles with the tiles to be placed
 	for(_z = 0; _z < ds_list_size(_list); _z++)
 	{
 		with ds_list_find_value(_list,_z)
@@ -43,8 +44,6 @@ while (life_span > 0)
 	direction += irandom_range(-10,10);
 	speed += random_range(-1,1);
 }
-
-
-instance_destroy();
+else instance_destroy();
 
 

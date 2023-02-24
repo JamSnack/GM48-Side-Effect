@@ -3,8 +3,8 @@
 
 if (global.is_host == false)
 {
-	draw_x = lerp(draw_x, x, 0.2);
-	draw_y = lerp(draw_y, y, 0.2);
+	draw_x = lerp(draw_x, x, interpolation_rate);
+	draw_y = lerp(draw_y, y, interpolation_rate);
 
 	if (point_distance(draw_x, draw_y, x, y) < 1)
 	{

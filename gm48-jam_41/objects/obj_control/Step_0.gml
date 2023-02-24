@@ -1,8 +1,20 @@
 /// @description Insert description here
 // You can write your code in this editor
-if (game_state == "INIT" && !instance_exists(obj_generator_worm))
+if (game_state == "INIT")
 {
+	repeat(100)
+	{
+		generate_world(game_state);
+		
+		if (game_state == "FINAL")
+			break;
+	}
 	
+	if (game_state == "FINAL")
+		generate_world(game_state);
+}
+else if (game_state == "FINAL" && !instance_exists(obj_generator_worm))
+{
 	show_debug_message("##game_state INIT finished. game_state = PLAYER##");
 	game_state = "PLAYER";
 	instance_create_layer(irandom_range((game_world_width/4),game_world_width-(game_world_width/4)),irandom_range(game_world_height/4,game_world_height-(game_world_height/4)),"Instances",obj_player);
@@ -52,7 +64,11 @@ if (game_state == "INIT" && !instance_exists(obj_generator_worm))
 			//show_debug_message("SPAWNED A CORE");
 		}
 	}
-}
+}	
+
+//---CONTROL THE GAME---
+if (game_state != "PLAYER")
+	exit;
 
 //Hud Text
 if hud_text_delay <= 0 && (hud_text_buffer != "" && hud_text != hud_text_buffer)

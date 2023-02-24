@@ -1,5 +1,14 @@
 /// @description Insert description here
 // You can write your code in this editor
+
+//Draw loading status
+if (game_state == "INIT")
+{
+	draw_text(20, 20, "Loading: " + string(id_counter/(tiles_in_world_height*tiles_in_world_width)*100) + "%");
+}
+else if (game_state == "FINAL")
+	draw_text(20, 20, "Loading: Placing ore...");
+
 //Draw the hud text
 draw_set_colour(c_white);
 
