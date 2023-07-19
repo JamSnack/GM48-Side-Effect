@@ -60,24 +60,27 @@ function send_data(data_map)
 {
 	if (global.multiplayer == true)
 	{
+		//Encode our ds_map
 		var json_map = json_encode(data_map);
+		
+		//Create a buffer. Adhere it to powers of 2.
 		var buff = buffer_create(128, buffer_grow, 1);
-	
 		buffer_seek(buff, buffer_seek_start, 0);
+		
+		//Write a header containing the size of the buffer.
 		var _header = buffer_write(buff, buffer_text, string(string_byte_length(json_map)) + "|");
 		var _b = buffer_write(buff, buffer_text, json_map);
 	
+		//Error handling
 		if (_header == -1) then show_debug_message("header write failed.");
 		if (_b == -1) then show_debug_message("buffer_write failed.");
 	
-		//show_debug_message(json_map);
+		//Send the packet. Final argument is unnecessary.
 		var packet_sent = network_send_raw(global.socket, buff, buffer_tell(buff)); //final argument is optional here
 		
+		//Error handling
 		if (packet_sent == 0)
-		{
-			//the send has failed. We need to try again later.
 			show_debug_message("FAILED TO SEND: PACKET IS " +string(data_map[? "cmd"]));
-		}// else global.packets_sent++;
 	
 		//cleanup
 		buffer_delete(buff);

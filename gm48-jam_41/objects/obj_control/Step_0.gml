@@ -93,6 +93,8 @@ function sync_wave()
 	//Synchronize the timer in multiplayer games
 	if (global.is_host == true)
 	{
+		
+		//Ds map implementation
 		var _d = ds_map_create();
 		_d[? "cmd"] = "wave_time_sync";
 		_d[? "tml"] = time_mil;
