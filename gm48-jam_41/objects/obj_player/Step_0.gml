@@ -35,14 +35,14 @@ if dead == false && global.game_over == false
 	//-- Horizontal Collision
 	if (abs(hspd) >= 1 && place_meeting_fast(hspd, 0, OBSTA, false))
 	{
-		hspd = -hspd;
+		hspd = -hspd*0.5;
 	} if (place_meeting_fast( sign(hspd), 0, OBSTA, false)) { hspd = 0; }
 
 
 	//-- Vertical Collision
 	if ( abs(vspd) >= 1 && place_meeting_fast(0, vspd, OBSTA, false) )
 	{
-		vspd = -vspd;
+		vspd = -vspd*0.5;
 	}
 	else if (place_meeting_fast(0, sign(vspd), OBSTA, false)) { vspd = 0; }
 

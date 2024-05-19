@@ -6,7 +6,7 @@ function createServer(port, max_clients)
 	global.socket = network_create_socket(network_socket_tcp);
 	
 	//Connect to the relay server
-	var _s = network_connect_raw(global.socket, "127.0.0.1", port);
+	var _s = network_connect_raw(global.socket, "26.198.169.147", port);
 	
 	if (_s < 0)
 	{
@@ -35,7 +35,7 @@ function joinServer(lobby_id)
 	global.socket = network_create_socket(network_socket_tcp);
 	
 	//Try to connect to the main server.
-	var _s = network_connect_raw(global.socket, "127.0.0.1", 55555);
+	var _s = network_connect_raw(global.socket, "26.198.169.147", 55555);
 	
 	if (_s < 0)
 	{
